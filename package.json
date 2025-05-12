@@ -1,6 +1,6 @@
 {
   "name": "aliveicon",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "This is a project for animated icons library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -14,7 +14,7 @@
   },
   "files": [
     "dist"
-  ],  
+  ],
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build"
@@ -31,15 +31,17 @@
   },
   "homepage": "https://github.com/Hemang-patel-9/aliveicon#readme",
   "dependencies": {
+    "clsx": "^2.1.1",
     "framer-motion": "^10.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.6"
   },
   "peerDependencies": {
+    "framer-motion": "^10.0.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "framer-motion": "^10.0.0"
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^6.0.4",
@@ -49,15 +51,15 @@
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@types/react": "^19.0.0",
     "autoprefixer": "^10.4.21",
+    "framer-motion": "^10.0.0",
     "postcss": "^8.5.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "rollup": "^2.79.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.8.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "framer-motion": "^10.0.0"
+    "typescript": "^5.8.3"
   }
 }
