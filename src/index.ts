@@ -1,1 +1,1 @@
-export { SquareActivity, ActivityHandle } from './icons/SquareActivity';
+export { SquareActivity } from './icons/SquareActivity';
