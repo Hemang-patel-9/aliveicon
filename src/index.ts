@@ -1,3 +1,6 @@
 export { SquareActivity } from './icons/SquareActivity';
-export { ArrowDownIcon } from './icons/A-Arrow-Down';
-export { ArrowDownBounce } from './icons/A-Arrow-Down-Bounce';
+export { ArrowDown } from './icons/A-Arrow-Down';
+export { ArrowUp } from './icons/A-Arrow-Up';
+export { AccessibilityActivity } from './icons/Accessibility';
+export { Activity } from './icons/Activity';
+export { AirVent } from './icons/Air-vent';

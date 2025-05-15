@@ -2,44 +2,42 @@
 import { useAnimation, motion } from 'framer-motion';
 import * as React from 'react';
 import { useCallback, useEffect, useRef } from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-interface MergedArrowDownProps extends React.HTMLAttributes<HTMLDivElement> {
+interface AccessibilityActivityProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: number;
 	autoAnimateOnLoad?: boolean;
 	hoverable?: boolean;
 	loopOnHover?: boolean;
 	animateOnClick?: boolean;
-	isBounce?: boolean;
 	className?: string;
 	style?: React.CSSProperties;
 }
 
-const bounceVariant = {
+
+const circleVariants = {
 	normal: {
 		scale: 1,
-		transition: {
-			type: 'spring',
-			stiffness: 200,
-			damping: 15,
-		},
+		opacity: 1,
+		transition: { duration: 0.4 },
 	},
 	animate: {
-		scale: 1.2,
+		scale: [1, 1.2, 1],
+		opacity: [1, 0.8, 1],
 		transition: {
-			type: 'spring',
-			stiffness: 300,
-			damping: 10,
+			duration: 0.6,
+			times: [0, 0.5, 1],
+			ease: 'easeInOut'
 		},
 	},
 };
 
-const lineVariants = {
+const pathVariants = {
 	normal: {
 		opacity: 1,
 		pathLength: 1,
@@ -55,28 +53,13 @@ const lineVariants = {
 		pathOffset: [1, 0],
 		transition: {
 			duration: 0.6,
-			ease: 'easeInOut',
+			ease: 'linear',
 			opacity: { duration: 0.1 },
 		},
 	},
 };
 
-const bouncePathVariants = {
-	hidden: {
-		pathLength: 0,
-		opacity: 0,
-	},
-	visible: (i: number) => ({
-		pathLength: 1,
-		opacity: 1,
-		transition: {
-			pathLength: { delay: i * 0.1, duration: 0.4, ease: 'easeInOut' },
-			opacity: { delay: i * 0.1, duration: 0.2 },
-		},
-	}),
-};
-
-export function ArrowDown({
+export function AccessibilityActivity({
 	size = 28,
 	className,
 	style,
@@ -84,12 +67,11 @@ export function ArrowDown({
 	hoverable = true,
 	loopOnHover = false,
 	animateOnClick = false,
-	isBounce = false,
 	onMouseEnter,
 	onMouseLeave,
 	onClick,
 	...props
-}: MergedArrowDownProps) {
+}: AccessibilityActivityProps) {
 	const controls = useAnimation();
 	const loopRef = useRef(loopOnHover);
 
@@ -122,19 +104,13 @@ export function ArrowDown({
 		onClick?.(e);
 	};
 
-	const paths = [
-		"M3.5 13h6",
-		"m2 16 4.5-9 4.5 9",
-		"M18 7v9",
-		"m14 12 4 4 4-4",
-	];
-
 	return (
 		<div
-			className={cn('inline-block', className)}
+			className={cn('rounded-md', className)}
 			style={{
 				width: size,
 				height: size,
+				display: 'inline-block',
 				...style,
 			}}
 			onMouseEnter={handleMouseEnter}
@@ -142,7 +118,7 @@ export function ArrowDown({
 			onClick={handleClick}
 			{...props}
 		>
-			<motion.svg
+			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 24 24"
 				fill="none"
@@ -152,21 +128,44 @@ export function ArrowDown({
 				strokeLinejoin="round"
 				width="100%"
 				height="100%"
-				variants={isBounce ? bounceVariant : undefined}
-				animate={isBounce ? controls : undefined}
-				initial={isBounce ? 'normal' : undefined}
 			>
-				{paths.map((d, i) => (
-					<motion.path
-						key={i}
-						d={d}
-						variants={isBounce ? bouncePathVariants : lineVariants}
-						initial={isBounce ? 'hidden' : 'normal'}
-						animate={isBounce ? 'visible' : controls}
-						custom={i}
-					/>
-				))}
-			</motion.svg>
+				<motion.circle
+					cx="16"
+					cy="4"
+					r="1"
+					variants={circleVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.path
+					d="m18 19 1-7-6 1"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+					style={{ strokeDasharray: 1 }}
+				/>
+				<motion.path
+					d="m5 8 3-3 5.5 3-2.36 3.5"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+					style={{ strokeDasharray: 1 }}
+				/>
+				<motion.path
+					d="M4.24 14.5a5 5 0 0 0 6.88 6"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+					style={{ strokeDasharray: 1 }}
+				/>
+				<motion.path
+					d="M13.76 17.5a5 5 0 0 0-6.88-6"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+					style={{ strokeDasharray: 1 }}
+				/>
+			</svg>
 		</div>
 	);
 }

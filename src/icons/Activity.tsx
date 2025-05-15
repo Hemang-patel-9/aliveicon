@@ -2,14 +2,14 @@
 import { useAnimation, motion } from 'framer-motion';
 import * as React from 'react';
 import { useCallback, useEffect, useRef } from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-interface ArrowDownBounceProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ActivityProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: number;
 	autoAnimateOnLoad?: boolean;
 	hoverable?: boolean;
@@ -19,41 +19,29 @@ interface ArrowDownBounceProps extends React.HTMLAttributes<HTMLDivElement> {
 	style?: React.CSSProperties;
 }
 
-const bounceVariant = {
+const pathVariants = {
 	normal: {
-		scale: 1,
+		opacity: 1,
+		pathLength: 1,
+		pathOffset: 0,
 		transition: {
-			type: 'spring',
-			stiffness: 200,
-			damping: 15,
+			duration: 0.4,
+			opacity: { duration: 0.1 },
 		},
 	},
 	animate: {
-		scale: 1.2,
+		opacity: [0, 1],
+		pathLength: [0, 1],
+		pathOffset: [1, 0],
 		transition: {
-			type: 'spring',
-			stiffness: 300,
-			damping: 10,
+			duration: 0.6,
+			ease: 'linear',
+			opacity: { duration: 0.1 },
 		},
 	},
 };
 
-const pathVariants = {
-	hidden: {
-		pathLength: 0,
-		opacity: 0,
-	},
-	visible: (i: number) => ({
-		pathLength: 1,
-		opacity: 1,
-		transition: {
-			pathLength: { delay: i * 0.1, duration: 0.4, ease: 'easeInOut' },
-			opacity: { delay: i * 0.1, duration: 0.2 },
-		},
-	}),
-};
-
-export function ArrowDownBounce({
+export function Activity({
 	size = 28,
 	className,
 	style,
@@ -65,11 +53,12 @@ export function ArrowDownBounce({
 	onMouseLeave,
 	onClick,
 	...props
-}: ArrowDownBounceProps) {
+}: ActivityProps) {
 	const controls = useAnimation();
 	const loopRef = useRef(loopOnHover);
 
 	const triggerAnimation = useCallback(async () => {
+		console.log("started animation")
 		await controls.start('animate');
 		await controls.start('normal');
 		if (loopRef.current) triggerAnimation();
@@ -98,19 +87,13 @@ export function ArrowDownBounce({
 		onClick?.(e);
 	};
 
-	const paths = [
-		"M3.5 13h6",
-		"m2 16 4.5-9 4.5 9",
-		"M18 7v9",
-		"m14 12 4 4 4-4",
-	];
-
 	return (
 		<div
-			className={cn('inline-block', className)}
+			className={cn('rounded-md', className)}
 			style={{
 				width: size,
 				height: size,
+				display: 'inline-block',
 				...style,
 			}}
 			onMouseEnter={handleMouseEnter}
@@ -118,7 +101,7 @@ export function ArrowDownBounce({
 			onClick={handleClick}
 			{...props}
 		>
-			<motion.svg
+			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 24 24"
 				fill="none"
@@ -128,21 +111,15 @@ export function ArrowDownBounce({
 				strokeLinejoin="round"
 				width="100%"
 				height="100%"
-				variants={bounceVariant}
-				animate={controls}
-				initial="normal"
 			>
-				{paths.map((d, i) => (
-					<motion.path
-						key={i}
-						d={d}
-						variants={pathVariants}
-						initial="hidden"
-						animate="visible"
-						custom={i}
-					/>
-				))}
-			</motion.svg>
+				<motion.path
+					d="M17 12h-2l-2 5-2-10-2 5H7"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+					style={{ strokeDasharray: 1 }}
+				/>
+			</svg>
 		</div>
 	);
 }

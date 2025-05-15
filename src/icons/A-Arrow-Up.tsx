@@ -9,7 +9,7 @@ function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-interface MergedArrowDownProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ArrowUpProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: number;
 	autoAnimateOnLoad?: boolean;
 	hoverable?: boolean;
@@ -76,7 +76,7 @@ const bouncePathVariants = {
 	}),
 };
 
-export function ArrowDown({
+export function ArrowUp({
 	size = 28,
 	className,
 	style,
@@ -89,7 +89,7 @@ export function ArrowDown({
 	onMouseLeave,
 	onClick,
 	...props
-}: MergedArrowDownProps) {
+}: ArrowUpProps) {
 	const controls = useAnimation();
 	const loopRef = useRef(loopOnHover);
 
@@ -123,10 +123,10 @@ export function ArrowDown({
 	};
 
 	const paths = [
-		"M3.5 13h6",
-		"m2 16 4.5-9 4.5 9",
-		"M18 7v9",
-		"m14 12 4 4 4-4",
+		"M3.5 13h6",               // horizontal part of the "A"
+		"m2 16 4.5-9 4.5 9",       // the "A" structure stays same
+		"M18 16V7",                // arrow line, now reversed (was 7→16, now 16→7)
+		"m22 12-4-4-4 4",          // arrow head pointing upward
 	];
 
 	return (
