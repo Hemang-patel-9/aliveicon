@@ -1,6 +1,6 @@
 {
   "name": "aliveicon",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "This is a animated icons library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -38,12 +38,13 @@
     "tailwindcss": "^4.1.6"
   },
   "peerDependencies": {
-    "framer-motion": "^10.0.0",
+    "framer-motion": ">=10.0.0",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^6.0.4",
+    "framer-motion": ">=10.0.0",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-image": "^3.0.3",
     "@rollup/plugin-json": "^6.1.0",

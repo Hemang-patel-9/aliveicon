@@ -2,14 +2,14 @@
 import { useAnimation, motion } from 'framer-motion';
 import * as React from 'react';
 import { useCallback, useEffect, useRef } from 'react';
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-interface SquareActivityProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ArrowDownIconProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: number;
 	autoAnimateOnLoad?: boolean;
 	hoverable?: boolean;
@@ -18,19 +18,6 @@ interface SquareActivityProps extends React.HTMLAttributes<HTMLDivElement> {
 	className?: string;
 	style?: React.CSSProperties;
 }
-
-const squareVariants = {
-	normal: {
-		scale: 1,
-		opacity: 1,
-		transition: { duration: 0.4 },
-	},
-	animate: {
-		scale: 1.1,
-		opacity: 0.8,
-		transition: { duration: 0.6, ease: 'easeInOut' },
-	},
-};
 
 const pathVariants = {
 	normal: {
@@ -48,13 +35,13 @@ const pathVariants = {
 		pathOffset: [1, 0],
 		transition: {
 			duration: 0.6,
-			ease: 'linear',
+			ease: 'easeInOut',
 			opacity: { duration: 0.1 },
 		},
 	},
 };
 
-export function SquareActivity({
+export function ArrowDownIcon({
 	size = 28,
 	className,
 	style,
@@ -66,12 +53,11 @@ export function SquareActivity({
 	onMouseLeave,
 	onClick,
 	...props
-}: SquareActivityProps) {
+}: ArrowDownIconProps) {
 	const controls = useAnimation();
 	const loopRef = useRef(loopOnHover);
 
 	const triggerAnimation = useCallback(async () => {
-		console.log("started animation")
 		await controls.start('animate');
 		await controls.start('normal');
 		if (loopRef.current) triggerAnimation();
@@ -102,11 +88,10 @@ export function SquareActivity({
 
 	return (
 		<div
-			className={cn('rounded-md', className)}
+			className={cn('inline-block', className)}
 			style={{
 				width: size,
 				height: size,
-				display: 'inline-block',
 				...style,
 			}}
 			onMouseEnter={handleMouseEnter}
@@ -125,23 +110,10 @@ export function SquareActivity({
 				width="100%"
 				height="100%"
 			>
-				<motion.rect
-					width="18"
-					height="18"
-					x="3"
-					y="3"
-					rx="2"
-					variants={squareVariants}
-					animate={controls}
-					initial="normal"
-				/>
-				<motion.path
-					d="M17 12h-2l-2 5-2-10-2 5H7"
-					variants={pathVariants}
-					animate={controls}
-					initial="normal"
-					style={{ strokeDasharray: 1 }}
-				/>
+				<motion.path d="M3.5 13h6" variants={pathVariants} animate={controls} initial="normal" />
+				<motion.path d="m2 16 4.5-9 4.5 9" variants={pathVariants} animate={controls} initial="normal" />
+				<motion.path d="M18 7v9" variants={pathVariants} animate={controls} initial="normal" />
+				<motion.path d="m14 12 4 4 4-4" variants={pathVariants} animate={controls} initial="normal" />
 			</svg>
 		</div>
 	);
