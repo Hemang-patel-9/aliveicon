@@ -80,7 +80,7 @@ const AlarmClockCheck = forwardRef<AlarmClockCheckHandle, AlarmClockCheckProps>(
 	) => {
 		const controls = useAnimation();
 		const isControlledRef = useRef(false);
-		const timeoutRef = useRef<any | null>(null);
+		const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 		const startAnimation = useCallback(() => {
 			controls.start('animate');
