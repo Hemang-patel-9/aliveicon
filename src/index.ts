@@ -47,4 +47,4 @@ export { Annoyed } from './icons/Annoyed';
 export { Antenna } from './icons/Antenna';
 export { Aperture } from './icons/Aperture';
 export { AppWindow } from './icons/App-Window';
-export { AppWindowMac } from './icons/App-Window-Mac';
+export { AppWindowMac } from './icons/App-Window-Mac'
