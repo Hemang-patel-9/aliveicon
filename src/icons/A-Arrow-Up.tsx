@@ -9,7 +9,7 @@ function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-interface ArrowUpProps extends React.HTMLAttributes<HTMLDivElement> {
+interface AArrowUpProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: number;
 	autoAnimateOnLoad?: boolean;
 	hoverable?: boolean;
@@ -76,7 +76,7 @@ const bouncePathVariants = {
 	}),
 };
 
-export function ArrowUp({
+export function AArrowUp({
 	size = 28,
 	className,
 	style,
@@ -89,7 +89,7 @@ export function ArrowUp({
 	onMouseLeave,
 	onClick,
 	...props
-}: ArrowUpProps) {
+}: AArrowUpProps) {
 	const controls = useAnimation();
 	const loopRef = useRef(loopOnHover);
 

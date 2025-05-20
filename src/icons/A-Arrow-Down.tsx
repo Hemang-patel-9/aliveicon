@@ -9,7 +9,7 @@ function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-interface MergedArrowDownProps extends React.HTMLAttributes<HTMLDivElement> {
+interface MergedAArrowDownProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: number;
 	autoAnimateOnLoad?: boolean;
 	hoverable?: boolean;
@@ -76,7 +76,7 @@ const bouncePathVariants = {
 	}),
 };
 
-export function ArrowDown({
+export function AArrowDown({
 	size = 28,
 	className,
 	style,
@@ -89,7 +89,7 @@ export function ArrowDown({
 	onMouseLeave,
 	onClick,
 	...props
-}: MergedArrowDownProps) {
+}: MergedAArrowDownProps) {
 	const controls = useAnimation();
 	const loopRef = useRef(loopOnHover);
 
