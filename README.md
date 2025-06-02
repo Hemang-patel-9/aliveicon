@@ -2,4 +2,4 @@
 This is a project for animated icons library
 
 This is under-development project.
-Final development will release on 31/05/2025 :)
+Final development will release on 31/07/2025 :)
