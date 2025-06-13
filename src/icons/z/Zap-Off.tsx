@@ -1,0 +1,148 @@
+'use client';
+
+import { motion, useAnimation } from 'framer-motion';
+import {
+	forwardRef,
+	useCallback,
+	useEffect,
+	useImperativeHandle,
+	useRef,
+} from 'react';
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: (string | false | null | undefined)[]) {
+	return twMerge(clsx(inputs));
+}
+
+interface ZapOffHandle {
+	startAnimation: () => void;
+	stopAnimation: () => void;
+}
+
+interface ZapOffProps extends React.HTMLAttributes<HTMLDivElement> {
+	size?: number;
+	autoAnimateOnLoad?: boolean;
+	hoverable?: boolean;
+	loopOnHover?: boolean;
+	animateOnClick?: boolean;
+	className?: string;
+	style?: React.CSSProperties;
+}
+
+const ZapOff = forwardRef<ZapOffHandle, ZapOffProps>(
+	(
+		{
+			size = 28,
+			className,
+			style,
+			autoAnimateOnLoad = false,
+			hoverable = true,
+			loopOnHover = false,
+			animateOnClick = false,
+			onMouseEnter,
+			onMouseLeave,
+			onClick,
+			...props
+		},
+		ref
+	) => {
+		const controls = useAnimation();
+		const loopRef = useRef(loopOnHover);
+		const isControlledRef = useRef(false);
+
+		const triggerAnimation = useCallback(async () => {
+			await controls.start('animate');
+			await controls.start('normal');
+			if (loopRef.current) triggerAnimation();
+		}, [controls]);
+
+		useEffect(() => {
+			loopRef.current = loopOnHover;
+		}, [loopOnHover]);
+
+		useEffect(() => {
+			if (autoAnimateOnLoad) triggerAnimation();
+		}, [autoAnimateOnLoad, triggerAnimation]);
+
+		useImperativeHandle(ref, () => {
+			isControlledRef.current = true;
+			return {
+				startAnimation: () => controls.start('animate'),
+				stopAnimation: () => controls.start('normal'),
+			};
+		});
+
+		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			if (!isControlledRef.current && hoverable) triggerAnimation();
+			onMouseEnter?.(e);
+		};
+
+		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			if (!isControlledRef.current && hoverable) controls.start('normal');
+			onMouseLeave?.(e);
+		};
+
+		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+			if (animateOnClick) triggerAnimation();
+			onClick?.(e);
+		};
+
+		const pathVariants = {
+			normal: { pathLength: 1, opacity: 1 },
+			animate: (i: number) => ({
+				pathLength: [0, 1],
+				opacity: [0, 1],
+				transition: {
+					delay: i * 0.15,
+					duration: 0.4,
+					ease: 'easeInOut',
+				},
+			}),
+		};
+
+		const paths = [
+			"M10.513 4.856 13.12 2.17a.5.5 0 0 1 .86.46l-1.377 4.317",
+			"M15.656 10H20a1 1 0 0 1 .78 1.63l-1.72 1.773",
+			"M16.273 16.273 10.88 21.83a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14H4a1 1 0 0 1-.78-1.63l4.507-4.643",
+			"m2 2 20 20",
+		];
+
+		return (
+			<div
+				className={cn('inline-block', className)}
+				style={{ width: size, height: size, ...style }}
+				onMouseEnter={handleMouseEnter}
+				onMouseLeave={handleMouseLeave}
+				onClick={handleClick}
+				{...props}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+					width="100%"
+					height="100%"
+				>
+					{paths.map((d, i) => (
+						<motion.path
+							key={i}
+							d={d}
+							variants={pathVariants}
+							initial="normal"
+							animate={controls}
+							custom={i}
+						/>
+					))}
+				</svg>
+			</div>
+		);
+	}
+);
+
+ZapOff.displayName = 'ZapOff';
+export { ZapOff };

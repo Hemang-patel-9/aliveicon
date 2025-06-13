@@ -164,3 +164,64 @@ export { BookDashed } from './icons/b/Book-Dashed';
 export { BookDown } from './icons/b/Book-Down';
 export { BookHeadphones } from './icons/b/Book-Headphone';
 export { BookHeart } from './icons/b/Book-Heart';
+export { BookImage } from './icons/b/Book-Image';
+export { BookKey } from './icons/b/Book-Key';
+export { BookLock } from './icons/b/Book-Locked';
+export { BookMarked } from './icons/b/Book-Marked';
+export { BookMinus } from './icons/b/Book-Minus';
+export { BookOpen } from './icons/b/Book-Open';
+export { BookOpenCheck } from './icons/b/Book-Open-Checked';
+export { BookOpenText } from './icons/b/Book-Open-Text';
+export { BookPlus } from './icons/b/Book-Plus';
+export { BookText } from './icons/b/Book-Text';
+export { BookType } from './icons/b/Book-Type';
+export { BookUp } from './icons/b/Book-Up';
+export { BookUp2 } from './icons/b/Book-Up-2';
+export { BookUser } from './icons/b/Book-User';
+export { BookX } from './icons/b/Book-X';
+export { BookMark } from './icons/b/Bookmark';
+export { BookMarkCheck } from './icons/b/Bookmark-Check';
+export { BookMarkMinus } from './icons/b/Bookmark-Minus';
+export { BookmarkPlus } from './icons/b/Bookmark-Plus';
+export { BookmarkX } from './icons/b/Bookmark-X';
+export { BoomBox } from './icons/b/Boom-Box';
+export { Bot } from './icons/b/Bot';
+export { BotMessageSquare } from './icons/b/Bot-Message-Square';
+export { BotOff } from './icons/b/Bot-Off';
+export { BowArrow } from './icons/b/Bow-Arrow';
+export { Box } from './icons/b/Box';
+export { Boxes } from './icons/b/Boxes';
+export { Braces } from './icons/b/Braces';
+export { Brackets } from './icons/b/Brackets';
+export { Brain } from './icons/b/Brain';
+export { BrainCircuit } from './icons/b/Brain-Circuit';
+export { BrickWall } from './icons/b/Brickwall';
+export { BrickWallFire } from './icons/b/Brickwall-Fire';
+export { Briefcase } from './icons/b/Briefcase';
+export { BriefcaseBusiness } from './icons/b/Briefcase-Business';
+export { BringToFront } from './icons/b/Bring-To-Front';
+export { Brush } from './icons/b/Brush';
+export { Bubbles } from './icons/b/Bubbles';
+export { Bug } from './icons/b/Bug';
+export { BugOff } from './icons/b/Bug-Off';
+export { Building } from './icons/b/Building';
+export { Building2 } from './icons/b/Building-2';
+export { Bus } from './icons/b/Bus';
+export { BusFront } from './icons/b/Bus-Front';
+
+// C's icon exports
+export { Cable } from './icons/c/Cable';
+export { CableCar } from './icons/c/Cable-Car';
+export { Cake } from './icons/c/Cake';
+
+// X's icon exports
+export { X } from './icons/x/X';
+
+// Y's icon exports
+export { YouTube } from './icons/y/youtube';
+
+// Z's icon exports
+export { Zap } from './icons/z/Zap';
+export { ZapOff } from './icons/z/Zap-Off';
+export { ZoomIn } from './icons/z/Zoom-In';
+export { ZoomOut } from './icons/z/Zoom-out';
