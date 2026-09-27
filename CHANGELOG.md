@@ -6,6 +6,15 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-09-27
+
+### Changed
+
+- Releases are now published from GitHub Actions with npm trusted publishing, so the package on npm
+  comes with a provenance attestation linking it to this repository.
+
+## [1.1.0] - 2026-09-27
+
 ### Added
 
 - `BugPlay`, `CameraOff`, `RedoDot`, `Ungroup` and `UserX`. They were already drawn but never exported.
