@@ -1,150 +1,75 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import React, {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-function cn(...inputs: (string | undefined | false | null)[]) {
-	return twMerge(clsx(inputs));
-}
+const ZoomOut = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
-interface ZoomOutHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface ZoomOutProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-const ZoomOut = forwardRef<ZoomOutHandle, ZoomOutProps>(({
-	size = 28,
-	className,
-	style,
-	autoAnimateOnLoad = false,
-	hoverable = true,
-	loopOnHover = false,
-	animateOnClick = false,
-	onMouseEnter,
-	onMouseLeave,
-	onClick,
-	...props
-}, ref) => {
-	const controls = useAnimation();
-	const loopRef = useRef(loopOnHover);
-	const isControlledRef = useRef(false);
-
-	const triggerAnimation = useCallback(async () => {
-		await controls.start('animate');
-		await controls.start('normal');
-		if (loopRef.current) triggerAnimation();
-	}, [controls]);
-
-	useEffect(() => {
-		loopRef.current = loopOnHover;
-	}, [loopOnHover]);
-
-	useEffect(() => {
-		if (autoAnimateOnLoad) triggerAnimation();
-	}, [autoAnimateOnLoad, triggerAnimation]);
-
-	useImperativeHandle(ref, () => {
-		isControlledRef.current = true;
-		return {
-			startAnimation: () => controls.start('animate'),
-			stopAnimation: () => controls.start('normal'),
+		const pathVariants = {
+			normal: { pathLength: 1, opacity: 1 },
+			animate: (i: number) => ({
+				pathLength: [0, 1],
+				opacity: [0, 1],
+				transition: {
+					delay: i * 0.15,
+					duration: 0.5,
+					ease: 'easeInOut',
+				},
+			}),
 		};
-	});
 
-	const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (!isControlledRef.current && hoverable) triggerAnimation();
-		onMouseEnter?.(e);
-	};
+		const paths: { d: string; key: string }[] = [
+			{ d: 'M21 21l-4.35-4.35', key: 'zoom-line' },
+			{ d: 'M8 11h6', key: 'horizontal-line' },
+		];
 
-	const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (!isControlledRef.current && hoverable) controls.start('normal');
-		onMouseLeave?.(e);
-	};
-
-	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (animateOnClick) triggerAnimation();
-		onClick?.(e);
-	};
-
-	const pathVariants = {
-		normal: { pathLength: 1, opacity: 1 },
-		animate: (i: number) => ({
-			pathLength: [0, 1],
-			opacity: [0, 1],
-			transition: {
-				delay: i * 0.15,
-				duration: 0.5,
-				ease: 'easeInOut',
-			},
-		}),
-	};
-
-	const paths: { d: string; key: string }[] = [
-		{ d: 'M21 21l-4.35-4.35', key: 'zoom-line' }, // Diagonal line
-		{ d: 'M8 11h6', key: 'horizontal-line' },     // Horizontal line only
-	];
-
-	return (
-		<div
-			className={cn('inline-block', className)}
-			style={{ width: size, height: size, ...style }}
-			onMouseEnter={handleMouseEnter}
-			onMouseLeave={handleMouseLeave}
-			onClick={handleClick}
-			{...props}
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				strokeWidth="2"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				width="100%"
-				height="100%"
+		return (
+			<div
+				className={cn('inline-block', className)}
+				style={{ width: size, height: size, ...style }}
+				{...iconProps}
 			>
-				<motion.circle
-					cx="11"
-					cy="11"
-					r="8"
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-					custom={0}
-				/>
-				{paths.map((p, i) => (
-					<motion.path
-						key={p.key}
-						d={p.d}
+				<svg
+					aria-hidden="true"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+					width="100%"
+					height="100%"
+				>
+					<motion.circle
+						cx="11"
+						cy="11"
+						r="8"
 						variants={pathVariants}
 						initial="normal"
 						animate={controls}
-						custom={i + 1}
+						custom={0}
 					/>
-				))}
-			</svg>
-		</div>
-	);
-});
+					{paths.map((p, i) => (
+						<motion.path
+							key={p.key}
+							d={p.d}
+							variants={pathVariants}
+							initial="normal"
+							animate={controls}
+							custom={i + 1}
+						/>
+					))}
+				</svg>
+			</div>
+		);
+	}
+);
 
 ZoomOut.displayName = 'ZoomOut';
 export { ZoomOut };

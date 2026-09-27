@@ -1,130 +1,49 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon, type AnimationDefinition } from '../../lib/use-animated-icon';
 
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface WebcamHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface WebcamProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-const Webcam = forwardRef<WebcamHandle, WebcamProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const animate = useCallback(async () => {
-			await controls.start((i) => {
-				if (i === 0) {
-					// outer circle
-					return {
-						r: [0, 8],
-						opacity: [0, 1],
-						transition: { duration: 0.6, ease: 'easeInOut' },
-					};
-				}
-				if (i === 1) {
-					// inner circle
-					return {
-						scale: [0, 1],
-						opacity: [0, 1],
-						transformOrigin: 'center',
-						transition: { duration: 0.6, ease: 'easeOut' },
-					};
-				}
-				if (i === 2 || i === 3) {
-					// base and stand
-					return {
-						pathLength: [0, 1],
-						opacity: [0, 1],
-						transition: { duration: 0.6, delay: 0.1 * (i - 2), ease: 'easeInOut' },
-					};
-				}
-				return {};
-			});
-			await controls.start('normal');
-			if (loopRef.current) animate();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) animate();
-		}, [autoAnimateOnLoad, animate]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: animate,
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) animate();
-			onMouseEnter?.(e);
+const animateTarget: AnimationDefinition = (i) => {
+	if (i === 0) {
+		return {
+			r: [0, 8],
+			opacity: [0, 1],
+			transition: { duration: 0.6, ease: 'easeInOut' },
 		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) controls.start('normal');
-			onMouseLeave?.(e);
+	}
+	if (i === 1) {
+		return {
+			scale: [0, 1],
+			opacity: [0, 1],
+			transformOrigin: 'center',
+			transition: { duration: 0.6, ease: 'easeOut' },
 		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate();
-			onClick?.(e);
+	}
+	if (i === 2 || i === 3) {
+		return {
+			pathLength: [0, 1],
+			opacity: [0, 1],
+			transition: { duration: 0.6, delay: 0.1 * (i - 2), ease: 'easeInOut' },
 		};
+	}
+	return {};
+};
+
+const Webcam = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props, { animate: animateTarget });
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

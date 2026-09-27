@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface BlocksHandle {
 	startAnimation: () => void;
@@ -83,11 +72,13 @@ export const Blocks = forwardRef<BlocksHandle, BlocksProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) controls.start({ x: 0, y: 0 });
 			onMouseLeave?.(e);
 		};
@@ -107,6 +98,7 @@ export const Blocks = forwardRef<BlocksHandle, BlocksProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -117,14 +109,7 @@ export const Blocks = forwardRef<BlocksHandle, BlocksProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.rect
-						width="7"
-						height="7"
-						x="14"
-						y="3"
-						rx="1"
-						animate={controls}
-					/>
+					<motion.rect width="7" height="7" x="14" y="3" rx="1" animate={controls} />
 					<motion.path
 						d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"
 						initial={{ pathLength: 1, opacity: 1 }}

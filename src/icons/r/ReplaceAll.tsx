@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import React, {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface ReplaceAllHandle {
 	startAnimation: () => void;
@@ -60,18 +49,14 @@ const ReplaceAll = forwardRef<ReplaceAllHandle, ReplaceAllProps>(
 				};
 
 				if (i <= 5) {
-					// Dots
 					return { opacity: [0, 1], scale: [0.6, 1], transition };
 				}
 				if (i === 6) {
-					// Arrow
 					return { pathLength: [0, 1], opacity: [0, 1], transition };
 				}
 				if (i === 7) {
-					// Vertical stroke
 					return { y: [-10, 0], opacity: [0, 1], transition };
 				}
-				// Rectangle
 				return { scale: [0.8, 1], opacity: [0, 1], transition };
 			});
 			await controls.start('visible');
@@ -95,13 +80,14 @@ const ReplaceAll = forwardRef<ReplaceAllHandle, ReplaceAllProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable)
-				controls.start('visible');
+			loopRef.current = false;
+			if (!isControlledRef.current && hoverable) controls.start('visible');
 			onMouseLeave?.(e);
 		};
 
@@ -132,6 +118,7 @@ const ReplaceAll = forwardRef<ReplaceAllHandle, ReplaceAllProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

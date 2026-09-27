@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { motion, useAnimation } from 'framer-motion';
 import {
@@ -9,12 +9,8 @@ import {
 	useCallback,
 	type HTMLAttributes,
 } from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '../../lib/cn';
 
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
 export interface RocketHandle {
 	startAnimation: () => void;
 	stopAnimation: () => void;
@@ -101,11 +97,13 @@ const Rocket = forwardRef<RocketHandle, RocketProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				controls.stop();
 				fireControls.stop();
@@ -128,6 +126,7 @@ const Rocket = forwardRef<RocketHandle, RocketProps>(
 				{...props}
 			>
 				<motion.svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

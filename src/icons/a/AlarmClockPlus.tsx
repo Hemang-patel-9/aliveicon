@@ -2,20 +2,9 @@
 
 import type { Variants } from 'framer-motion';
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import type { HTMLAttributes } from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { cn } from '../../lib/cn';
 
 interface AlarmClockPlusHandle {
 	startAnimation: () => void;
@@ -158,6 +147,7 @@ const AlarmClockPlus = forwardRef<AlarmClockPlusHandle, AlarmClockPlusProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width={size}
 					height={size}

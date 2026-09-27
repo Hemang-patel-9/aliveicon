@@ -1,47 +1,51 @@
 const resolve = require('@rollup/plugin-node-resolve').default;
-const commonjs = require('@rollup/plugin-commonjs');
 const typescript = require('rollup-plugin-typescript2');
-const postcss = require('rollup-plugin-postcss');
-const peerDepsExternal = require('rollup-plugin-peer-deps-external');
-const path = require('path');
 const packageJson = require('./package.json');
+
+const deps = [
+	...Object.keys(packageJson.dependencies || {}),
+	...Object.keys(packageJson.peerDependencies || {}),
+];
+const external = (id) => deps.some((dep) => id === dep || id.startsWith(`${dep}/`));
+
+const banner = "'use client';";
+
+const esmPackageJson = {
+	name: 'esm-package-json',
+	generateBundle(options) {
+		if (options.format === 'es') {
+			this.emitFile({ type: 'asset', fileName: 'package.json', source: '{ "type": "module" }\n' });
+		}
+	},
+};
 
 module.exports = {
 	input: 'src/index.ts',
+	external,
 	output: [
 		{
-			file: packageJson.module, // esm
+			dir: 'dist/esm',
 			format: 'esm',
-			sourcemap: true
+			preserveModules: true,
+			preserveModulesRoot: 'src',
+			sourcemap: true,
+			banner,
 		},
 		{
-			file: packageJson.main, // cjs
+			dir: 'dist/cjs',
 			format: 'cjs',
+			preserveModules: true,
+			preserveModulesRoot: 'src',
 			sourcemap: true,
-			exports: 'named'
-		}
+			exports: 'named',
+			banner,
+		},
 	],
-	external: [
-		"react",
-		"react-dom",
-		"framer-motion"
-	],	  
 	plugins: [
-		peerDepsExternal(),
-		resolve({
-			extensions: ['.js', '.jsx', '.ts', '.tsx'],
-			preferBuiltins: false,
-			browser: true,
-		}),
-		commonjs(),
-		postcss({
-			extensions: ['.css'],
-			extract: false,
-			minimize: true,
-			sourceMap: true,
-		}),
 		typescript({
 			tsconfig: './tsconfig.json',
+			include: ['**/*.ts', '**/*.tsx'],
+			check: false,
 			useTsconfigDeclarationDir: true,
 			clean: true,
 			tsconfigOverride: {
@@ -52,5 +56,11 @@ module.exports = {
 				},
 			},
 		}),
+		resolve({ extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
+		esmPackageJson,
 	],
+	onwarn(warning, warn) {
+		if (warning.code === 'MODULE_LEVEL_DIRECTIVE' || warning.code === 'SOURCEMAP_ERROR') return;
+		warn(warning);
+	},
 };

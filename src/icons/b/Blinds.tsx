@@ -1,34 +1,10 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface BlindsHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface BlindsProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const pathVariants = {
 	normal: {
@@ -47,74 +23,18 @@ const pathVariants = {
 	},
 };
 
-export const Blinds = forwardRef<BlindsHandle, BlindsProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			await controls.start('normal');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) controls.start('normal');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+export const Blinds = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -131,7 +51,14 @@ export const Blinds = forwardRef<BlindsHandle, BlindsProps>(
 					<motion.path d="M10 19h10" variants={pathVariants} animate={controls} initial="normal" />
 					<motion.path d="M8 15h12" variants={pathVariants} animate={controls} initial="normal" />
 					<motion.path d="M4 3v14" variants={pathVariants} animate={controls} initial="normal" />
-					<motion.circle cx="4" cy="19" r="2" variants={pathVariants} animate={controls} initial="normal" />
+					<motion.circle
+						cx="4"
+						cy="19"
+						r="2"
+						variants={pathVariants}
+						animate={controls}
+						initial="normal"
+					/>
 				</svg>
 			</div>
 		);

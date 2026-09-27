@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface BetweenVerticalEndHandle {
 	startAnimation: () => void;
@@ -42,10 +31,7 @@ const rectPath = (x: number, y: number, width: number, height: number, rx: numbe
 	`a${rx},${rx} 0 0 1 ${rx},-${rx} ` +
 	'z';
 
-export const BetweenVerticalEnd = forwardRef<
-	BetweenVerticalEndHandle,
-	BetweenVerticalEndProps
->(
+export const BetweenVerticalEnd = forwardRef<BetweenVerticalEndHandle, BetweenVerticalEndProps>(
 	(
 		{
 			size = 28,
@@ -136,6 +122,7 @@ export const BetweenVerticalEnd = forwardRef<
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"

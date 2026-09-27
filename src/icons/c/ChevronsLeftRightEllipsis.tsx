@@ -1,27 +1,15 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface ChevronsLeftRightEllipsisHandle {
 	startAnimation: () => void;
 	stopAnimation: () => void;
 }
 
-interface ChevronsLeftRightEllipsisProps
-	extends React.HTMLAttributes<HTMLDivElement> {
+interface ChevronsLeftRightEllipsisProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: number;
 	autoAnimateOnLoad?: boolean;
 	hoverable?: boolean;
@@ -94,11 +82,13 @@ export const ChevronsLeftRightEllipsis = forwardRef<
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				leftChevron.start('initial');
 				rightChevron.start('initial');
@@ -150,6 +140,7 @@ export const ChevronsLeftRightEllipsis = forwardRef<
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

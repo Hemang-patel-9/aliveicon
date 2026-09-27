@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface VibrateHandle {
 	startAnimation: () => void;
@@ -53,7 +42,6 @@ const Vibrate = forwardRef<VibrateHandle, VibrateProps>(
 		const isControlledRef = useRef(false);
 
 		const animate = useCallback(async () => {
-			// Animate the paths (side wave lines)
 			await pathControls.start((i) => ({
 				pathLength: [0, 1],
 				opacity: [0, 1],
@@ -64,7 +52,6 @@ const Vibrate = forwardRef<VibrateHandle, VibrateProps>(
 				},
 			}));
 
-			// Shake the rect (vibrate motion)
 			await rectControls.start({
 				x: [0, -2, 2, -2, 2, 0],
 				transition: {
@@ -97,11 +84,13 @@ const Vibrate = forwardRef<VibrateHandle, VibrateProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				pathControls.start('visible');
 				rectControls.stop();
@@ -114,10 +103,7 @@ const Vibrate = forwardRef<VibrateHandle, VibrateProps>(
 			onClick?.(e);
 		};
 
-		const pathData = [
-			'M2 8l2 2-2 2 2 2-2 2',
-			'M22 8l-2 2 2 2-2 2 2 2',
-		];
+		const pathData = ['M2 8l2 2-2 2 2 2-2 2', 'M22 8l-2 2 2 2-2 2 2 2'];
 
 		return (
 			<div
@@ -129,6 +115,7 @@ const Vibrate = forwardRef<VibrateHandle, VibrateProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

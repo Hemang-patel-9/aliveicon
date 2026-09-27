@@ -1,36 +1,10 @@
 'use client';
 
-import type { Variants } from 'framer-motion';
-import { motion, useAnimation } from 'framer-motion';
-import type { HTMLAttributes } from 'react';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: any[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface BadgeInfoHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface BadgeInfoProps extends HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const pathVariants: Variants = {
 	normal: (custom: number) => ({
@@ -55,80 +29,9 @@ const pathVariants: Variants = {
 	}),
 };
 
-const BadgeInfo = forwardRef<BadgeInfoHandle, BadgeInfoProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			await controls.start('normal');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) {
-				triggerAnimation();
-			}
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		const handleMouseEnter = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (hoverable && !isControlledRef.current) {
-					triggerAnimation();
-				}
-				onMouseEnter?.(e);
-			},
-			[hoverable, onMouseEnter, triggerAnimation]
-		);
-
-		const handleMouseLeave = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (hoverable && !isControlledRef.current) {
-					controls.start('normal');
-				}
-				onMouseLeave?.(e);
-			},
-			[hoverable, onMouseLeave, controls]
-		);
-
-		const handleClick = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (animateOnClick && !isControlledRef.current) {
-					triggerAnimation();
-				}
-				onClick?.(e);
-			},
-			[animateOnClick, onClick, triggerAnimation]
-		);
+const BadgeInfo = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
@@ -139,12 +42,10 @@ const BadgeInfo = forwardRef<BadgeInfoHandle, BadgeInfoProps>(
 					display: 'inline-block',
 					...style,
 				}}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width={size}
 					height={size}

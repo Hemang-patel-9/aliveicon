@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface UngroupHandle {
 	startAnimation: () => void;
@@ -96,11 +85,13 @@ const Ungroup = forwardRef<UngroupHandle, UngroupProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				boxControls.start({ x: 0, y: 0, opacity: 1 });
 			}
@@ -122,6 +113,7 @@ const Ungroup = forwardRef<UngroupHandle, UngroupProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					width="100%"

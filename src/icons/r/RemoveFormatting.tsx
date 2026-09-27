@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface RemoveFormattingHandle {
 	startAnimation: () => void;
@@ -84,11 +73,13 @@ const RemoveFormatting = forwardRef<RemoveFormattingHandle, RemoveFormattingProp
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				pathControls.start('visible');
 			}
@@ -100,13 +91,7 @@ const RemoveFormatting = forwardRef<RemoveFormattingHandle, RemoveFormattingProp
 			onClick?.(e);
 		};
 
-		const paths = [
-			'M4 7V4h16v3',        // top line
-			'M5 20h6',            // bottom line
-			'M13 4L8 20',         // vertical line
-			'M15 15l5 5',         // cross 1
-			'M20 15l-5 5',        // cross 2
-		];
+		const paths = ['M4 7V4h16v3', 'M5 20h6', 'M13 4L8 20', 'M15 15l5 5', 'M20 15l-5 5'];
 
 		return (
 			<div
@@ -118,6 +103,7 @@ const RemoveFormatting = forwardRef<RemoveFormattingHandle, RemoveFormattingProp
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

@@ -1,55 +1,14 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface BellOffHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface BellOffProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-export const BellOff = forwardRef<BellOffHandle, BellOffProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
+export const BellOff = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		const swingVariants = {
 			normal: { rotate: 0 },
@@ -59,38 +18,14 @@ export const BellOff = forwardRef<BellOffHandle, BellOffProps>(
 			},
 		};
 
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			await controls.start('normal');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<motion.svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -103,7 +38,7 @@ export const BellOff = forwardRef<BellOffHandle, BellOffProps>(
 					animate={controls}
 					initial="normal"
 					variants={swingVariants}
-					style={{ originX: '50%', originY: '0%' }} // pivot from top center for swinging
+					style={{ originX: '50%', originY: '0%' }}
 				>
 					<path d="M10.268 21a2 2 0 0 0 3.464 0" />
 					<path d="M17 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 .258-1.742" />
@@ -112,21 +47,6 @@ export const BellOff = forwardRef<BellOffHandle, BellOffProps>(
 				</motion.svg>
 			</div>
 		);
-
-		function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		}
-
-		function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-			if (!isControlledRef.current && hoverable) controls.start('normal');
-			onMouseLeave?.(e);
-		}
-
-		function handleClick(e: React.MouseEvent<HTMLDivElement>) {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		}
 	}
 );
 

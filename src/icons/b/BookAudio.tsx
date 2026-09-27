@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface BookAudioHandle {
 	startAnimation: () => void;
@@ -105,11 +94,13 @@ export const BookAudio = forwardRef<BookAudioHandle, BookAudioProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) controls.start('normal');
 			onMouseLeave?.(e);
 		};
@@ -129,6 +120,7 @@ export const BookAudio = forwardRef<BookAudioHandle, BookAudioProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -139,7 +131,6 @@ export const BookAudio = forwardRef<BookAudioHandle, BookAudioProps>(
 					width="100%"
 					height="100%"
 				>
-					{/* Book outline */}
 					<motion.path
 						d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"
 						variants={pathVariants}
@@ -147,7 +138,6 @@ export const BookAudio = forwardRef<BookAudioHandle, BookAudioProps>(
 						initial="normal"
 					/>
 
-					{/* Audio bars with continuous pulse */}
 					<motion.path
 						d="M12 6v7"
 						variants={audioPulseVariants}

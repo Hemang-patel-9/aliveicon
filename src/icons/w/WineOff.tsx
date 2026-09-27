@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface WineOffHandle {
 	startAnimation: () => void;
@@ -82,11 +71,13 @@ const WineOff = forwardRef<WineOffHandle, WineOffProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) controls.start('visible');
 			onMouseLeave?.(e);
 		};
@@ -97,12 +88,12 @@ const WineOff = forwardRef<WineOffHandle, WineOffProps>(
 		};
 
 		const paths = [
-			'M8 22h8', // base
-			'M7 10h3m7 0h-1.343', // top rim split
-			'M12 15v7', // stem
-			'M7.307 7.307A12.33 12.33 0 0 0 7 10a5 5 0 0 0 7.391 4.391', // left + bowl
-			'M8.638 2.981C8.75 2.668 8.872 2.34 9 2h6c1.5 4 2 6 2 8 0 .407-.05.809-.145 1.198', // top + right
-			'M2 2L22 22', // diagonal slash
+			'M8 22h8',
+			'M7 10h3m7 0h-1.343',
+			'M12 15v7',
+			'M7.307 7.307A12.33 12.33 0 0 0 7 10a5 5 0 0 0 7.391 4.391',
+			'M8.638 2.981C8.75 2.668 8.872 2.34 9 2h6c1.5 4 2 6 2 8 0 .407-.05.809-.145 1.198',
+			'M2 2L22 22',
 		];
 
 		return (
@@ -115,6 +106,7 @@ const WineOff = forwardRef<WineOffHandle, WineOffProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"
@@ -129,7 +121,7 @@ const WineOff = forwardRef<WineOffHandle, WineOffProps>(
 						<motion.path
 							key={i}
 							d={d}
-							initial={false} // fully visible by default
+							initial={false}
 							animate={controls}
 							custom={i}
 							variants={{

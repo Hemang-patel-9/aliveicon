@@ -1,36 +1,10 @@
 'use client';
 
-import type { Variants } from 'framer-motion';
-import { motion, useAnimation } from 'framer-motion';
-import type { HTMLAttributes } from 'react';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: any[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface BathHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface BathProps extends HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const pathVariants: Variants = {
 	normal: { pathLength: 1, opacity: 1 },
@@ -41,80 +15,9 @@ const pathVariants: Variants = {
 	},
 };
 
-const Bath = forwardRef<BathHandle, BathProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			await controls.start('normal');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) {
-				triggerAnimation();
-			}
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		const handleMouseEnter = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (hoverable && !isControlledRef.current) {
-					triggerAnimation();
-				}
-				onMouseEnter?.(e);
-			},
-			[hoverable, onMouseEnter, triggerAnimation]
-		);
-
-		const handleMouseLeave = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (hoverable && !isControlledRef.current) {
-					controls.start('normal');
-				}
-				onMouseLeave?.(e);
-			},
-			[hoverable, onMouseLeave, controls]
-		);
-
-		const handleClick = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (animateOnClick && !isControlledRef.current) {
-					triggerAnimation();
-				}
-				onClick?.(e);
-			},
-			[animateOnClick, onClick, triggerAnimation]
-		);
+const Bath = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
@@ -125,12 +28,10 @@ const Bath = forwardRef<BathHandle, BathProps>(
 					display: 'inline-block',
 					...style,
 				}}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width={size}
 					height={size}
@@ -141,30 +42,10 @@ const Bath = forwardRef<BathHandle, BathProps>(
 					strokeLinecap="round"
 					strokeLinejoin="round"
 				>
-					<motion.path
-						d="M10 4 L8 6"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M17 19v2"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M2 12h20"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M7 19v2"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
+					<motion.path d="M10 4 L8 6" variants={pathVariants} initial="normal" animate={controls} />
+					<motion.path d="M17 19v2" variants={pathVariants} initial="normal" animate={controls} />
+					<motion.path d="M2 12h20" variants={pathVariants} initial="normal" animate={controls} />
+					<motion.path d="M7 19v2" variants={pathVariants} initial="normal" animate={controls} />
 					<motion.path
 						d="M9 5 L7.621 3.621 A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"
 						variants={pathVariants}

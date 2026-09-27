@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface BellHandle {
 	startAnimation: () => void;
@@ -86,6 +75,7 @@ export const Bell = forwardRef<BellHandle, BellProps>(
 		});
 
 		function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) {
 				swingAnimation();
 			}
@@ -93,6 +83,7 @@ export const Bell = forwardRef<BellHandle, BellProps>(
 		}
 
 		function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				controls.start({ rotate: 0 });
 			}
@@ -116,6 +107,7 @@ export const Bell = forwardRef<BellHandle, BellProps>(
 				{...props}
 			>
 				<motion.svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -125,7 +117,7 @@ export const Bell = forwardRef<BellHandle, BellProps>(
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
-					style={{ originX: '50%', originY: '10%' }} // pivot near bell top
+					style={{ originX: '50%', originY: '10%' }}
 					animate={controls}
 					initial={{ rotate: 0 }}
 				>

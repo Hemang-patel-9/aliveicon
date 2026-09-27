@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface ArrowDown01Handle {
 	startAnimation: () => void;
@@ -97,11 +86,13 @@ export const ArrowDown01 = forwardRef<ArrowDown01Handle, ArrowDown01Props>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) controls.stop();
 			onMouseLeave?.(e);
 		};
@@ -121,6 +112,7 @@ export const ArrowDown01 = forwardRef<ArrowDown01Handle, ArrowDown01Props>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -154,12 +146,7 @@ export const ArrowDown01 = forwardRef<ArrowDown01Handle, ArrowDown01Props>(
 						initial="initial"
 						animate={controls}
 					/>
-					<motion.path
-						d="M15 20h4"
-						variants={oneVariants}
-						initial="initial"
-						animate={controls}
-					/>
+					<motion.path d="M15 20h4" variants={oneVariants} initial="initial" animate={controls} />
 				</svg>
 			</div>
 		);

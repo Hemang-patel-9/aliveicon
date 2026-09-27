@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface WindArrowDownHandle {
 	startAnimation: () => void;
@@ -82,11 +71,13 @@ const WindArrowDown = forwardRef<WindArrowDownHandle, WindArrowDownProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) controls.start('visible');
 			onMouseLeave?.(e);
 		};
@@ -97,10 +88,10 @@ const WindArrowDown = forwardRef<WindArrowDownHandle, WindArrowDownProps>(
 		};
 
 		const paths = [
-			'M10 2v8',                                      // arrow vertical line
-			'M12.8 21.6A2 2 0 1 0 14 18H2',                 // bottom swirl
-			'M17.5 10a2.5 2.5 0 1 1 2 4H2',                 // middle swirl
-			'M6 6l4 4 4-4',                                 // arrowhead
+			'M10 2v8',
+			'M12.8 21.6A2 2 0 1 0 14 18H2',
+			'M17.5 10a2.5 2.5 0 1 1 2 4H2',
+			'M6 6l4 4 4-4',
 		];
 
 		return (
@@ -113,6 +104,7 @@ const WindArrowDown = forwardRef<WindArrowDownHandle, WindArrowDownProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"
@@ -127,7 +119,7 @@ const WindArrowDown = forwardRef<WindArrowDownHandle, WindArrowDownProps>(
 						<motion.path
 							key={i}
 							d={d}
-							initial={false} // <-- ensures default visibility
+							initial={false}
 							variants={{
 								visible: { pathLength: 1, opacity: 1 },
 							}}

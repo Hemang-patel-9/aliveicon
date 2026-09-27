@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { motion, useAnimation } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion';
 import {
 	forwardRef,
 	useImperativeHandle,
@@ -8,25 +8,20 @@ import {
 	useCallback,
 	useEffect,
 	type HTMLAttributes,
-} from 'react'
-
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+} from 'react';
+import { cn } from '../../lib/cn';
 
 interface RollerCoasterHandle {
-	startAnimation: () => void
-	stopAnimation: () => void
+	startAnimation: () => void;
+	stopAnimation: () => void;
 }
 
 interface RollerCoasterProps extends HTMLAttributes<HTMLDivElement> {
-	size?: number
-	autoAnimateOnLoad?: boolean
-	hoverable?: boolean
-	loopOnHover?: boolean
-	animateOnClick?: boolean
+	size?: number;
+	autoAnimateOnLoad?: boolean;
+	hoverable?: boolean;
+	loopOnHover?: boolean;
+	animateOnClick?: boolean;
 }
 
 const RollerCoaster = forwardRef<RollerCoasterHandle, RollerCoasterProps>(
@@ -45,9 +40,9 @@ const RollerCoaster = forwardRef<RollerCoasterHandle, RollerCoasterProps>(
 		},
 		ref
 	) => {
-		const controls = useAnimation()
-		const loopRef = useRef(loopOnHover)
-		const isControlledRef = useRef(false)
+		const controls = useAnimation();
+		const loopRef = useRef(loopOnHover);
+		const isControlledRef = useRef(false);
 
 		const animate = useCallback(async () => {
 			await controls.start((i) => ({
@@ -58,42 +53,43 @@ const RollerCoaster = forwardRef<RollerCoasterHandle, RollerCoasterProps>(
 					delay: i * 0.05,
 					ease: 'easeInOut',
 				},
-			}))
-			await controls.start('visible')
-			if (loopRef.current) animate()
-		}, [controls])
+			}));
+			await controls.start('visible');
+			if (loopRef.current) animate();
+		}, [controls]);
 
 		useEffect(() => {
-			loopRef.current = loopOnHover
-		}, [loopOnHover])
+			loopRef.current = loopOnHover;
+		}, [loopOnHover]);
 
 		useEffect(() => {
-			if (autoAnimateOnLoad) animate()
-		}, [autoAnimateOnLoad, animate])
+			if (autoAnimateOnLoad) animate();
+		}, [autoAnimateOnLoad, animate]);
 
 		useImperativeHandle(ref, () => {
-			isControlledRef.current = true
+			isControlledRef.current = true;
 			return {
 				startAnimation: animate,
 				stopAnimation: () => controls.start('visible'),
-			}
-		})
+			};
+		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) animate()
-			onMouseEnter?.(e)
-		}
+			loopRef.current = loopOnHover;
+			if (!isControlledRef.current && hoverable) animate();
+			onMouseEnter?.(e);
+		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable)
-				controls.start('visible')
-			onMouseLeave?.(e)
-		}
+			loopRef.current = false;
+			if (!isControlledRef.current && hoverable) controls.start('visible');
+			onMouseLeave?.(e);
+		};
 
 		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate()
-			onClick?.(e)
-		}
+			if (animateOnClick) animate();
+			onClick?.(e);
+		};
 
 		const paths = [
 			'M6 19V5',
@@ -103,7 +99,7 @@ const RollerCoaster = forwardRef<RollerCoasterHandle, RollerCoasterProps>(
 			'M18 19v-6',
 			'M22 19V9',
 			'M2 19V9a4 4 0 0 1 4-4c2 0 4 1.33 6 4s4 4 6 4a4 4 0 1 0-3-6.65',
-		]
+		];
 
 		return (
 			<div
@@ -115,6 +111,7 @@ const RollerCoaster = forwardRef<RollerCoasterHandle, RollerCoasterProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"
@@ -139,9 +136,9 @@ const RollerCoaster = forwardRef<RollerCoasterHandle, RollerCoasterProps>(
 					))}
 				</svg>
 			</div>
-		)
+		);
 	}
-)
+);
 
-RollerCoaster.displayName = 'RollerCoaster'
-export { RollerCoaster }
+RollerCoaster.displayName = 'RollerCoaster';
+export { RollerCoaster };

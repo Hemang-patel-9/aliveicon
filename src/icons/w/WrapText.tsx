@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface WrapTextHandle {
 	startAnimation: () => void;
@@ -82,11 +71,13 @@ const WrapText = forwardRef<WrapTextHandle, WrapTextProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) controls.start('visible');
 			onMouseLeave?.(e);
 		};
@@ -96,12 +87,7 @@ const WrapText = forwardRef<WrapTextHandle, WrapTextProps>(
 			onClick?.(e);
 		};
 
-		const paths = [
-			'M16 16l-2 2 2 2',
-			'M3 12h15a3 3 0 1 1 0 6h-4',
-			'M3 18h7',
-			'M3 6h18',
-		];
+		const paths = ['M16 16l-2 2 2 2', 'M3 12h15a3 3 0 1 1 0 6h-4', 'M3 18h7', 'M3 6h18'];
 
 		return (
 			<div
@@ -113,6 +99,7 @@ const WrapText = forwardRef<WrapTextHandle, WrapTextProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

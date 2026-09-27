@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface ChevronsLeftRightHandle {
 	startAnimation: () => void;
@@ -30,10 +19,7 @@ interface ChevronsLeftRightProps extends React.HTMLAttributes<HTMLDivElement> {
 	style?: React.CSSProperties;
 }
 
-export const ChevronsLeftRight = forwardRef<
-	ChevronsLeftRightHandle,
-	ChevronsLeftRightProps
->(
+export const ChevronsLeftRight = forwardRef<ChevronsLeftRightHandle, ChevronsLeftRightProps>(
 	(
 		{
 			size = 28,
@@ -56,14 +42,8 @@ export const ChevronsLeftRight = forwardRef<
 		const isControlledRef = useRef(false);
 
 		const triggerAnimation = useCallback(async () => {
-			await Promise.all([
-				leftControl.start('animate'),
-				rightControl.start('animate'),
-			]);
-			await Promise.all([
-				leftControl.start('initial'),
-				rightControl.start('initial'),
-			]);
+			await Promise.all([leftControl.start('animate'), rightControl.start('animate')]);
+			await Promise.all([leftControl.start('initial'), rightControl.start('initial')]);
 			if (loopRef.current) triggerAnimation();
 		}, [leftControl, rightControl]);
 
@@ -79,24 +59,20 @@ export const ChevronsLeftRight = forwardRef<
 			isControlledRef.current = true;
 			return {
 				startAnimation: () =>
-					Promise.all([
-						leftControl.start('animate'),
-						rightControl.start('animate'),
-					]),
+					Promise.all([leftControl.start('animate'), rightControl.start('animate')]),
 				stopAnimation: () =>
-					Promise.all([
-						leftControl.start('initial'),
-						rightControl.start('initial'),
-					]),
+					Promise.all([leftControl.start('initial'), rightControl.start('initial')]),
 			};
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				leftControl.start('initial');
 				rightControl.start('initial');
@@ -115,7 +91,7 @@ export const ChevronsLeftRight = forwardRef<
 				x: [0, -2, 0],
 				transition: {
 					duration: 0.5,
-					ease: "easeInOut",
+					ease: 'easeInOut',
 				},
 			},
 		};
@@ -126,7 +102,7 @@ export const ChevronsLeftRight = forwardRef<
 				x: [0, 2, 0],
 				transition: {
 					duration: 0.5,
-					ease: "easeInOut",
+					ease: 'easeInOut',
 				},
 			},
 		};
@@ -141,6 +117,7 @@ export const ChevronsLeftRight = forwardRef<
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

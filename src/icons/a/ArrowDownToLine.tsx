@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface ArrowDownToLineHandle {
 	startAnimation: () => void;
@@ -89,11 +78,13 @@ export const ArrowDownToLine = forwardRef<ArrowDownToLineHandle, ArrowDownToLine
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) controls.stop();
 			onMouseLeave?.(e);
 		};
@@ -113,6 +104,7 @@ export const ArrowDownToLine = forwardRef<ArrowDownToLineHandle, ArrowDownToLine
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -123,10 +115,8 @@ export const ArrowDownToLine = forwardRef<ArrowDownToLineHandle, ArrowDownToLine
 					width="100%"
 					height="100%"
 				>
-					{/* Vertical shaft */}
 					<path d="M12 17V3" />
 
-					{/* Arrowhead bounce */}
 					<motion.path
 						d="m6 11 6 6 6-6"
 						variants={arrowVariants}
@@ -134,7 +124,6 @@ export const ArrowDownToLine = forwardRef<ArrowDownToLineHandle, ArrowDownToLine
 						animate={controls}
 					/>
 
-					{/* Bottom line drawing */}
 					<motion.path
 						d="M19 21H5"
 						variants={lineDrawVariants}

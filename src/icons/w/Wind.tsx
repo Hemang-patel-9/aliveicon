@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface WindHandle {
 	startAnimation: () => void;
@@ -82,11 +71,13 @@ const Wind = forwardRef<WindHandle, WindProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) controls.start('visible');
 			onMouseLeave?.(e);
 		};
@@ -97,9 +88,9 @@ const Wind = forwardRef<WindHandle, WindProps>(
 		};
 
 		const paths = [
-			'M12.8 19.6A2 2 0 1 0 14 16H2',              // bottom (first)
-			'M17.5 8a2.5 2.5 0 1 1 2 4H2',               // middle
-			'M9.8 4.4A2 2 0 1 1 11 8H2',                 // top
+			'M12.8 19.6A2 2 0 1 0 14 16H2',
+			'M17.5 8a2.5 2.5 0 1 1 2 4H2',
+			'M9.8 4.4A2 2 0 1 1 11 8H2',
 		];
 
 		return (
@@ -112,6 +103,7 @@ const Wind = forwardRef<WindHandle, WindProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

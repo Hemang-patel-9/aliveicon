@@ -3,20 +3,8 @@
 import type { Variants } from 'framer-motion';
 import { motion, useAnimation } from 'framer-motion';
 import type { HTMLAttributes } from 'react';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface AxeHandle {
 	startAnimation: () => void;
@@ -33,7 +21,6 @@ interface AxeProps extends HTMLAttributes<HTMLDivElement> {
 	style?: React.CSSProperties;
 }
 
-// Path drawing variants with staggered delays
 const pathVariants: Variants = {
 	normal: (custom: number) => ({
 		pathLength: 1,
@@ -113,16 +100,18 @@ const Axe = forwardRef<AxeHandle, AxeProps>(
 
 		const handleMouseEnter = useCallback(
 			(e: React.MouseEvent<HTMLDivElement>) => {
+				loopRef.current = loopOnHover;
 				if (hoverable && !isControlledRef.current) {
 					triggerAnimation();
 				}
 				onMouseEnter?.(e);
 			},
-			[hoverable, onMouseEnter, triggerAnimation]
+			[hoverable, onMouseEnter, triggerAnimation, loopOnHover]
 		);
 
 		const handleMouseLeave = useCallback(
 			(e: React.MouseEvent<HTMLDivElement>) => {
+				loopRef.current = false;
 				if (hoverable && !isControlledRef.current) {
 					controls.start('normal');
 					swingControls.start('rest');
@@ -157,6 +146,7 @@ const Axe = forwardRef<AxeHandle, AxeProps>(
 				{...props}
 			>
 				<motion.svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width={size}
 					height={size}

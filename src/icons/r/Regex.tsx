@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface RegexHandle {
 	startAnimation: () => void;
@@ -92,11 +81,13 @@ const Regex = forwardRef<RegexHandle, RegexProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				controls.start('visible');
 				boxControls.start('visible');
@@ -109,11 +100,7 @@ const Regex = forwardRef<RegexHandle, RegexProps>(
 			onClick?.(e);
 		};
 
-		const paths = [
-			'M17 3v10',
-			'M12.67 5.5l8.66 5',
-			'M12.67 10.5l8.66-5',
-		];
+		const paths = ['M17 3v10', 'M12.67 5.5l8.66 5', 'M12.67 10.5l8.66-5'];
 
 		const box = 'M9 17a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2z';
 
@@ -127,6 +114,7 @@ const Regex = forwardRef<RegexHandle, RegexProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

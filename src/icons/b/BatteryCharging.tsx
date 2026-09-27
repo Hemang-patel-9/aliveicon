@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface BatteryChargingHandle {
 	startAnimation: () => void;
@@ -53,14 +42,8 @@ export const BatteryCharging = forwardRef<BatteryChargingHandle, BatteryCharging
 		const isControlledRef = useRef(false);
 
 		const triggerAnimation = useCallback(async () => {
-			await Promise.all([
-				controls.start('animate'),
-				boltControls.start('pulse'),
-			]);
-			await Promise.all([
-				controls.start('normal'),
-				boltControls.start('normal'),
-			]);
+			await Promise.all([controls.start('animate'), boltControls.start('pulse')]);
+			await Promise.all([controls.start('normal'), boltControls.start('normal')]);
 			if (loopRef.current) triggerAnimation();
 		}, [controls, boltControls]);
 
@@ -84,11 +67,13 @@ export const BatteryCharging = forwardRef<BatteryChargingHandle, BatteryCharging
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				controls.start('normal');
 				boltControls.start('normal');
@@ -142,6 +127,7 @@ export const BatteryCharging = forwardRef<BatteryChargingHandle, BatteryCharging
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -152,28 +138,24 @@ export const BatteryCharging = forwardRef<BatteryChargingHandle, BatteryCharging
 					width="100%"
 					height="100%"
 				>
-					{/* Right half battery shell */}
 					<motion.path
 						d="M15 7h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"
 						variants={pathVariants}
 						animate={controls}
 						initial="normal"
 					/>
-					{/* Left half battery shell */}
 					<motion.path
 						d="M6 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1"
 						variants={pathVariants}
 						animate={controls}
 						initial="normal"
 					/>
-					{/* Charging lightning bolt */}
 					<motion.path
 						d="m11 7-3 5h4l-3 5"
 						variants={boltVariants}
 						animate={boltControls}
 						initial="normal"
 					/>
-					{/* Battery terminal */}
 					<motion.line
 						x1="22"
 						y1="11"

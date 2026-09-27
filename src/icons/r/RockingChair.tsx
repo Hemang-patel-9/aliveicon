@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { motion, useAnimation } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion';
 import {
 	forwardRef,
 	useImperativeHandle,
@@ -8,25 +8,20 @@ import {
 	useCallback,
 	useEffect,
 	type HTMLAttributes,
-} from 'react'
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs))
-}
+} from 'react';
+import { cn } from '../../lib/cn';
 
 interface RockingChairHandle {
-	startAnimation: () => void
-	stopAnimation: () => void
+	startAnimation: () => void;
+	stopAnimation: () => void;
 }
 
 interface RockingChairProps extends HTMLAttributes<HTMLDivElement> {
-	size?: number
-	autoAnimateOnLoad?: boolean
-	hoverable?: boolean
-	loopOnHover?: boolean
-	animateOnClick?: boolean
+	size?: number;
+	autoAnimateOnLoad?: boolean;
+	hoverable?: boolean;
+	loopOnHover?: boolean;
+	animateOnClick?: boolean;
 }
 
 const rockingVariants = {
@@ -40,7 +35,7 @@ const rockingVariants = {
 			times: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1],
 		},
 	},
-}
+};
 
 const RockingChair = forwardRef<RockingChairHandle, RockingChairProps>(
 	(
@@ -58,45 +53,47 @@ const RockingChair = forwardRef<RockingChairHandle, RockingChairProps>(
 		},
 		ref
 	) => {
-		const controls = useAnimation()
-		const loopRef = useRef(loopOnHover)
-		const isControlledRef = useRef(false)
+		const controls = useAnimation();
+		const loopRef = useRef(loopOnHover);
+		const isControlledRef = useRef(false);
 
 		const animate = useCallback(async () => {
-			await controls.start('animate')
-			if (loopRef.current) animate()
-		}, [controls])
+			await controls.start('animate');
+			if (loopRef.current) animate();
+		}, [controls]);
 
 		useEffect(() => {
-			loopRef.current = loopOnHover
-		}, [loopOnHover])
+			loopRef.current = loopOnHover;
+		}, [loopOnHover]);
 
 		useEffect(() => {
-			if (autoAnimateOnLoad) animate()
-		}, [autoAnimateOnLoad, animate])
+			if (autoAnimateOnLoad) animate();
+		}, [autoAnimateOnLoad, animate]);
 
 		useImperativeHandle(ref, () => {
-			isControlledRef.current = true
+			isControlledRef.current = true;
 			return {
 				startAnimation: animate,
 				stopAnimation: () => controls.start('normal'),
-			}
-		})
+			};
+		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) animate()
-			onMouseEnter?.(e)
-		}
+			loopRef.current = loopOnHover;
+			if (!isControlledRef.current && hoverable) animate();
+			onMouseEnter?.(e);
+		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) controls.start('normal')
-			onMouseLeave?.(e)
-		}
+			loopRef.current = false;
+			if (!isControlledRef.current && hoverable) controls.start('normal');
+			onMouseLeave?.(e);
+		};
 
 		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate()
-			onClick?.(e)
-		}
+			if (animateOnClick) animate();
+			onClick?.(e);
+		};
 
 		return (
 			<div
@@ -108,6 +105,7 @@ const RockingChair = forwardRef<RockingChairHandle, RockingChairProps>(
 				{...props}
 			>
 				<motion.svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"
@@ -127,9 +125,9 @@ const RockingChair = forwardRef<RockingChairHandle, RockingChairProps>(
 					<path d="M2.75 18a13 13 0 0 0 18.5 0" />
 				</motion.svg>
 			</div>
-		)
+		);
 	}
-)
+);
 
-RockingChair.displayName = 'RockingChair'
-export { RockingChair }
+RockingChair.displayName = 'RockingChair';
+export { RockingChair };

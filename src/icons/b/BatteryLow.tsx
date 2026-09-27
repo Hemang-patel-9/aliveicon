@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface BatteryLowHandle {
 	startAnimation: () => void;
@@ -48,11 +37,7 @@ export const BatteryLow = forwardRef<BatteryLowHandle, BatteryLowProps>(
 		ref
 	) => {
 		const shellControls = useAnimation();
-		const barsControls = [
-			useAnimation(),
-			useAnimation(),
-			useAnimation(),
-		];
+		const barsControls = [useAnimation(), useAnimation(), useAnimation()];
 		const loopRef = useRef(loopOnHover);
 		const isControlledRef = useRef(false);
 
@@ -63,7 +48,7 @@ export const BatteryLow = forwardRef<BatteryLowHandle, BatteryLowProps>(
 			}
 			if (loopRef.current) {
 				await shellControls.start('normal');
-				await Promise.all(barsControls.map(ctrl => ctrl.start('off')));
+				await Promise.all(barsControls.map((ctrl) => ctrl.start('off')));
 				triggerAnimation();
 			}
 		}, [shellControls, barsControls]);
@@ -82,20 +67,22 @@ export const BatteryLow = forwardRef<BatteryLowHandle, BatteryLowProps>(
 				startAnimation: () => triggerAnimation(),
 				stopAnimation: () => {
 					shellControls.start('normal');
-					barsControls.forEach(ctrl => ctrl.start('off'));
+					barsControls.forEach((ctrl) => ctrl.start('off'));
 				},
 			};
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				shellControls.start('normal');
-				barsControls.forEach(ctrl => ctrl.start('off'));
+				barsControls.forEach((ctrl) => ctrl.start('off'));
 			}
 			onMouseLeave?.(e);
 		};
@@ -132,6 +119,7 @@ export const BatteryLow = forwardRef<BatteryLowHandle, BatteryLowProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -142,7 +130,6 @@ export const BatteryLow = forwardRef<BatteryLowHandle, BatteryLowProps>(
 					width="100%"
 					height="100%"
 				>
-					{/* Battery shell */}
 					<motion.rect
 						x="2"
 						y="7"
@@ -154,7 +141,6 @@ export const BatteryLow = forwardRef<BatteryLowHandle, BatteryLowProps>(
 						initial="normal"
 						animate={shellControls}
 					/>
-					{/* Battery terminal */}
 					<motion.line
 						x1="22"
 						y1="11"
@@ -164,7 +150,6 @@ export const BatteryLow = forwardRef<BatteryLowHandle, BatteryLowProps>(
 						initial="normal"
 						animate={shellControls}
 					/>
-					{/* Battery bars */}
 					<motion.line
 						x1="6"
 						y1="11"

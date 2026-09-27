@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface ArrowDownAZHandle {
 	startAnimation: () => void;
@@ -97,11 +86,13 @@ export const ArrowDownAZ = forwardRef<ArrowDownAZHandle, ArrowDownAZProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) controls.stop();
 			onMouseLeave?.(e);
 		};
@@ -121,6 +112,7 @@ export const ArrowDownAZ = forwardRef<ArrowDownAZHandle, ArrowDownAZProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -131,7 +123,6 @@ export const ArrowDownAZ = forwardRef<ArrowDownAZHandle, ArrowDownAZProps>(
 					width="100%"
 					height="100%"
 				>
-					{/* Arrow */}
 					<motion.path
 						d="m3 16 4 4 4-4"
 						variants={arrowVariants}
@@ -140,7 +131,6 @@ export const ArrowDownAZ = forwardRef<ArrowDownAZHandle, ArrowDownAZProps>(
 					/>
 					<path d="M7 20V4" />
 
-					{/* A */}
 					<motion.text
 						x="15"
 						y="10"
@@ -152,7 +142,6 @@ export const ArrowDownAZ = forwardRef<ArrowDownAZHandle, ArrowDownAZProps>(
 						A
 					</motion.text>
 
-					{/* Z */}
 					<motion.text
 						x="15"
 						y="20"

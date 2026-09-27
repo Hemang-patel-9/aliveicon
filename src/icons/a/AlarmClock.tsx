@@ -1,34 +1,10 @@
 'use client';
 
-import type { Variants } from 'framer-motion';
-import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import type { HTMLAttributes } from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface AlarmClockHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface AlarmClockProps extends HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-}
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const pathVariants: Variants = {
 	normal: {
@@ -62,103 +38,14 @@ const secondaryPathVariants: Variants = {
 	},
 };
 
-const AlarmClock = forwardRef<AlarmClockHandle, AlarmClockProps>(
-	(
-		{
-			className,
-			size = 28,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const isControlledRef = useRef(false);
-		const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-		const startOnce = useCallback(() => {
-			controls.start('animate');
-			if (timeoutRef.current) clearTimeout(timeoutRef.current);
-			timeoutRef.current = setTimeout(() => {
-				controls.start('normal');
-			}, 700); // single cycle duration
-		}, [controls]);
-
-		const startLoop = useCallback(() => {
-			controls.start('animate');
-		}, [controls]);
-
-		const stopAnimation = useCallback(() => {
-			if (timeoutRef.current) clearTimeout(timeoutRef.current);
-			controls.start('normal');
-		}, [controls]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => startOnce(),
-				stopAnimation: () => stopAnimation(),
-			};
-		});
-
-		const handleMouseEnter = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (!isControlledRef.current && hoverable) {
-					if (loopOnHover) {
-						startLoop();
-					} else {
-						startOnce();
-					}
-				}
-				onMouseEnter?.(e);
-			},
-			[hoverable, loopOnHover, onMouseEnter, startOnce, startLoop]
-		);
-
-		const handleMouseLeave = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (!isControlledRef.current && hoverable && loopOnHover) {
-					stopAnimation();
-				}
-				onMouseLeave?.(e);
-			},
-			[hoverable, loopOnHover, onMouseLeave, stopAnimation]
-		);
-
-		const handleClick = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (!isControlledRef.current && animateOnClick) {
-					startOnce();
-				}
-				onClick?.(e);
-			},
-			[animateOnClick, onClick, startOnce]
-		);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) {
-				startOnce();
-			}
-			return () => {
-				if (timeoutRef.current) clearTimeout(timeoutRef.current);
-			};
-		}, [autoAnimateOnLoad, startOnce]);
+const AlarmClock = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props, { cycleMs: 700 });
 
 		return (
-			<div
-				className={cn(className)}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
-			>
+			<div className={cn(className)} {...iconProps}>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width={size}
 					height={size}

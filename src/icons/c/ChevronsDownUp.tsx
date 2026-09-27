@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface ChevronsDownUpHandle {
 	startAnimation: () => void;
@@ -30,10 +19,7 @@ interface ChevronsDownUpProps extends React.HTMLAttributes<HTMLDivElement> {
 	style?: React.CSSProperties;
 }
 
-export const ChevronsDownUp = forwardRef<
-	ChevronsDownUpHandle,
-	ChevronsDownUpProps
->(
+export const ChevronsDownUp = forwardRef<ChevronsDownUpHandle, ChevronsDownUpProps>(
 	(
 		{
 			size = 28,
@@ -56,14 +42,8 @@ export const ChevronsDownUp = forwardRef<
 		const isControlledRef = useRef(false);
 
 		const triggerAnimation = useCallback(async () => {
-			await Promise.all([
-				topControl.start('animate'),
-				bottomControl.start('animate'),
-			]);
-			await Promise.all([
-				topControl.start('initial'),
-				bottomControl.start('initial'),
-			]);
+			await Promise.all([topControl.start('animate'), bottomControl.start('animate')]);
+			await Promise.all([topControl.start('initial'), bottomControl.start('initial')]);
 			if (loopRef.current) triggerAnimation();
 		}, [topControl, bottomControl]);
 
@@ -79,24 +59,20 @@ export const ChevronsDownUp = forwardRef<
 			isControlledRef.current = true;
 			return {
 				startAnimation: () =>
-					Promise.all([
-						topControl.start('animate'),
-						bottomControl.start('animate'),
-					]),
+					Promise.all([topControl.start('animate'), bottomControl.start('animate')]),
 				stopAnimation: () =>
-					Promise.all([
-						topControl.start('initial'),
-						bottomControl.start('initial'),
-					]),
+					Promise.all([topControl.start('initial'), bottomControl.start('initial')]),
 			};
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				topControl.start('initial');
 				bottomControl.start('initial');
@@ -115,7 +91,7 @@ export const ChevronsDownUp = forwardRef<
 				y: [0, 4, 0],
 				transition: {
 					duration: 0.6,
-					ease: [0.65, 0, 0.35, 1], // realistic easeInOut
+					ease: [0.65, 0, 0.35, 1],
 				},
 			},
 		};
@@ -141,6 +117,7 @@ export const ChevronsDownUp = forwardRef<
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface UndoDotHandle {
 	startAnimation: () => void;
@@ -92,11 +81,13 @@ const UndoDot = forwardRef<UndoDotHandle, UndoDotProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				controls.start('visible');
 				circleControls.start('visible');
@@ -109,10 +100,7 @@ const UndoDot = forwardRef<UndoDotHandle, UndoDotProps>(
 			onClick?.(e);
 		};
 
-		const paths = [
-			'M21 17a9 9 0 0 0-15-6.7L3 13',
-			'M3 7v6h6',
-		];
+		const paths = ['M21 17a9 9 0 0 0-15-6.7L3 13', 'M3 7v6h6'];
 
 		return (
 			<div
@@ -124,6 +112,7 @@ const UndoDot = forwardRef<UndoDotHandle, UndoDotProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

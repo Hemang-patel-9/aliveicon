@@ -1,41 +1,59 @@
 {
   "name": "aliveicon",
   "version": "1.0.32",
-  "description": "This is a animated icons library",
+  "description": "500+ animated SVG icons for React that draw themselves on hover, click, or load.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/types/index.d.ts"
+      "require": "./dist/cjs/index.js"
     },
+    "./package.json": "./package.json",
     "./*": "./dist/*"
   },
-  "sideEffects": true,
+  "sideEffects": false,
   "files": [
-    "dist"
+    "dist",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "scripts": {
     "build": "rollup -c",
-    "prepublishOnly": "npm run build"
+    "generate": "node scripts/generate-index.mjs",
+    "lint:icons": "node scripts/lint-icons.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/smoke-test.mjs",
+    "check": "node scripts/generate-index.mjs --check && npm run lint:icons && npm run format:check && npm run typecheck",
+    "prepublishOnly": "npm run check && npm run build && npm test",
+    "format": "prettier --write src scripts rollup.config.js",
+    "format:check": "prettier --check src scripts rollup.config.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hemang-patel-9/aliveicon.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "react",
+    "icons",
+    "animated-icons",
+    "svg",
+    "framer-motion",
+    "motion",
+    "lucide",
+    "nextjs",
+    "typescript"
+  ],
+  "author": "Hemang Baldha",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Hemang-patel-9/aliveicon/issues"
   },
   "homepage": "https://github.com/Hemang-patel-9/aliveicon#readme",
   "dependencies": {
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.3.0",
-    "tailwindcss": "^4.1.6"
+    "tailwind-merge": "^3.3.0"
   },
   "peerDependencies": {
     "framer-motion": ">=10.0.0",
@@ -43,24 +61,14 @@
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-babel": "^6.0.4",
-    "framer-motion": ">=10.0.0",
-    "@rollup/plugin-commonjs": "^28.0.3",
-    "@rollup/plugin-image": "^3.0.3",
-    "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
-    "@types/next": "^8.0.7",
     "@types/react": "^18.3.21",
-    "autoprefixer": "^10.4.21",
-    "install": "^0.13.0",
-    "npm": "^11.3.0",
-    "postcss": "^8.5.3",
+    "framer-motion": "^12.11.3",
+    "prettier": "^3.9.9",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "rollup": "^2.79.2",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.8.3",
-    "tailwindcss": "^4.1.6"
+    "typescript": "^5.8.3"
   }
 }

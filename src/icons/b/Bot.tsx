@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-	useCallback,
-} from 'react';
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: (string | false | null | undefined)[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useEffect, useImperativeHandle, useRef, useCallback } from 'react';
+import { cn } from '../../lib/cn';
 
 interface BotHandle {
 	startAnimation: () => void;
@@ -82,11 +71,13 @@ export const Bot = forwardRef<BotHandle, BotProps>(
 		}, [autoAnimateOnLoad, triggerAnimation]);
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				controls.start('normal');
 				blinkControls.stop();
@@ -130,6 +121,7 @@ export const Bot = forwardRef<BotHandle, BotProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -153,10 +145,8 @@ export const Bot = forwardRef<BotHandle, BotProps>(
 					<motion.path d="M2 14h2" initial="normal" animate={controls} />
 					<motion.path d="M20 14h2" initial="normal" animate={controls} />
 
-					{/* 👁 Left Eye - static */}
 					<motion.path d="M9 13v2" variants={pathVariants} initial="normal" animate={controls} />
 
-					{/* 👁 Right Eye - blinking */}
 					<motion.path
 						d="M15 13v2"
 						variants={blinkVariants}

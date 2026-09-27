@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface UnfoldHorizontalHandle {
 	startAnimation: () => void;
@@ -69,8 +58,8 @@ const UnfoldHorizontal = forwardRef<UnfoldHorizontalHandle, UnfoldHorizontalProp
 				transition: {
 					duration: 1,
 					ease: [0.6, 0.01, -0.05, 0.95],
-					times: [0, 0.25, 0.5, 0.5, 0.75, 1]
-				}
+					times: [0, 0.25, 0.5, 0.5, 0.75, 1],
+				},
 			});
 
 			await pathControls.start('visible');
@@ -97,11 +86,13 @@ const UnfoldHorizontal = forwardRef<UnfoldHorizontalHandle, UnfoldHorizontalProp
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				pathControls.start('visible');
 				arrowControls.start({ x: 0 });
@@ -114,14 +105,7 @@ const UnfoldHorizontal = forwardRef<UnfoldHorizontalHandle, UnfoldHorizontalProp
 			onClick?.(e);
 		};
 
-		const staticPaths = [
-			'M16 12h6',
-			'M8 12H2',
-			'M12 2v2',
-			'M12 8v2',
-			'M12 14v2',
-			'M12 20v2',
-		];
+		const staticPaths = ['M16 12h6', 'M8 12H2', 'M12 2v2', 'M12 8v2', 'M12 14v2', 'M12 20v2'];
 		const leftArrow = 'M5 9l-3 3 3 3';
 		const rightArrow = 'M19 15l3-3-3-3';
 
@@ -135,6 +119,7 @@ const UnfoldHorizontal = forwardRef<UnfoldHorizontalHandle, UnfoldHorizontalProp
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"
@@ -158,16 +143,8 @@ const UnfoldHorizontal = forwardRef<UnfoldHorizontalHandle, UnfoldHorizontalProp
 						/>
 					))}
 
-					<motion.path
-						d={leftArrow}
-						initial={{ opacity: 1 }}
-						animate={arrowControls}
-					/>
-					<motion.path
-						d={rightArrow}
-						initial={{ opacity: 1 }}
-						animate={arrowControls}
-					/>
+					<motion.path d={leftArrow} initial={{ opacity: 1 }} animate={arrowControls} />
+					<motion.path d={rightArrow} initial={{ opacity: 1 }} animate={arrowControls} />
 				</svg>
 			</div>
 		);

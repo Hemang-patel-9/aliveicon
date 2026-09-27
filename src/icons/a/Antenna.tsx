@@ -3,19 +3,8 @@
 import type { Variants } from 'framer-motion';
 import { motion, useAnimation } from 'framer-motion';
 import type { HTMLAttributes } from 'react';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface AntennaHandle {
 	startAnimation: () => void;
@@ -35,7 +24,6 @@ interface AntennaProps extends HTMLAttributes<HTMLDivElement> {
 
 const DURATION = 1.2;
 
-// Animate the antenna lines "wiggle" side to side
 const pathVariants: Variants = {
 	normal: { rotate: 0, originX: '50%', originY: '100%' },
 	animate: {
@@ -44,7 +32,6 @@ const pathVariants: Variants = {
 	},
 };
 
-// Animate the horizontal line scaling left and right subtly
 const horizontalLineVariants: Variants = {
 	normal: { scaleX: 1, originX: 0 },
 	animate: {
@@ -53,7 +40,6 @@ const horizontalLineVariants: Variants = {
 	},
 };
 
-// Animate the vertical line pulsing scaleY
 const verticalLineVariants: Variants = {
 	normal: { scaleY: 1, originY: '100%' },
 	animate: {
@@ -81,7 +67,6 @@ const Antenna = forwardRef<AntennaHandle, AntennaProps>(
 		const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 		const startAnimation = useCallback(() => {
-			// Start infinite animation immediately
 			controls.start('animate');
 		}, [controls]);
 
@@ -94,9 +79,8 @@ const Antenna = forwardRef<AntennaHandle, AntennaProps>(
 			stopAnimation,
 		}));
 
-		// Effect to handle auto animation or load-triggered animation with delay
 		useEffect(() => {
-			if (animationTrigger === 'manual') return; // do nothing automatically
+			if (animationTrigger === 'manual') return;
 
 			if (autoAnimateOnLoad || animationTrigger === 'load') {
 				timeoutRef.current = setTimeout(() => {
@@ -111,8 +95,6 @@ const Antenna = forwardRef<AntennaHandle, AntennaProps>(
 				}
 			};
 		}, [autoAnimateOnLoad, animationTrigger, delay, startAnimation]);
-
-		// Handlers for hover and click depending on trigger type and loop setting
 
 		const handleMouseEnter = useCallback(() => {
 			if (animationTrigger !== 'hover' || !hoverable) return;
@@ -141,6 +123,7 @@ const Antenna = forwardRef<AntennaHandle, AntennaProps>(
 				style={{ width: size, height: size, ...props.style }}
 			>
 				<motion.svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width={size}
 					height={size}
@@ -175,16 +158,8 @@ const Antenna = forwardRef<AntennaHandle, AntennaProps>(
 						animate={controls}
 						style={{ originX: '50%', originY: '100%' }}
 					/>
-					<motion.path
-						d="M4.5 7h15"
-						variants={horizontalLineVariants}
-						animate={controls}
-					/>
-					<motion.path
-						d="M12 16v6"
-						variants={verticalLineVariants}
-						animate={controls}
-					/>
+					<motion.path d="M4.5 7h15" variants={horizontalLineVariants} animate={controls} />
+					<motion.path d="M12 16v6" variants={verticalLineVariants} animate={controls} />
 				</motion.svg>
 			</div>
 		);

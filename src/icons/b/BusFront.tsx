@@ -1,92 +1,14 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-function cn(...inputs: (string | false | null | undefined)[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface BusFrontHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface BusFrontProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-const BusFront = forwardRef<BusFrontHandle, BusFrontProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			await controls.start('normal');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) controls.start('normal');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+const BusFront = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		const pathVariants = {
 			normal: { pathLength: 1, opacity: 1 },
@@ -105,12 +27,10 @@ const BusFront = forwardRef<BusFrontHandle, BusFrontProps>(
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -124,7 +44,16 @@ const BusFront = forwardRef<BusFrontHandle, BusFrontProps>(
 					<motion.path d="M4 6 2 7" variants={pathVariants} initial="normal" animate={controls} />
 					<motion.path d="M10 6h4" variants={pathVariants} initial="normal" animate={controls} />
 					<motion.path d="m22 7-2-1" variants={pathVariants} initial="normal" animate={controls} />
-					<motion.rect width="16" height="16" x="4" y="3" rx="2" variants={pathVariants} initial="normal" animate={controls} />
+					<motion.rect
+						width="16"
+						height="16"
+						x="4"
+						y="3"
+						rx="2"
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
 					<motion.path d="M4 11h16" variants={pathVariants} initial="normal" animate={controls} />
 					<motion.path d="M8 15h.01" variants={pathVariants} initial="normal" animate={controls} />
 					<motion.path d="M16 15h.01" variants={pathVariants} initial="normal" animate={controls} />

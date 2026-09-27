@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface AppWindowMacHandle {
 	startAnimation: () => void;
@@ -51,7 +40,7 @@ const pathVariants = {
 const blinkTransition = {
 	opacity: {
 		repeat: 1,
-		repeatType: "loopRef" as const,
+		repeatType: 'loopRef' as const,
 		duration: 1,
 		ease: 'easeInOut',
 	},
@@ -101,11 +90,13 @@ export const AppWindowMac = forwardRef<AppWindowMacHandle, AppWindowMacProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) controls.start('normal');
 			onMouseLeave?.(e);
 		};
@@ -125,6 +116,7 @@ export const AppWindowMac = forwardRef<AppWindowMacHandle, AppWindowMacProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

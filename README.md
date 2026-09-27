@@ -1,57 +1,51 @@
 # aliveicon
 
-> Beautiful, animated line icons — they draw themselves on hover, click, or page load.
+> Animated line icons for React. They draw themselves on hover, click, or page load.
 
 <p align="left">
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/v/aliveicon.svg?color=blue" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/dm/aliveicon.svg?color=blue" alt="npm downloads" /></a>
   <a href="https://github.com/Hemang-patel-9/aliveicon/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/aliveicon.svg?color=green" alt="license" /></a>
-  <img src="https://img.shields.io/badge/icons-515%2B-orange" alt="icon count" />
+  <img src="https://img.shields.io/badge/icons-520-orange" alt="icon count" />
   <img src="https://img.shields.io/badge/types-included-blue" alt="typescript" />
 </p>
 
-`aliveicon` is a collection of **515+ ready-to-use animated SVG icons** for React. Every icon is a real component that "draws" its stroke with a smooth path animation powered by [Framer Motion](https://www.framer.com/motion/). Drop one into your app and it comes alive on hover, on click, or as soon as it mounts — no extra wiring required.
+`aliveicon` is a set of **520 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
 
 ---
 
 ## ✨ Features
 
-- 🎬 **Animated out of the box** — icons draw their outlines using Framer Motion path animations.
-- 🖱️ **Trigger however you like** — animate on hover, on click, on mount, or loop continuously.
-- 🎨 **Inherits your color** — icons use `currentColor`, so they match your text color automatically.
-- 📏 **Resizable** — set any pixel size with a single `size` prop.
-- 🌳 **Tree-shakeable ESM + CJS builds** — import only the icons you use.
-- 🔠 **TypeScript first** — full type definitions and IntelliSense for every prop.
-- ⚛️ **React 18+, Javsacript & Next.js ready** — components are marked `'use client'` and work in the App Router.
+- 🎬 **Animated out of the box**: strokes draw, bounce, spin or wiggle using Framer Motion.
+- 🖱️ **Trigger it your way**: hover, click, mount, loop while hovered, or drive it from a parent through a `ref`.
+- 🎨 **Inherits your color**: icons use `currentColor`, so they match the surrounding text.
+- 📏 **One `size` prop** sets the width and height in pixels.
+- 🌳 **Tree-shakeable**: each icon is its own module, so your bundle only contains the icons you import.
+- 🔠 **TypeScript**: full prop types, plus `AnimatedIconProps` and `AnimatedIconHandle` for your own code.
+- ⚛️ **React 18/19 and Next.js App Router**: every module ships with `'use client'`, so you can import icons from Server Components.
 
 ---
 
 ## 📦 Installation
 
 ```bash
-npm install aliveicon
+npm install aliveicon framer-motion
 ```
 
 ```bash
-# or with your package manager of choice
-yarn add aliveicon
-pnpm add aliveicon
-bun add aliveicon
+# or
+yarn add aliveicon framer-motion
+pnpm add aliveicon framer-motion
+bun add aliveicon framer-motion
 ```
 
 ### Peer dependencies
-
-`aliveicon` relies on the following packages already being installed in your project:
 
 | Package | Version |
 | ------- | ------- |
 | `react` | `>=18.0.0` |
 | `react-dom` | `>=18.0.0` |
 | `framer-motion` | `>=10.0.0` |
-
-```bash
-npm install react react-dom framer-motion
-```
 
 ---
 
@@ -66,100 +60,98 @@ export default function App() {
       {/* Animates on hover by default */}
       <Activity size={32} />
 
-      {/* Keeps looping while hovered */}
+      {/* Keeps looping while hovered, stops when the pointer leaves */}
       <BellRing size={32} loopOnHover />
 
-      {/* Plays the animation when clicked */}
+      {/* Plays when clicked */}
       <Rocket size={32} animateOnClick />
     </div>
   );
 }
 ```
 
-That's it. By default an icon plays its animation whenever the user hovers over it.
-
 ---
 
 ## 🎛️ Props
 
-Every icon shares the same API. All props are optional, and any extra props (`onClick`, `aria-label`, `id`, …) are forwarded to the wrapping `<div>`.
+Every icon has the same API. All props are optional, and any other props (`onClick`, `aria-label`, `id`, …) are passed to the wrapping `<div>`.
 
 | Prop | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `size` | `number` | `28` | Width and height of the icon, in pixels. |
-| `hoverable` | `boolean` | `true` | Play the animation when the user hovers over the icon. |
-| `loopOnHover` | `boolean` | `false` | Keep replaying the animation for as long as the icon is hovered. |
-| `animateOnClick` | `boolean` | `false` | Play the animation when the icon is clicked. |
-| `autoAnimateOnLoad` | `boolean` | `false` | Play the animation once, automatically, when the component mounts. |
-| `className` | `string` | — | Extra classes merged onto the wrapper (deduped via `tailwind-merge`). |
-| `style` | `React.CSSProperties` | — | Inline styles applied to the wrapper element. |
-| `...props` | `React.HTMLAttributes<HTMLDivElement>` | — | Any other div attributes — `onClick`, `onMouseEnter`, `aria-*`, etc. |
+| `size` | `number` | `28` | Width and height in pixels. |
+| `hoverable` | `boolean` | `true` | Play when the pointer enters the icon. Ignored while a `ref` is attached (see below). |
+| `loopOnHover` | `boolean` | `false` | Keep replaying while hovered; stops when the pointer leaves. |
+| `animateOnClick` | `boolean` | `false` | Play when the icon is clicked. |
+| `autoAnimateOnLoad` | `boolean` | `false` | Play once when the component mounts. |
+| `className` | `string` | — | Classes for the wrapper. Merged with [`tailwind-merge`](https://github.com/dcastil/tailwind-merge), so conflicting Tailwind classes resolve cleanly. |
+| `style` | `React.CSSProperties` | — | Inline styles for the wrapper. |
+| `...props` | `React.HTMLAttributes<HTMLDivElement>` | — | Any other div attribute. |
+
+---
+
+## 🕹️ Controlling an icon from a parent
+
+Pass a `ref` to start and stop the animation yourself, for example when the whole button is hovered rather than just the icon:
+
+```tsx
+import { useRef } from 'react';
+import { ArchiveX, type AnimatedIconHandle } from 'aliveicon';
+
+export function DeleteButton() {
+  const icon = useRef<AnimatedIconHandle>(null);
+
+  return (
+    <button
+      onMouseEnter={() => icon.current?.startAnimation()}
+      onMouseLeave={() => icon.current?.stopAnimation()}
+    >
+      <ArchiveX ref={icon} size={18} /> Delete
+    </button>
+  );
+}
+```
+
+| Method | What it does |
+| ------ | ------------ |
+| `startAnimation()` | Plays the animation once, then returns to rest. |
+| `stopAnimation()` | Stops any running animation and returns to rest. |
+
+While a `ref` is attached the icon ignores its own hover, so the parent is in charge. `animateOnClick` and `autoAnimateOnLoad` still work.
 
 ---
 
 ## 🎨 Styling & color
 
-Icons are drawn with `stroke="currentColor"`, so they take on the **text color** of their container. Change the color the same way you'd change text color:
+Icons are drawn with `stroke="currentColor"`, so they take the **text color** of their container:
 
 ```tsx
-{/* Inline style */}
 <Activity style={{ color: '#e11d48' }} />
 
-{/* Inherit from a parent */}
 <div style={{ color: 'tomato' }}>
   <Activity />
 </div>
 
-{/* Tailwind utility classes */}
 <Activity className="text-emerald-500" />
-```
-
-### Sizing
-
-```tsx
-<Activity size={16} />
-<Activity size={24} />
-<Activity size={48} />
 ```
 
 ---
 
-## 🧩 Usage examples
+## ♿ Accessibility
 
-**Animate automatically on page load**
-
-```tsx
-<Rocket autoAnimateOnLoad />
-```
-
-**Loop the animation while hovering**
+The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decorative icons. When an icon carries meaning on its own, label the wrapper:
 
 ```tsx
-<Bell loopOnHover />
-```
-
-**Animate on click instead of hover**
-
-```tsx
-<Heart hoverable={false} animateOnClick />
-```
-
-**Use inside a button with your own handler**
-
-```tsx
-<button onClick={() => console.log('clicked')}>
-  <Trash animateOnClick aria-label="Delete" />
-</button>
+<Bell role="img" aria-label="Notifications" />
 ```
 
 ---
 
 ## 📚 Available icons
 
-`aliveicon` currently ships **515+ icons** and is actively growing. Import any icon by its named export (PascalCase):
+`aliveicon` ships **520 icons**, and more are being added. Import any icon by its PascalCase name:
 
 ```tsx
-import { CircleCheck, ChartLine, ShieldAlert } from 'aliveicon';
+import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 ```
 
 | Group | Count | Examples |
@@ -169,8 +161,9 @@ import { CircleCheck, ChartLine, ShieldAlert } from 'aliveicon';
 | **C** | 140 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `ChevronDown`, `Circle`, `Clock` |
 | **N** | 16 | `Navigation`, `Network`, `Newspaper`, `Notebook`, `Nut` |
 | **O** | 10 | `Octagon`, `Omega`, `Option`, `Orbit`, `Origami` |
-| **Q** | 2 | `Quote`, `QRCode` |
+| **Q** | 2 | `Quote`, `QrCode` |
 | **R** | 50 | `Rabbit`, `Radar`, `Radio`, `Receipt`, `RefreshCw`, `Rocket`, `RotateCcw` |
+| **S** | 1 | `SquareActivity` |
 | **U** | 35 | `Umbrella`, `Undo`, `Upload`, `User`, `Users`, `Utensils` |
 | **V** | 20 | `Variable`, `Vault`, `Video`, `Volume`, `Vote` |
 | **W** | 33 | `Wallet`, `Wand`, `Watch`, `Waves`, `Webcam`, `Wifi`, `Wind`, `Wrench` |
@@ -178,15 +171,47 @@ import { CircleCheck, ChartLine, ShieldAlert } from 'aliveicon';
 | **Y** | 1 | `YouTube` |
 | **Z** | 4 | `Zap`, `ZapOff`, `ZoomIn`, `ZoomOut` |
 
-> The full, type-checked list of exports lives in [`src/index.ts`](src/index.ts). Your editor's autocomplete will surface every available icon as you type.
+The full list lives in [`src/index.ts`](src/index.ts), and your editor's autocomplete will show every icon as you type.
+
+### Renamed icons
+
+These names were misspelled in earlier versions. The old names still work but are deprecated and will be removed in the next major version.
+
+| Old name | Use instead |
+| -------- | ----------- |
+| `AccessibilityActivity` | `Accessibility` |
+| `AudioWaveForm` | `AudioWaveform` |
+| `BadgeIndianRuppee` | `BadgeIndianRupee` |
+| `BookMark`, `BookMarkCheck`, `BookMarkMinus` | `Bookmark`, `BookmarkCheck`, `BookmarkMinus` |
+| `CCTV` | `Cctv` |
+| `QRCode` | `QrCode` |
+| `USB` | `Usb` |
+| `WebhooksOff` | `WebhookOff` |
 
 ---
 
 ## 🎬 How the animation works
 
-Each icon is an inline SVG whose stroke paths are rendered as Framer Motion `motion.path` elements. When triggered, the icon animates its `pathLength`, `pathOffset`, and `opacity` to redraw the outline from scratch, then settles back into its resting state. Triggers (`hover`, `click`, `mount`, `loop`) simply decide *when* that animation runs, using Framer Motion's `useAnimation` controls under the hood.
+Each icon is an inline SVG whose strokes are Framer Motion elements (`motion.path`, `motion.circle`, …) with two variants: a resting state and an `animate` state. A shared hook, `useAnimatedIcon`, decides *when* to play: on hover, click, mount, in a loop, or when a parent calls the `ref` methods. It plays the `animate` variant and then settles back to rest.
 
 ---
+
+## 🤝 Contributing
+
+```bash
+npm install
+npm run check   # index up to date, icon lint, formatting, type-check
+npm run build
+npm test        # renders every icon from the built package
+```
+
+New icons go in `src/icons/<first letter>/<IconName>.tsx` and use `useAnimatedIcon` from `src/lib`. Run `npm run generate` afterwards to add them to `src/index.ts`.
+
+---
+
+## 🙏 Credits
+
+Icon shapes are based on [Lucide](https://lucide.dev) (ISC). See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## 📄 License
 

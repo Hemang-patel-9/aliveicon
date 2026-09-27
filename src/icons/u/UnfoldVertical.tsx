@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface UnfoldVerticalHandle {
 	startAnimation: () => void;
@@ -69,8 +58,8 @@ const UnfoldVertical = forwardRef<UnfoldVerticalHandle, UnfoldVerticalProps>(
 				transition: {
 					duration: 1,
 					ease: [0.6, 0.01, -0.05, 0.95],
-					times: [0, 0.25, 0.5, 0.5, 0.75, 1]
-				}
+					times: [0, 0.25, 0.5, 0.5, 0.75, 1],
+				},
 			});
 
 			await pathControls.start('visible');
@@ -97,11 +86,13 @@ const UnfoldVertical = forwardRef<UnfoldVerticalHandle, UnfoldVerticalProps>(
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) animate();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				pathControls.start('visible');
 				arrowControls.start({ y: 0 });
@@ -114,14 +105,7 @@ const UnfoldVertical = forwardRef<UnfoldVerticalHandle, UnfoldVerticalProps>(
 			onClick?.(e);
 		};
 
-		const staticLines = [
-			'M12 22v-6',
-			'M12 8V2',
-			'M4 12H2',
-			'M10 12H8',
-			'M16 12h-2',
-			'M22 12h-2',
-		];
+		const staticLines = ['M12 22v-6', 'M12 8V2', 'M4 12H2', 'M10 12H8', 'M16 12h-2', 'M22 12h-2'];
 
 		const topArrow = 'M15 5L12 2L9 5';
 		const bottomArrow = 'M15 19L12 22L9 19';
@@ -136,6 +120,7 @@ const UnfoldVertical = forwardRef<UnfoldVerticalHandle, UnfoldVerticalProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"
@@ -159,16 +144,8 @@ const UnfoldVertical = forwardRef<UnfoldVerticalHandle, UnfoldVerticalProps>(
 						/>
 					))}
 
-					<motion.path
-						d={topArrow}
-						initial={{ opacity: 1 }}
-						animate={arrowControls}
-					/>
-					<motion.path
-						d={bottomArrow}
-						initial={{ opacity: 1 }}
-						animate={arrowControls}
-					/>
+					<motion.path d={topArrow} initial={{ opacity: 1 }} animate={arrowControls} />
+					<motion.path d={bottomArrow} initial={{ opacity: 1 }} animate={arrowControls} />
 				</svg>
 			</div>
 		);

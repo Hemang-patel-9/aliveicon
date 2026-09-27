@@ -1,100 +1,27 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon, type AnimationDefinition } from '../../lib/use-animated-icon';
 
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+const animateTarget: AnimationDefinition = (i) => ({
+	pathLength: [0, 1],
+	opacity: [0, 1],
+	transition: {
+		duration: 0.4,
+		delay: i * 0.08,
+		ease: 'easeInOut',
+	},
+});
 
-interface USBHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface USBProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	className?: string;
-	style?: React.CSSProperties;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-}
-
-const USB = forwardRef<USBHandle, USBProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const animate = useCallback(async () => {
-			await controls.start((i) => ({
-				pathLength: [0, 1],
-				opacity: [0, 1],
-				transition: {
-					duration: 0.4,
-					delay: i * 0.08,
-					ease: 'easeInOut',
-				},
-			}));
-			await controls.start('visible');
-			if (loopRef.current) animate();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) animate();
-		}, [autoAnimateOnLoad, animate]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: animate,
-				stopAnimation: () => controls.start('visible'),
-			};
+const Usb = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props, {
+			rest: 'visible',
+			animate: animateTarget,
 		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) animate();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) controls.start('visible');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate();
-			onClick?.(e);
-		};
 
 		const paths = [
 			'M4.7 19.3 19 5',
@@ -113,12 +40,10 @@ const USB = forwardRef<USBHandle, USBProps>(
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"
@@ -167,5 +92,5 @@ const USB = forwardRef<USBHandle, USBProps>(
 	}
 );
 
-USB.displayName = 'USB';
-export { USB };
+Usb.displayName = 'Usb';
+export { Usb };

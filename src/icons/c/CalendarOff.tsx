@@ -1,34 +1,10 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface CalendarOffHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface CalendarOffProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const pathVariants = {
 	normal: {
@@ -48,74 +24,18 @@ const pathVariants = {
 	},
 };
 
-export const CalendarOff = forwardRef<CalendarOffHandle, CalendarOffProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			await controls.start('normal');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) controls.start('normal');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+export const CalendarOff = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -126,11 +46,26 @@ export const CalendarOff = forwardRef<CalendarOffHandle, CalendarOffProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.path d="M4.2 4.2A2 2 0 0 0 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 1.82-1.18" variants={pathVariants} initial="normal" animate={controls} />
-					<motion.path d="M21 15.5V6a2 2 0 0 0-2-2H9.5" variants={pathVariants} initial="normal" animate={controls} />
+					<motion.path
+						d="M4.2 4.2A2 2 0 0 0 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 1.82-1.18"
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M21 15.5V6a2 2 0 0 0-2-2H9.5"
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
 					<motion.path d="M16 2v4" variants={pathVariants} initial="normal" animate={controls} />
 					<motion.path d="M3 10h7" variants={pathVariants} initial="normal" animate={controls} />
-					<motion.path d="M21 10h-5.5" variants={pathVariants} initial="normal" animate={controls} />
+					<motion.path
+						d="M21 10h-5.5"
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
 					<motion.path d="M2 2l20 20" variants={pathVariants} initial="normal" animate={controls} />
 				</svg>
 			</div>

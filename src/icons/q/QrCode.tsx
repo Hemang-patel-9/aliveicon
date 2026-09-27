@@ -1,34 +1,10 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface QRCodeHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface QRCodeProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const pathVariants = {
 	normal: {
@@ -48,74 +24,18 @@ const pathVariants = {
 	},
 };
 
-export const QRCode = forwardRef<QRCodeHandle, QRCodeProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			await controls.start('normal');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) controls.start('normal');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+export const QrCode = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -126,12 +46,49 @@ export const QRCode = forwardRef<QRCodeHandle, QRCodeProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.rect width="5" height="5" x="3" y="3" rx="1" variants={pathVariants} animate={controls} initial="normal" />
-					<motion.rect width="5" height="5" x="16" y="3" rx="1" variants={pathVariants} animate={controls} initial="normal" />
-					<motion.rect width="5" height="5" x="3" y="16" rx="1" variants={pathVariants} animate={controls} initial="normal" />
-					<motion.path d="M21 16h-3a2 2 0 0 0-2 2v3" variants={pathVariants} animate={controls} initial="normal" />
+					<motion.rect
+						width="5"
+						height="5"
+						x="3"
+						y="3"
+						rx="1"
+						variants={pathVariants}
+						animate={controls}
+						initial="normal"
+					/>
+					<motion.rect
+						width="5"
+						height="5"
+						x="16"
+						y="3"
+						rx="1"
+						variants={pathVariants}
+						animate={controls}
+						initial="normal"
+					/>
+					<motion.rect
+						width="5"
+						height="5"
+						x="3"
+						y="16"
+						rx="1"
+						variants={pathVariants}
+						animate={controls}
+						initial="normal"
+					/>
+					<motion.path
+						d="M21 16h-3a2 2 0 0 0-2 2v3"
+						variants={pathVariants}
+						animate={controls}
+						initial="normal"
+					/>
 					<motion.path d="M21 21v.01" variants={pathVariants} animate={controls} initial="normal" />
-					<motion.path d="M12 7v3a2 2 0 0 1-2 2H7" variants={pathVariants} animate={controls} initial="normal" />
+					<motion.path
+						d="M12 7v3a2 2 0 0 1-2 2H7"
+						variants={pathVariants}
+						animate={controls}
+						initial="normal"
+					/>
 					<motion.path d="M3 12h.01" variants={pathVariants} animate={controls} initial="normal" />
 					<motion.path d="M12 3h.01" variants={pathVariants} animate={controls} initial="normal" />
 					<motion.path d="M12 16v.01" variants={pathVariants} animate={controls} initial="normal" />
@@ -144,4 +101,4 @@ export const QRCode = forwardRef<QRCodeHandle, QRCodeProps>(
 	}
 );
 
-QRCode.displayName = 'QRCode';
+QrCode.displayName = 'QrCode';

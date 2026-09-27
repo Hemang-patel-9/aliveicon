@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface CalendarSearchHandle {
 	startAnimation: () => void;
@@ -82,14 +71,8 @@ export const CalendarSearch = forwardRef<CalendarSearchHandle, CalendarSearchPro
 		const isControlledRef = useRef(false);
 
 		const triggerAnimation = useCallback(async () => {
-			await Promise.all([
-				controls.start('animate'),
-				magnifierControls.start('animate'),
-			]);
-			await Promise.all([
-				controls.start('normal'),
-				magnifierControls.start('normal'),
-			]);
+			await Promise.all([controls.start('animate'), magnifierControls.start('animate')]);
+			await Promise.all([controls.start('normal'), magnifierControls.start('normal')]);
 			if (loopRef.current) triggerAnimation();
 		}, [controls, magnifierControls]);
 
@@ -116,11 +99,13 @@ export const CalendarSearch = forwardRef<CalendarSearchHandle, CalendarSearchPro
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				controls.start('normal');
 				magnifierControls.start('normal');
@@ -143,6 +128,7 @@ export const CalendarSearch = forwardRef<CalendarSearchHandle, CalendarSearchPro
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -154,8 +140,18 @@ export const CalendarSearch = forwardRef<CalendarSearchHandle, CalendarSearchPro
 					height="100%"
 				>
 					<motion.path d="M16 2v4" variants={pathVariants} initial="normal" animate={controls} />
-					<motion.path d="M21 11.75V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7.25" variants={pathVariants} initial="normal" animate={controls} />
-					<motion.path d="m22 22-1.875-1.875" variants={pathVariants} initial="normal" animate={controls} />
+					<motion.path
+						d="M21 11.75V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7.25"
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="m22 22-1.875-1.875"
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
 					<motion.path d="M3 10h18" variants={pathVariants} initial="normal" animate={controls} />
 					<motion.path d="M8 2v4" variants={pathVariants} initial="normal" animate={controls} />
 					<motion.circle

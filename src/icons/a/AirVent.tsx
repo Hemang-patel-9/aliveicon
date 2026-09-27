@@ -1,25 +1,10 @@
 'use client';
 
-import type { Variants } from 'framer-motion';
-import { motion, useAnimation } from 'framer-motion';
-import type { HTMLAttributes } from 'react';
-import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
-
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface AirVentHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface AirVentProps extends HTMLAttributes<HTMLDivElement> {
-	size?: number;
-}
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const windVariants: Variants = {
 	normal: (custom: number) => ({
@@ -44,49 +29,14 @@ const windVariants: Variants = {
 	}),
 };
 
-const AirVent = forwardRef<AirVentHandle, AirVentProps>(
-	({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
-		const controls = useAnimation();
-		const isControlledRef = useRef(false);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const handleMouseEnter = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (!isControlledRef.current) {
-					controls.start('animate');
-				} else {
-					onMouseEnter?.(e);
-				}
-			},
-			[controls, onMouseEnter]
-		);
-
-		const handleMouseLeave = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (!isControlledRef.current) {
-					controls.start('normal');
-				} else {
-					onMouseLeave?.(e);
-				}
-			},
-			[controls, onMouseLeave]
-		);
+const AirVent = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
-			<div
-				className={cn(className)}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				{...props}
-			>
+			<div className={cn(className)} {...iconProps}>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width={size}
 					height={size}

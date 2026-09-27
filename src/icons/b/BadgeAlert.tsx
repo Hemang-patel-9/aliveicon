@@ -2,13 +2,8 @@
 
 import { motion, useAnimation, type Variants } from 'framer-motion';
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 import type { HTMLMotionProps } from 'framer-motion';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { cn } from '../../lib/cn';
 
 interface BadgeAlertHandle {
 	startAnimation: () => void;
@@ -85,10 +80,7 @@ const BadgeAlert = forwardRef<BadgeAlertHandle, BadgeAlertProps>(
 		});
 
 		const triggerAnimation = useCallback(async () => {
-			await Promise.all([
-				controls.start('animate'),
-				tiltControls.start('animate'),
-			]);
+			await Promise.all([controls.start('animate'), tiltControls.start('animate')]);
 			await controls.start('normal');
 			await tiltControls.start('initial');
 
@@ -107,16 +99,18 @@ const BadgeAlert = forwardRef<BadgeAlertHandle, BadgeAlertProps>(
 
 		const handleMouseEnter = useCallback(
 			(e: React.MouseEvent<HTMLDivElement>) => {
+				loopRef.current = loopOnHover;
 				if (hoverable && !isControlledRef.current) {
 					triggerAnimation();
 				}
 				onMouseEnter?.(e);
 			},
-			[hoverable, onMouseEnter, triggerAnimation]
+			[hoverable, onMouseEnter, triggerAnimation, loopOnHover]
 		);
 
 		const handleMouseLeave = useCallback(
 			(e: React.MouseEvent<HTMLDivElement>) => {
+				loopRef.current = false;
 				if (hoverable && !isControlledRef.current) {
 					controls.start('normal');
 					tiltControls.start('initial');
@@ -154,6 +148,7 @@ const BadgeAlert = forwardRef<BadgeAlertHandle, BadgeAlertProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width={size}
 					height={size}

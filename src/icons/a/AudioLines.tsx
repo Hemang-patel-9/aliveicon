@@ -1,29 +1,10 @@
 'use client';
 
-import { useAnimation, motion } from 'framer-motion';
-import * as React from 'react';
-import { useCallback, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
-
-interface AudioLinesHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface AudioLinesProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const variants = {
 	normal: (d: string) => ({
@@ -40,78 +21,9 @@ const variants = {
 	}),
 };
 
-const AudioLines = forwardRef<AudioLinesHandle, AudioLinesProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = true,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const isControlledRef = useRef(false);
-		const loopRef = useRef(loopOnHover);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		// Update loop ref when prop changes
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		// Recursive animation loop helper
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			await controls.start('normal');
-			if (loopRef.current) {
-				triggerAnimation();
-			}
-		}, [controls]);
-
-		// Auto animate on load
-		useEffect(() => {
-			if (autoAnimateOnLoad && !isControlledRef.current) {
-				triggerAnimation();
-			}
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		// Hover handlers
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) {
-				triggerAnimation();
-			}
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) {
-				controls.start('normal');
-			}
-			onMouseLeave?.(e);
-		};
-
-		// Click handler
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && animateOnClick) {
-				triggerAnimation();
-			}
-			onClick?.(e);
-		};
+const AudioLines = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
@@ -122,12 +34,10 @@ const AudioLines = forwardRef<AudioLinesHandle, AudioLinesProps>(
 					display: 'inline-block',
 					...style,
 				}}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width={size}
 					height={size}

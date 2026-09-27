@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface BatteryWarningHandle {
 	startAnimation: () => void;
@@ -53,14 +42,8 @@ export const BatteryWarning = forwardRef<BatteryWarningHandle, BatteryWarningPro
 		const isControlledRef = useRef(false);
 
 		const triggerAnimation = useCallback(async () => {
-			await Promise.all([
-				outlineControls.start('animate'),
-				warningControls.start('animate'),
-			]);
-			await Promise.all([
-				outlineControls.start('normal'),
-				warningControls.start('normal'),
-			]);
+			await Promise.all([outlineControls.start('animate'), warningControls.start('animate')]);
+			await Promise.all([outlineControls.start('normal'), warningControls.start('normal')]);
 			if (loopRef.current) triggerAnimation();
 		}, [outlineControls, warningControls]);
 
@@ -84,11 +67,13 @@ export const BatteryWarning = forwardRef<BatteryWarningHandle, BatteryWarningPro
 		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				outlineControls.start('normal');
 				warningControls.start('normal');
@@ -129,6 +114,7 @@ export const BatteryWarning = forwardRef<BatteryWarningHandle, BatteryWarningPro
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -139,35 +125,30 @@ export const BatteryWarning = forwardRef<BatteryWarningHandle, BatteryWarningPro
 					width="100%"
 					height="100%"
 				>
-					{/* Warning dot */}
 					<motion.path
 						d="M10 17h.01"
 						variants={warningVariant}
 						initial="normal"
 						animate={warningControls}
 					/>
-					{/* Warning line */}
 					<motion.path
 						d="M10 7v6"
 						variants={warningVariant}
 						initial="normal"
 						animate={warningControls}
 					/>
-					{/* Right side of battery */}
 					<motion.path
 						d="M14 7h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"
 						variants={outlineVariant}
 						initial="normal"
 						animate={outlineControls}
 					/>
-					{/* Terminal */}
 					<motion.path
 						d="M22 11v2"
 						variants={outlineVariant}
 						initial="normal"
 						animate={outlineControls}
 					/>
-					{/* Left side of battery */}
 					<motion.path
 						d="M6 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"
 						variants={outlineVariant}

@@ -1,118 +1,42 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon, type AnimationDefinition } from '../../lib/use-animated-icon';
 
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+const animateTarget: AnimationDefinition = (i) => ({
+	pathLength: [0, 1],
+	opacity: [0, 1],
+	transition: {
+		duration: 0.4,
+		delay: i * 0.1,
+		ease: 'easeInOut',
+	},
+});
 
-interface UserLockHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface UserLockProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	className?: string;
-	style?: React.CSSProperties;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-}
-
-const UserLock = forwardRef<UserLockHandle, UserLockProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const animate = useCallback(async () => {
-			await controls.start((i) => ({
-				pathLength: [0, 1],
-				opacity: [0, 1],
-				transition: {
-					duration: 0.4,
-					delay: i * 0.1,
-					ease: 'easeInOut',
-				},
-			}));
-			await controls.start('visible');
-			if (loopRef.current) animate();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) animate();
-		}, [autoAnimateOnLoad, animate]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: animate,
-				stopAnimation: () => controls.start('visible'),
-			};
+const UserLock = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props, {
+			rest: 'visible',
+			animate: animateTarget,
 		});
 
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) animate();
-			onMouseEnter?.(e);
-		};
+		const paths = ['M10.3 15H7a4 4 0 0 0-4 4v2', 'M15 15.5V14a2 2 0 0 1 4 0v1.5'];
 
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) controls.start('visible');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate();
-			onClick?.(e);
-		};
-
-		const paths = [
-			'M10.3 15H7a4 4 0 0 0-4 4v2',
-			'M15 15.5V14a2 2 0 0 1 4 0v1.5',
-		];
 		const circles = [{ cx: 10, cy: 7, r: 4 }];
+
 		const rects = [{ x: 13, y: 16, width: 8, height: 5, rx: 0.899 }];
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"

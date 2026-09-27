@@ -1,33 +1,22 @@
-'use client'
+'use client';
 
-import { motion, useAnimation } from 'framer-motion'
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react'
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs))
-}
+import { motion, useAnimation } from 'framer-motion';
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface RedoDotHandle {
-	startAnimation: () => void
-	stopAnimation: () => void
+	startAnimation: () => void;
+	stopAnimation: () => void;
 }
 
 interface RedoDotProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number
-	className?: string
-	style?: React.CSSProperties
-	autoAnimateOnLoad?: boolean
-	hoverable?: boolean
-	loopOnHover?: boolean
-	animateOnClick?: boolean
+	size?: number;
+	className?: string;
+	style?: React.CSSProperties;
+	autoAnimateOnLoad?: boolean;
+	hoverable?: boolean;
+	loopOnHover?: boolean;
+	animateOnClick?: boolean;
 }
 
 const RedoDot = forwardRef<RedoDotHandle, RedoDotProps>(
@@ -47,10 +36,10 @@ const RedoDot = forwardRef<RedoDotHandle, RedoDotProps>(
 		},
 		ref
 	) => {
-		const controls = useAnimation()
-		const circleControls = useAnimation()
-		const loopRef = useRef(loopOnHover)
-		const isControlledRef = useRef(false)
+		const controls = useAnimation();
+		const circleControls = useAnimation();
+		const loopRef = useRef(loopOnHover);
+		const isControlledRef = useRef(false);
 
 		const animate = useCallback(async () => {
 			await controls.start((i) => ({
@@ -61,58 +50,57 @@ const RedoDot = forwardRef<RedoDotHandle, RedoDotProps>(
 					delay: i * 0.1,
 					ease: 'easeInOut',
 				},
-			}))
+			}));
 			await circleControls.start({
 				opacity: [0, 1],
 				scale: [0.4, 1],
 				transition: { duration: 0.3, ease: 'easeOut' },
-			})
-			await controls.start('visible')
-			await circleControls.start('visible')
-			if (loopRef.current) animate()
-		}, [controls, circleControls])
+			});
+			await controls.start('visible');
+			await circleControls.start('visible');
+			if (loopRef.current) animate();
+		}, [controls, circleControls]);
 
 		useEffect(() => {
-			loopRef.current = loopOnHover
-		}, [loopOnHover])
+			loopRef.current = loopOnHover;
+		}, [loopOnHover]);
 
 		useEffect(() => {
-			if (autoAnimateOnLoad) animate()
-		}, [autoAnimateOnLoad, animate])
+			if (autoAnimateOnLoad) animate();
+		}, [autoAnimateOnLoad, animate]);
 
 		useImperativeHandle(ref, () => {
-			isControlledRef.current = true
+			isControlledRef.current = true;
 			return {
 				startAnimation: animate,
 				stopAnimation: () => {
-					controls.start('visible')
-					circleControls.start('visible')
+					controls.start('visible');
+					circleControls.start('visible');
 				},
-			}
-		})
+			};
+		});
 
 		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) animate()
-			onMouseEnter?.(e)
-		}
+			loopRef.current = loopOnHover;
+			if (!isControlledRef.current && hoverable) animate();
+			onMouseEnter?.(e);
+		};
 
 		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
-				controls.start('visible')
-				circleControls.start('visible')
+				controls.start('visible');
+				circleControls.start('visible');
 			}
-			onMouseLeave?.(e)
-		}
+			onMouseLeave?.(e);
+		};
 
 		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate()
-			onClick?.(e)
-		}
+			if (animateOnClick) animate();
+			onClick?.(e);
+		};
 
-		const paths = [
-			'M21 7v6h-6', // arrow
-			'M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7', // curve
-		]
+		const paths = ['M21 7v6h-6', 'M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7'];
 
 		return (
 			<div
@@ -124,6 +112,7 @@ const RedoDot = forwardRef<RedoDotHandle, RedoDotProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					width="100%"
 					height="100%"
@@ -158,9 +147,9 @@ const RedoDot = forwardRef<RedoDotHandle, RedoDotProps>(
 					/>
 				</svg>
 			</div>
-		)
+		);
 	}
-)
+);
 
-RedoDot.displayName = 'RedoDot'
-export { RedoDot }
+RedoDot.displayName = 'RedoDot';
+export { RedoDot };

@@ -1,19 +1,8 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useCallback,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { cn } from '../../lib/cn';
 
 interface BellRingHandle {
 	startAnimation: () => void;
@@ -52,7 +41,6 @@ export const BellRing = forwardRef<BellRingHandle, BellRingProps>(
 		const loopRef = useRef(loopOnHover);
 		const isControlledRef = useRef(false);
 
-		// Bell swing animation
 		const swingVariants = {
 			normal: { rotate: 0 },
 			animate: {
@@ -61,7 +49,6 @@ export const BellRing = forwardRef<BellRingHandle, BellRingProps>(
 			},
 		};
 
-		// Ring arcs vibration animation
 		const ringVibrateVariants = {
 			normal: { x: 0, opacity: 1 },
 			animate: {
@@ -72,7 +59,6 @@ export const BellRing = forwardRef<BellRingHandle, BellRingProps>(
 		};
 
 		const triggerAnimation = useCallback(async () => {
-			// Start bell swing and ring arcs vibration simultaneously
 			await Promise.all([controls.start('animate'), arcsControls.start('animate')]);
 			await Promise.all([controls.start('normal'), arcsControls.start('normal')]);
 			if (loopRef.current) triggerAnimation();
@@ -110,6 +96,7 @@ export const BellRing = forwardRef<BellRingHandle, BellRingProps>(
 				{...props}
 			>
 				<svg
+					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -120,18 +107,16 @@ export const BellRing = forwardRef<BellRingHandle, BellRingProps>(
 					width="100%"
 					height="100%"
 				>
-					{/* Bell body with swing animation */}
 					<motion.g
 						animate={controls}
 						initial="normal"
 						variants={swingVariants}
-						style={{ originX: '50%', originY: '0%' }} // pivot top center
+						style={{ originX: '50%', originY: '0%' }}
 					>
 						<path d="M10.268 21a2 2 0 0 0 3.464 0" />
 						<path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" />
 					</motion.g>
 
-					{/* Left ringing arc with vibration */}
 					<motion.path
 						d="M4 2C2.8 3.7 2 5.7 2 8"
 						animate={arcsControls}
@@ -139,7 +124,6 @@ export const BellRing = forwardRef<BellRingHandle, BellRingProps>(
 						variants={ringVibrateVariants}
 					/>
 
-					{/* Right ringing arc with vibration */}
 					<motion.path
 						d="M22 8c0-2.3-.8-4.3-2-6"
 						animate={arcsControls}
@@ -151,11 +135,13 @@ export const BellRing = forwardRef<BellRingHandle, BellRingProps>(
 		);
 
 		function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
+			loopRef.current = loopOnHover;
 			if (!isControlledRef.current && hoverable) triggerAnimation();
 			onMouseEnter?.(e);
 		}
 
 		function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
+			loopRef.current = false;
 			if (!isControlledRef.current && hoverable) {
 				controls.start('normal');
 				arcsControls.start('normal');
