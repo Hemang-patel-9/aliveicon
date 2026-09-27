@@ -207,6 +207,8 @@ npm test        # renders every icon from the built package
 
 New icons go in `src/icons/<first letter>/<IconName>.tsx` and use `useAnimatedIcon` from `src/lib`. Run `npm run generate` afterwards to add them to `src/index.ts`.
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide, and please follow the [Code of Conduct](CODE_OF_CONDUCT.md). Security issues go through [SECURITY.md](SECURITY.md).
+
 ---
 
 ## 🙏 Credits

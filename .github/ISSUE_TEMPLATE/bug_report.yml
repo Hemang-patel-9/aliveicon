@@ -1,0 +1,50 @@
+name: Bug report
+description: Something isn't working as expected
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: aliveicon version
+      placeholder: 1.0.32
+    validations:
+      required: true
+  - type: input
+    id: icon
+    attributes:
+      label: Icon(s)
+      placeholder: BellRing
+    validations:
+      required: true
+  - type: dropdown
+    id: trigger
+    attributes:
+      label: Trigger
+      multiple: true
+      options:
+        - hover
+        - loopOnHover
+        - animateOnClick
+        - autoAnimateOnLoad
+        - ref (startAnimation / stopAnimation)
+        - not animation related
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: React, framer-motion and framework versions
+      placeholder: React 19.1, framer-motion 12.11, Next.js 15 (App Router)
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what did you see instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Code to reproduce
+      render: tsx

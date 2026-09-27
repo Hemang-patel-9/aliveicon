@@ -1,0 +1,21 @@
+name: Icon request
+description: Ask for an icon that isn't in aliveicon yet
+labels: [icon request]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Lucide icon name
+      placeholder: Heart
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      placeholder: https://lucide.dev/icons/heart
+  - type: textarea
+    id: animation
+    attributes:
+      label: Animation idea
+      description: How should it move? e.g. beats, draws itself, swings
