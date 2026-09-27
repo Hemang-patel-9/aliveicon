@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 
 permissions:
   id-token: write
@@ -19,5 +20,7 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
+      - run: npm install -g npm@12
+      - run: npm --version
       - run: npm ci
-      - run: npm stage publish .
+      - run: npm stage publish . --loglevel verbose
