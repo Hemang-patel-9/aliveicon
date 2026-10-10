@@ -6,6 +6,16 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- 36 icons from Lucide: `ALargeSmall`, `Ad`, `AlarmClockOff`, `AlarmSmoke`, `Angle`, `Anvil`,
+  `ArmenianDram`, `ArrowDownFromLine`, `ArrowDownLeft`, `ArrowDownNarrowWide`, `ArrowDownRight`,
+  `ArrowDownToDot`, `ArrowDownWideNarrow`, `ArrowLeftFromLine`, `ArrowLeftRight`, `ArrowLeftToLine`,
+  `ArrowRightFromLine`, `ArrowRightLeft`, `ArrowRightToLine`, `ArrowUp01`, `ArrowUp10`, `ArrowUpAZ`,
+  `ArrowUpDown`, `ArrowUpFromDot`, `ArrowUpFromLine`, `ArrowUpLeft`, `ArrowUpNarrowWide`,
+  `ArrowUpRight`, `ArrowUpToLine`, `ArrowUpWideNarrow`, `ArrowUpZA`, `ArrowsUpFromLine`, `Astroid`,
+  `AudioLinesOff`, `AudioLinesX`, `Axis3d`.
+
 ## [1.1.1] - 2026-09-27
 
 ### Changed
