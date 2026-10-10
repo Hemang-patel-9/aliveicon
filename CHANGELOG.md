@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- `Anchor`, `ArchiveRestore`, `ArchiveX`, `Armchair`, `Bicep` and `BoomBox` never animated. Their
+  animation was named differently from what the shared trigger hook plays, since 1.1.0.
+
 ## [1.2.0] - 2026-10-10
 
 ### Added

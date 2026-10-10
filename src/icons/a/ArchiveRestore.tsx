@@ -25,7 +25,10 @@ const pathVariants = {
 
 export const ArchiveRestore = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, { rest: 'initial' });
+		const { controls, iconProps } = useAnimatedIcon(ref, props, {
+			rest: 'initial',
+			animate: 'draw',
+		});
 
 		return (
 			<div
