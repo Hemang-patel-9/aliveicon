@@ -14,14 +14,29 @@ npm install
 
 ## Adding an icon
 
-1. Pick the icon on [lucide.dev](https://lucide.dev/icons) and use its exact name, e.g. `BookmarkCheck`.
-   Check it isn't already in `src/index.ts`.
+1. Pick the icon. Most come from [lucide.dev](https://lucide.dev/icons): use its exact name, e.g.
+   `BookmarkCheck`. For an icon that Lucide doesn't have, see the section below. Check the name isn't
+   already in `src/index.ts`.
 2. Create `src/icons/<first letter>/<Name>.tsx`, e.g. `src/icons/b/BookmarkCheck.tsx`.
 3. Copy an existing icon with a similar animation (for example `src/icons/a/AlignCenterHorizontal.tsx`)
-   and replace the paths with the ones from Lucide's SVG. Keep the 24×24 viewBox and don't change the geometry.
+   and replace the paths with the ones from the SVG. Keep the 24×24 viewBox, and for a Lucide icon
+   don't change the geometry.
 4. Wire the triggers with `useAnimatedIcon(ref, props)` from `src/lib/use-animated-icon.ts`.
    Don't write your own hover/click handlers.
 5. Run `npm run generate` to add it to `src/index.ts`.
+
+### Icons that Lucide doesn't have
+
+You can add your own icons too. They need to:
+
+- be your own drawing, or come from a source whose license allows redistribution under the MIT
+  License. Say where it comes from in the pull request.
+- match the style of the rest: 24×24 viewBox, 2px stroke, round caps and joins, `currentColor`.
+- have a PascalCase name, in the folder of its first letter.
+
+If the shape comes from somewhere else, add its source and license text to
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Brand and logo icons depict trademarks, so open an
+issue first and we'll agree on it before you spend time on the animation.
 
 A few rules the lint checks for you:
 
