@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-10-10
+
 ### Fixed
 
 - `Anchor`, `ArchiveRestore`, `ArchiveX`, `Armchair`, `Bicep` and `BoomBox` never animated. Their
