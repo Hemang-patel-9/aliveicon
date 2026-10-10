@@ -30,6 +30,19 @@ A few rules the lint checks for you:
 - the component sets `displayName`
 - no `console.log` and no local `cn` helper
 
+## Seeing your icon in a browser
+
+`npm test` only checks that icons render, so look at yours on the website in `apps/web`. It loads the
+icons straight from `src/`, so your new icon shows up in the gallery.
+
+```bash
+npm run dev          # from the repository root, http://localhost:3000
+```
+
+The first run installs the website's dependencies for you. Search for your icon, hover it, and try the animation triggers in the sidebar. Full details, including
+how to test the packed package instead of the source, are in [apps/web/README.md](apps/web/README.md).
+The website needs Node 22.18 or newer.
+
 ## Before opening a PR
 
 ```bash

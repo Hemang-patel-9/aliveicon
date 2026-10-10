@@ -25,6 +25,8 @@
     "lint:icons": "node scripts/lint-icons.mjs",
     "typecheck": "tsc --noEmit",
     "test": "node scripts/smoke-test.mjs",
+    "dev": "node scripts/web.mjs dev",
+    "web": "node scripts/web.mjs",
     "check": "node scripts/generate-index.mjs --check && npm run lint:icons && npm run format:check && npm run typecheck",
     "prepublishOnly": "npm run check && npm run build && npm test",
     "format": "prettier --write src scripts rollup.config.js",

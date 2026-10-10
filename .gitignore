@@ -136,3 +136,10 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# apps/web
+apps/web/.pack
+apps/web/lib/generated
+apps/web/test-results
+apps/web/playwright-report
+apps/web/next-env.d.ts
