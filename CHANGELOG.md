@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-10
+
 ### Added
 
 - 36 icons from Lucide: `ALargeSmall`, `Ad`, `AlarmClockOff`, `AlarmSmoke`, `Angle`, `Anvil`,
