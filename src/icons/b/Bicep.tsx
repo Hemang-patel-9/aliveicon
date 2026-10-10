@@ -8,7 +8,7 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 export const Bicep = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, { rest: 'relax' });
+		const { controls, iconProps } = useAnimatedIcon(ref, props, { rest: 'relax', animate: 'flex' });
 
 		const pathVariants = {
 			relax: { pathLength: 1, opacity: 1, rotate: 0 },

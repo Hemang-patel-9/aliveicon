@@ -104,6 +104,9 @@ for (const letter of fs.readdirSync(iconsDir).sort()) {
 		if (!usesHook && !legacyIcons.includes(id)) {
 			problems.push(`${id}: should use useAnimatedIcon`);
 		}
+		if (usesHook && !/\banimate\s*:/.test(src)) {
+			problems.push(`${id}: has no "animate" variant or animate option, so it never plays`);
+		}
 	}
 }
 

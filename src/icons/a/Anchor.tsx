@@ -8,7 +8,7 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 export const Anchor = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+		const { controls, iconProps } = useAnimatedIcon(ref, props, { animate: 'animate1' });
 
 		const pathVariants = {
 			normal: {
