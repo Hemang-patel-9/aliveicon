@@ -17,7 +17,7 @@ const popVariants: Variants = {
 const sweepTurnVariants: Variants = {
 	normal: { rotate: 0, transition: { duration: 0.2 } },
 	animate: {
-		rotate: [0, -10, 8, 0],
+		rotate: [0, -4, 3, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
