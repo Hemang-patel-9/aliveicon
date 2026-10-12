@@ -1,3 +1,5 @@
+import { markFulfilled, type Tracked } from './settled';
+
 interface Gate {
 	open: boolean;
 	promise: Promise<void>;
@@ -18,7 +20,7 @@ export function gateFor(id: string): Gate {
 	if (existing) return existing;
 
 	let resolve: () => void = () => {};
-	const promise = new Promise<void>((done) => {
+	const promise: Tracked = new Promise<void>((done) => {
 		resolve = done;
 	});
 	const gate: Gate = {
@@ -27,6 +29,7 @@ export function gateFor(id: string): Gate {
 		release: () => {
 			if (gate.open) return;
 			gate.open = true;
+			markFulfilled(promise);
 			resolve();
 		},
 	};

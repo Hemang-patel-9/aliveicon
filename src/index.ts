@@ -389,16 +389,33 @@ export { ClipboardType } from './icons/c/ClipboardType';
 export { ClipboardX } from './icons/c/ClipboardX';
 export { Clock } from './icons/c/Clock';
 
+// J's icon exports
+export { JapaneseYen } from './icons/j/JapaneseYen';
+export { Joystick } from './icons/j/Joystick';
+
+// K's icon exports
+export { Kanban } from './icons/k/Kanban';
+export { Kayak } from './icons/k/Kayak';
+export { KazakhTenge } from './icons/k/KazakhTenge';
+export { Key } from './icons/k/Key';
+export { KeyRound } from './icons/k/KeyRound';
+export { KeySquare } from './icons/k/KeySquare';
+export { Keyboard } from './icons/k/Keyboard';
+export { KeyboardMusic } from './icons/k/KeyboardMusic';
+export { KeyboardOff } from './icons/k/KeyboardOff';
+
 // N's icon exports
 export { Navigation } from './icons/n/Navigation';
 export { Navigation2 } from './icons/n/Navigation2';
 export { Navigation2Off } from './icons/n/Navigation2Off';
 export { NavigationOff } from './icons/n/NavigationOff';
+export { NepaliRupee } from './icons/n/NepaliRupee';
 export { Network } from './icons/n/Network';
 export { Newspaper } from './icons/n/Newspaper';
 export { Nfc } from './icons/n/Nfc';
 export { NonBinary } from './icons/n/NonBinary';
 export { Notebook } from './icons/n/Notebook';
+export { NotebookDot } from './icons/n/NotebookDot';
 export { NotebookPen } from './icons/n/NotebookPen';
 export { NotebookTabs } from './icons/n/NotebookTabs';
 export { NotebookText } from './icons/n/NotebookText';
@@ -516,8 +533,11 @@ export { UtensilsCrossed } from './icons/u/UtensilsCrossed';
 export { UtilityPole } from './icons/u/UtilityPole';
 
 // V's icon exports
+export { Van } from './icons/v/Van';
 export { Variable } from './icons/v/Variable';
 export { Vault } from './icons/v/Vault';
+export { VectorPolygon } from './icons/v/VectorPolygon';
+export { VectorSquare } from './icons/v/VectorSquare';
 export { Vegan } from './icons/v/Vegan';
 export { VenetianMask } from './icons/v/VenetianMask';
 export { Venus } from './icons/v/Venus';
@@ -528,6 +548,8 @@ export { Video } from './icons/v/Video';
 export { VideoOff } from './icons/v/VideoOff';
 export { Videotape } from './icons/v/Videotape';
 export { View } from './icons/v/View';
+export { Virus } from './icons/v/Virus';
+export { VirusOff } from './icons/v/VirusOff';
 export { Voicemail } from './icons/v/Voicemail';
 export { Volleyball } from './icons/v/Volleyball';
 export { Volume } from './icons/v/Volume';
@@ -574,6 +596,7 @@ export { Wrench } from './icons/w/Wrench';
 
 // X's icon exports
 export { X } from './icons/x/X';
+export { XLineTop } from './icons/x/XLineTop';
 export { XTwitter } from './icons/x/XTwitter';
 
 // Y's icon exports
@@ -582,5 +605,18 @@ export { YouTube } from './icons/y/YouTube';
 // Z's icon exports
 export { Zap } from './icons/z/Zap';
 export { ZapOff } from './icons/z/ZapOff';
+export { ZodiacAquarius } from './icons/z/ZodiacAquarius';
+export { ZodiacAries } from './icons/z/ZodiacAries';
+export { ZodiacCancer } from './icons/z/ZodiacCancer';
+export { ZodiacCapricorn } from './icons/z/ZodiacCapricorn';
+export { ZodiacGemini } from './icons/z/ZodiacGemini';
+export { ZodiacLeo } from './icons/z/ZodiacLeo';
+export { ZodiacLibra } from './icons/z/ZodiacLibra';
+export { ZodiacOphiuchus } from './icons/z/ZodiacOphiuchus';
+export { ZodiacPisces } from './icons/z/ZodiacPisces';
+export { ZodiacSagittarius } from './icons/z/ZodiacSagittarius';
+export { ZodiacScorpio } from './icons/z/ZodiacScorpio';
+export { ZodiacTaurus } from './icons/z/ZodiacTaurus';
+export { ZodiacVirgo } from './icons/z/ZodiacVirgo';
 export { ZoomIn } from './icons/z/ZoomIn';
 export { ZoomOut } from './icons/z/ZoomOut';

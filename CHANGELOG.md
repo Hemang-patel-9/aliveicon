@@ -6,6 +6,15 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- 32 icons from Lucide: `JapaneseYen`, `Joystick`, `Kanban`, `Kayak`, `KazakhTenge`, `Key`, `KeyRound`,
+  `KeySquare`, `Keyboard`, `KeyboardMusic`, `KeyboardOff`, `NepaliRupee`, `NotebookDot`, `Van`,
+  `VectorPolygon`, `VectorSquare`, `Virus`, `VirusOff`, `XLineTop`, `ZodiacAquarius`, `ZodiacAries`,
+  `ZodiacCancer`, `ZodiacCapricorn`, `ZodiacGemini`, `ZodiacLeo`, `ZodiacLibra`,
+  `ZodiacOphiuchus`, `ZodiacPisces`, `ZodiacSagittarius`, `ZodiacScorpio`, `ZodiacTaurus`,
+  `ZodiacVirgo`.
+
 ## [1.2.1] - 2026-10-10
 
 ### Fixed

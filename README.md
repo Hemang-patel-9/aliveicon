@@ -6,11 +6,11 @@
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/v/aliveicon.svg?color=blue" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/dm/aliveicon.svg?color=blue" alt="npm downloads" /></a>
   <a href="https://github.com/Hemang-patel-9/aliveicon/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/aliveicon.svg?color=green" alt="license" /></a>
-  <img src="https://img.shields.io/badge/icons-556-orange" alt="icon count" />
+  <img src="https://img.shields.io/badge/icons-588-orange" alt="icon count" />
   <img src="https://img.shields.io/badge/types-included-blue" alt="typescript" />
 </p>
 
-`aliveicon` is a set of **556 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
+`aliveicon` is a set of **588 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
 
 ---
 
@@ -148,7 +148,7 @@ The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decora
 
 ## 📚 Available icons
 
-`aliveicon` ships **556 icons**, and more are being added. Import any icon by its PascalCase name:
+`aliveicon` ships **588 icons**, and more are being added. Import any icon by its PascalCase name:
 
 ```tsx
 import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
@@ -159,17 +159,19 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 | **A** | 114 | `Activity`, `Airplay`, `AlarmClock`, `Anchor`, `Anvil`, `ArrowRight`, `ArrowUpRight`, `Atom`, `Award` |
 | **B** | 128 | `Battery`, `Bell`, `Bluetooth`, `Book`, `Bot`, `Brain`, `Bug`, `Building` |
 | **C** | 140 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `ChevronDown`, `Circle`, `Clock` |
-| **N** | 16 | `Navigation`, `Network`, `Newspaper`, `Notebook`, `Nut` |
+| **J** | 2 | `JapaneseYen`, `Joystick` |
+| **K** | 9 | `Kanban`, `Kayak`, `Key`, `KeyRound`, `Keyboard`, `KeyboardMusic` |
+| **N** | 18 | `Navigation`, `Network`, `Newspaper`, `Notebook`, `NotebookDot`, `Nut` |
 | **O** | 10 | `Octagon`, `Omega`, `Option`, `Orbit`, `Origami` |
 | **Q** | 2 | `Quote`, `QrCode` |
 | **R** | 50 | `Rabbit`, `Radar`, `Radio`, `Receipt`, `RefreshCw`, `Rocket`, `RotateCcw` |
 | **S** | 1 | `SquareActivity` |
 | **U** | 35 | `Umbrella`, `Undo`, `Upload`, `User`, `Users`, `Utensils` |
-| **V** | 20 | `Variable`, `Vault`, `Video`, `Volume`, `Vote` |
+| **V** | 25 | `Van`, `Variable`, `Vault`, `Video`, `Virus`, `Volume`, `Vote` |
 | **W** | 33 | `Wallet`, `Wand`, `Watch`, `Waves`, `Webcam`, `Wifi`, `Wind`, `Wrench` |
-| **X** | 2 | `X`, `XTwitter` |
+| **X** | 3 | `X`, `XLineTop`, `XTwitter` |
 | **Y** | 1 | `YouTube` |
-| **Z** | 4 | `Zap`, `ZapOff`, `ZoomIn`, `ZoomOut` |
+| **Z** | 17 | `Zap`, `ZodiacAries`, `ZodiacLeo`, `ZodiacTaurus`, `ZoomIn`, `ZoomOut` |
 
 The full list lives in [`src/index.ts`](src/index.ts), and your editor's autocomplete will show every icon as you type.
 

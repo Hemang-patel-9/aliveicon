@@ -2,6 +2,7 @@ import { createElement, type ReactElement } from 'react';
 import type { AnimatedIconProps } from 'aliveicon';
 import type { IconComponent } from './icons';
 import { loaders } from './generated/letter-loaders';
+import { markFulfilled, type Tracked } from './settled';
 
 const components = new Map<string, IconComponent>();
 const loaded = new Set<string>();
@@ -32,7 +33,8 @@ export function loadLetters(letters: string[]): Promise<void> {
 	const cached = groups.get(key);
 	if (cached) return cached;
 
-	const promise = Promise.all(letters.map(loadLetter)).then(() => undefined);
+	const promise: Tracked = Promise.all(letters.map(loadLetter)).then(() => markFulfilled(promise));
+	if (letters.every(isLetterLoaded)) markFulfilled(promise);
 	groups.set(key, promise);
 	return promise;
 }
