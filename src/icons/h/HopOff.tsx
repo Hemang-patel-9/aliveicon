@@ -1,0 +1,119 @@
+'use client';
+
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
+import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
+
+const drawVariants: Variants = {
+	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.2 } },
+	animate: (i: number) => ({
+		pathLength: [0, 1],
+		opacity: [0, 1],
+		transition: { duration: 0.5, delay: i * 0.1, ease: 'easeInOut' },
+	}),
+};
+
+const slashVariants: Variants = {
+	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.2 } },
+	animate: {
+		pathLength: [0, 1],
+		opacity: [0, 1],
+		transition: { duration: 0.4, delay: 0.3, ease: 'easeInOut' },
+	},
+};
+
+const HopOff = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
+
+		return (
+			<div
+				className={cn('inline-block', className)}
+				style={{ width: size, height: size, ...style }}
+				{...iconProps}
+			>
+				<svg
+					aria-hidden="true"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+					width="100%"
+					height="100%"
+				>
+					<motion.path
+						d="M10.82 16.12c1.69.6 3.91.79 5.18.85.28.01.53-.09.7-.27"
+						variants={drawVariants}
+						initial="normal"
+						animate={controls}
+						custom={0}
+					/>
+					<motion.path
+						d="M11.14 20.57c.52.24 2.44 1.12 4.08 1.37.46.06.86-.25.9-.71.12-1.52-.3-3.43-.5-4.28"
+						variants={drawVariants}
+						initial="normal"
+						animate={controls}
+						custom={1}
+					/>
+					<motion.path
+						d="M16.13 21.05c1.65.63 3.68.84 4.87.91a.9.9 0 0 0 .7-.26"
+						variants={drawVariants}
+						initial="normal"
+						animate={controls}
+						custom={1}
+					/>
+					<motion.path
+						d="M17.99 5.52a20.83 20.83 0 0 1 3.15 4.5.8.8 0 0 1-.68 1.13c-1.17.1-2.5.02-3.9-.25"
+						variants={drawVariants}
+						initial="normal"
+						animate={controls}
+						custom={2}
+					/>
+					<motion.path
+						d="M20.57 11.14c.24.52 1.12 2.44 1.37 4.08.04.3-.08.59-.31.75"
+						variants={drawVariants}
+						initial="normal"
+						animate={controls}
+						custom={2}
+					/>
+					<motion.path
+						d="M4.93 4.93a10 10 0 0 0-.67 13.4c.35.43.96.4 1.17-.12.69-1.71 1.07-5.07 1.07-6.71 1.34.45 3.1.9 4.88.62a.85.85 0 0 0 .48-.24"
+						variants={drawVariants}
+						initial="normal"
+						animate={controls}
+						custom={3}
+					/>
+					<motion.path
+						d="M5.52 17.99c1.05.95 2.91 2.42 4.5 3.15a.8.8 0 0 0 1.13-.68c.2-2.34-.33-5.3-1.57-8.28"
+						variants={drawVariants}
+						initial="normal"
+						animate={controls}
+						custom={3}
+					/>
+					<motion.path
+						d="M8.35 2.68a10 10 0 0 1 9.98 1.58c.43.35.4.96-.12 1.17-1.5.6-4.3.98-6.07 1.05"
+						variants={drawVariants}
+						initial="normal"
+						animate={controls}
+						custom={4}
+					/>
+					<motion.path
+						d="m2 2 20 20"
+						variants={slashVariants}
+						initial="normal"
+						animate={controls}
+					/>
+				</svg>
+			</div>
+		);
+	}
+);
+
+HopOff.displayName = 'HopOff';
+
+export { HopOff };

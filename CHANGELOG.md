@@ -14,6 +14,33 @@ All notable changes to this project are documented here. The format follows
   `ZodiacCancer`, `ZodiacCapricorn`, `ZodiacGemini`, `ZodiacLeo`, `ZodiacLibra`,
   `ZodiacOphiuchus`, `ZodiacPisces`, `ZodiacSagittarius`, `ZodiacScorpio`, `ZodiacTaurus`,
   `ZodiacVirgo`.
+- 46 icons from Lucide: `IceCreamBowl`, `IceCreamCone`, `IdCard`, `IdCardLanyard`, `Image`,
+  `ImageDown`, `ImageMinus`, `ImageOff`, `ImagePlay`, `ImagePlus`, `ImageUp`, `ImageUpscale`,
+  `Images`, `Import`, `Inbox`, `IndianRupee`, `Infinity`, `Info`, `InspectionPanel`, `Italic`,
+  `IterationCcw`, `IterationCw`, `IvBag`, `Unplug`, `UsbCPort`, `UserGroup`, `UserKey`,
+  `UserRoundArrowLeft`, `UserRoundGroup`, `UserRoundKey`, `UserRoundStar`, `UserSearch`,
+  `UserShield`, `UserStar`, `WavesArrowDown`, `WavesArrowUp`, `WavesHorizontal`, `WavesVertical`,
+  `WebcamOff`, `WeightTilde`, `Whistle`, `WifiCog`, `WifiLock`, `WifiSync`, `WindArrowUp`,
+  `WrenchOff`.
+- 116 icons from Lucide: `BadgeQuestionMark`, `BadgeTurkishLira`, `Balloon`, `BangladeshiTaka`,
+  `BanknoteCheck`, `Barrel`, `BeefOff`, `BellCheck`, `BellElectric`, `BicepsFlexed`, `Birdhouse`,
+  `Blender`, `BoneFracture`, `BookAlert`, `BookBookmark`, `BookSearch`, `BookmarkOff`, `BottleWine`,
+  `BrainCog`, `BrickWallShield`, `Bridge`, `BriefcaseConveyorBelt`, `BriefcaseMedical`,
+  `BriefcasePlus`, `Broccoli`, `Broom`, `BroomSparkles`, `BrushCleaning`, `BuildingComplex`,
+  `BuildingComplexPlus`, `Ear`, `EarOff`, `Earth`, `EarthLock`, `Eclipse`, `Egg`, `EggFried`,
+  `EggOff`, `Eject`, `Ellipse`, `Ellipsis`, `EllipsisVertical`, `Engine`, `Equal`,
+  `EqualApproximately`, `EqualApproximatelyNot`, `EqualNot`, `Eraser`, `EthernetPort`, `Euro`,
+  `EvCharger`, `Expand`, `ExternalLink`, `Eye`, `EyeClosed`, `EyeDashed`, `EyeOff`, `Ham`,
+  `Hamburger`, `Hammer`, `Hand`, `HandCoins`, `HandFist`, `HandGrab`, `HandHeart`, `HandHelping`,
+  `HandMetal`, `HandPlatter`, `Handbag`, `HandleBottomRight`, `Handshake`, `HardDrive`,
+  `HardDriveDownload`, `HardDriveUpload`, `HardHat`, `Hash`, `HatGlasses`, `Haze`, `Hd`, `HdmiPort`,
+  `Heading`, `Heading1`, `Heading2`, `Heading3`, `Heading4`, `Heading5`, `Heading6`, `HeadphoneOff`,
+  `Headphones`, `Headset`, `Heart`, `HeartCrack`, `HeartHandshake`, `HeartMinus`, `HeartOff`,
+  `HeartPlus`, `HeartPulse`, `HeartX`, `Heater`, `Helicopter`, `Hexagon`, `Highlighter`,
+  `HikingStick`, `Hop`, `HopOff`, `Hospital`, `Hotel`, `Hourglass`, `HourglassCog`, `House`,
+  `HouseCog`, `HouseHeart`, `HousePlug`, `HousePlus`, `HouseWifi`, `Houses`.
+- `BadgeQuestionMark`, `BicepsFlexed`, `BookBookmark` and `BuildingComplex` are Lucide's new names for
+  `BadgeHelp`, `Bicep`, `BookMarked` and `Building2`. The old names still work.
 
 ## [1.2.1] - 2026-10-10
 
