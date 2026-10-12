@@ -6,11 +6,11 @@
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/v/aliveicon.svg?color=blue" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/dm/aliveicon.svg?color=blue" alt="npm downloads" /></a>
   <a href="https://github.com/Hemang-patel-9/aliveicon/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/aliveicon.svg?color=green" alt="license" /></a>
-  <img src="https://img.shields.io/badge/icons-750-orange" alt="icon count" />
+  <img src="https://img.shields.io/badge/icons-834-orange" alt="icon count" />
   <img src="https://img.shields.io/badge/types-included-blue" alt="typescript" />
 </p>
 
-`aliveicon` is a set of **750 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
+`aliveicon` is a set of **834 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
 
 ---
 
@@ -148,7 +148,7 @@ The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decora
 
 ## 📚 Available icons
 
-`aliveicon` ships **750 icons**, and more are being added. Import any icon by its PascalCase name:
+`aliveicon` ships **834 icons**, and more are being added. Import any icon by its PascalCase name:
 
 ```tsx
 import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
@@ -159,6 +159,7 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 | **A** | 114 | `Activity`, `Airplay`, `AlarmClock`, `Anchor`, `Anvil`, `ArrowRight`, `ArrowUpRight`, `Atom`, `Award` |
 | **B** | 158 | `Battery`, `Bell`, `Bluetooth`, `Book`, `Bot`, `Brain`, `Broom`, `Bug`, `Building` |
 | **C** | 140 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `ChevronDown`, `Circle`, `Clock` |
+| **D** | 58 | `Database`, `Dice1`, `Diamond`, `Disc`, `DoorOpen`, `Download`, `Droplet`, `Dumbbell` |
 | **E** | 27 | `Earth`, `Egg`, `Eject`, `Ellipsis`, `Eraser`, `Euro`, `Expand`, `Eye` |
 | **H** | 59 | `Hammer`, `Hand`, `Hash`, `Headphones`, `Heart`, `Hourglass`, `House` |
 | **I** | 23 | `IceCreamCone`, `IdCard`, `Image`, `Import`, `Inbox`, `Info`, `Italic` |
@@ -167,7 +168,7 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 | **N** | 18 | `Navigation`, `Network`, `Newspaper`, `Notebook`, `NotebookDot`, `Nut` |
 | **O** | 10 | `Octagon`, `Omega`, `Option`, `Orbit`, `Origami` |
 | **Q** | 2 | `Quote`, `QrCode` |
-| **R** | 50 | `Rabbit`, `Radar`, `Radio`, `Receipt`, `RefreshCw`, `Rocket`, `RotateCcw` |
+| **R** | 76 | `Rabbit`, `Radar`, `Radio`, `Receipt`, `RefreshCw`, `Rocket`, `RotateCcw` |
 | **S** | 1 | `SquareActivity` |
 | **U** | 46 | `Umbrella`, `Undo`, `Unplug`, `Upload`, `User`, `UserGroup`, `Users`, `Utensils` |
 | **V** | 25 | `Van`, `Variable`, `Vault`, `Video`, `Virus`, `Volume`, `Vote` |

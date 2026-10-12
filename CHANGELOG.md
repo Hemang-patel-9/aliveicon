@@ -41,6 +41,18 @@ All notable changes to this project are documented here. The format follows
   `HouseCog`, `HouseHeart`, `HousePlug`, `HousePlus`, `HouseWifi`, `Houses`.
 - `BadgeQuestionMark`, `BicepsFlexed`, `BookBookmark` and `BuildingComplex` are Lucide's new names for
   `BadgeHelp`, `Bicep`, `BookMarked` and `Building2`. The old names still work.
+- 84 icons from Lucide: `Dam`, `Database`, `DatabaseArrowDown`, `DatabaseArrowUp`, `DatabaseBackup`,
+  `DatabaseCheck`, `DatabaseMinus`, `DatabasePlus`, `DatabaseSearch`, `DatabaseX`, `DatabaseZap`,
+  `DecimalsArrowLeft`, `DecimalsArrowRight`, `Delete`, `Dessert`, `Diameter`, `Diamond`,
+  `DiamondMinus`, `DiamondPercent`, `DiamondPlus`, `Dice1`, `Dice2`, `Dice3`, `Dice4`, `Dice5`,
+  `Dice6`, `Dices`, `Diff`, `Disc`, `Disc2`, `Disc3`, `DiscAlbum`, `Divide`, `Dna`, `DnaOff`,
+  `Dock`, `Dog`, `DollarSign`, `Dome`, `Donut`, `DoorClosed`, `DoorClosedCog`, `DoorClosedLocked`,
+  `DoorClosedPackage`, `DoorOpen`, `DoorStairwell`, `Dot`, `Download`, `DraftingCompass`, `Drama`,
+  `Drill`, `Drone`, `Droplet`, `DropletOff`, `Droplets`, `Drum`, `Drumstick`, `Dumbbell`,
+  `RadioOff`, `ReceiptTurkishLira`, `Repeat1`, `RepeatOff`, `Road`, `RobotArm`, `RobotVacuum`,
+  `Rose`, `RotateCcwClock`, `RotateCcwKey`, `RotateCcwSquare`, `RotateCw`, `RotateCwClock`,
+  `RotateCwFadingClock`, `RotateCwSquare`, `Route`, `RouteOff`, `Router`, `Rows2`, `Rows3`, `Rows4`,
+  `Rss`, `RugbyBall`, `Ruler`, `RulerDimensionLine`, `RussianRuble`.
 
 ## [1.2.1] - 2026-10-10
 

@@ -9,7 +9,7 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 const strikeVariants: Variants = {
 	normal: { rotate: 0, transition: { duration: 0.2 } },
 	animate: {
-		rotate: [0, -22, 8, 0],
+		rotate: [0, -14, 6, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
