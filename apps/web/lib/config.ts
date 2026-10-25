@@ -166,7 +166,8 @@ export interface SiteConfig {
 	performance: PerformanceConfig;
 }
 
-const HEX = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
+const HEX = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+const ALPHA_HEX = /^#(?:[0-9a-fA-F]{4}|[0-9a-fA-F]{8})$/;
 
 function channel(value: number) {
 	const v = value / 255;
@@ -244,7 +245,7 @@ export function validateConfig(config: SiteConfig): string[] {
 	for (const mode of ['light', 'dark'] as const) {
 		const colors = theme.colors[mode];
 		for (const [key, value] of Object.entries(colors)) {
-			if (!HEX.test(value))
+			if (!HEX.test(value) && !(key === 'overlay' && ALPHA_HEX.test(value)))
 				errors.push(`theme.colors.${mode}.${key} "${value}" is not a hex color`);
 		}
 		for (const [a, b, min] of CONTRAST_PAIRS) {

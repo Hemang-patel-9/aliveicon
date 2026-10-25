@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, useReducedMotion } from 'framer-motion';
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import { cn } from '../../lib/cn';
 
@@ -64,6 +64,7 @@ export const AppWindowMac = forwardRef<AppWindowMacHandle, AppWindowMacProps>(
 		ref
 	) => {
 		const controls = useAnimation();
+		const shouldReduceMotion = useReducedMotion();
 		const loopRef = useRef(loopOnHover);
 		const isControlledRef = useRef(false);
 
@@ -141,19 +142,19 @@ export const AppWindowMac = forwardRef<AppWindowMacHandle, AppWindowMacProps>(
 					<motion.path
 						d="M6 8h.01"
 						initial={{ opacity: 1 }}
-						animate={{ opacity: [1, 0, 1] }}
+						animate={shouldReduceMotion ? { opacity: 1 } : { opacity: [1, 0, 1] }}
 						transition={{ ...blinkTransition, delay: 0 }}
 					/>
 					<motion.path
 						d="M10 8h.01"
 						initial={{ opacity: 1 }}
-						animate={{ opacity: [1, 0, 1] }}
+						animate={shouldReduceMotion ? { opacity: 1 } : { opacity: [1, 0, 1] }}
 						transition={{ ...blinkTransition, delay: 0.5 }}
 					/>
 					<motion.path
 						d="M14 8h.01"
 						initial={{ opacity: 1 }}
-						animate={{ opacity: [1, 0, 1] }}
+						animate={shouldReduceMotion ? { opacity: 1 } : { opacity: [1, 0, 1] }}
 						transition={{ ...blinkTransition, delay: 1 }}
 					/>
 				</svg>

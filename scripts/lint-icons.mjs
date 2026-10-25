@@ -29,7 +29,6 @@ const legacyIcons = [
 	'b/BetweenHorizontalStart',
 	'b/BetweenVerticalEnd',
 	'b/Blocks',
-	'b/BookAudio',
 	'b/Bot',
 	'b/BowArrow',
 	'b/Brush',

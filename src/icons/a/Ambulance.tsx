@@ -56,15 +56,18 @@ export const Ambulance = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 						cx="17"
 						cy="18"
 						r="2"
-						animate={{ scale: [1, 1.2, 1], fill: ['#000', '#000', '#000'] }}
-						transition={{ repeat: Infinity, duration: 1 }}
+						animate={controls}
+						variants={{ normal: { scale: 1 }, animate: { scale: [1, 1.2, 1] } }}
 					/>
 					<motion.circle
 						cx="7"
 						cy="18"
 						r="2"
-						animate={{ scale: [1, 1.2, 1], fill: ['#000', '#000', '#000'] }}
-						transition={{ repeat: Infinity, duration: 1, delay: 0.3 }}
+						animate={controls}
+						variants={{
+							normal: { scale: 1 },
+							animate: { scale: [1, 1.2, 1], transition: { delay: 0.3 } },
+						}}
 					/>
 				</svg>
 			</div>

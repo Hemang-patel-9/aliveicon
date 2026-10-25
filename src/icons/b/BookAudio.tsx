@@ -1,23 +1,10 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
-
-interface BookAudioHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface BookAudioProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const pathVariants = {
 	normal: {
@@ -38,7 +25,7 @@ const pathVariants = {
 };
 
 const audioPulseVariants = {
-	initial: { opacity: 0.6, scaleY: 1 },
+	normal: { opacity: 0.6, scaleY: 1 },
 	animate: {
 		opacity: [0.6, 1, 0.6],
 		scaleY: [1, 1.5, 1],
@@ -50,74 +37,15 @@ const audioPulseVariants = {
 	},
 };
 
-export const BookAudio = forwardRef<BookAudioHandle, BookAudioProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			await controls.start('normal');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) controls.start('normal');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+export const BookAudio = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props, { cycleMs: 1200 });
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
@@ -141,21 +69,21 @@ export const BookAudio = forwardRef<BookAudioHandle, BookAudioProps>(
 					<motion.path
 						d="M12 6v7"
 						variants={audioPulseVariants}
-						initial="initial"
-						animate="animate"
+						initial="normal"
+						animate={controls}
 					/>
 					<motion.path
 						d="M16 8v3"
 						variants={audioPulseVariants}
-						initial="initial"
-						animate="animate"
+						initial="normal"
+						animate={controls}
 						transition={{ delay: 0.2, repeat: Infinity, duration: 1.2 }}
 					/>
 					<motion.path
 						d="M8 8v3"
 						variants={audioPulseVariants}
-						initial="initial"
-						animate="animate"
+						initial="normal"
+						animate={controls}
 						transition={{ delay: 0.4, repeat: Infinity, duration: 1.2 }}
 					/>
 				</svg>

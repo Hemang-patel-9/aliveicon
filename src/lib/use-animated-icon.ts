@@ -1,6 +1,6 @@
 'use client';
 
-import { useAnimation } from 'framer-motion';
+import { useAnimation, useReducedMotion } from 'framer-motion';
 import {
 	useCallback,
 	useEffect,
@@ -34,6 +34,7 @@ export function useAnimatedIcon(
 	{ rest = 'normal', animate = 'animate', cycleMs }: AnimatedIconOptions = {}
 ) {
 	const controls = useAnimation();
+	const shouldReduceMotion = useReducedMotion();
 	const runRef = useRef(0);
 	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const isControlled = ref != null;
@@ -51,10 +52,18 @@ export function useAnimatedIcon(
 		controls.start(rest);
 	}, [controls, rest]);
 
+	useEffect(() => {
+		if (shouldReduceMotion) stop();
+	}, [shouldReduceMotion, stop]);
+
 	const play = useCallback(
 		async (loop: boolean) => {
 			const run = ++runRef.current;
 			clearTimer();
+			if (shouldReduceMotion) {
+				controls.start(rest);
+				return;
+			}
 			if (cycleMs) {
 				controls.start(animate);
 				if (!loop) {
@@ -70,7 +79,7 @@ export function useAnimatedIcon(
 				await controls.start(rest);
 			} while (loop && run === runRef.current);
 		},
-		[controls, rest, animate, cycleMs]
+		[controls, rest, animate, cycleMs, shouldReduceMotion]
 	);
 
 	useImperativeHandle(

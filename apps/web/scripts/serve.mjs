@@ -24,6 +24,14 @@ const types = {
 
 const cache = new Map();
 
+const isWithin = (root, target) => {
+	const relative = path.relative(root, target);
+	return (
+		relative === '' ||
+		(!relative.startsWith(`..${path.sep}`) && relative !== '..' && !path.isAbsolute(relative))
+	);
+};
+
 const encode = (file, encoding) => {
 	const key = `${file}:${encoding}`;
 	const hit = cache.get(key);
@@ -42,17 +50,27 @@ const encode = (file, encoding) => {
 };
 
 const resolveFile = (pathname) => {
-	const target = path.normalize(path.join(outDir, pathname));
-	if (!target.startsWith(outDir)) return null;
+	if (!fs.existsSync(outDir)) return null;
+	const root = fs.realpathSync(outDir);
+	const target = path.resolve(root, `.${pathname}`);
+	if (!isWithin(root, target)) return null;
 	for (const candidate of [target, path.join(target, 'index.html'), `${target}.html`]) {
-		if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) return candidate;
+		if (!fs.existsSync(candidate) || !fs.statSync(candidate).isFile()) continue;
+		const resolved = fs.realpathSync(candidate);
+		if (isWithin(root, resolved)) return resolved;
 	}
 	return null;
 };
 
 http
 	.createServer((req, res) => {
-		let pathname = decodeURIComponent(new URL(req.url ?? '/', 'http://localhost').pathname);
+		let pathname;
+		try {
+			pathname = decodeURIComponent(new URL(req.url ?? '/', 'http://localhost').pathname);
+		} catch {
+			res.writeHead(400).end('bad request');
+			return;
+		}
 		if (basePath) {
 			if (pathname === basePath) {
 				res.writeHead(308, { Location: `${basePath}/` }).end();

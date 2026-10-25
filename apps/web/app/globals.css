@@ -120,6 +120,22 @@
 		border-color: var(--c-border);
 	}
 
+	.skip-link {
+		position: fixed;
+		top: 8px;
+		left: 8px;
+		z-index: 100;
+		transform: translateY(-160%);
+		border-radius: var(--r-sm);
+		background: var(--c-text);
+		color: var(--c-text-inverse);
+		padding: 8px 12px;
+	}
+
+	.skip-link:focus-visible {
+		transform: translateY(0);
+	}
+
 	html {
 		-webkit-text-size-adjust: 100%;
 	}

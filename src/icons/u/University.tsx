@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, useReducedMotion } from 'framer-motion';
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import { cn } from '../../lib/cn';
 
@@ -38,6 +38,7 @@ const University = forwardRef<UniversityHandle, UniversityProps>(
 	) => {
 		const mainControls = useAnimation();
 		const dotControls = useAnimation();
+		const shouldReduceMotion = useReducedMotion();
 		const loopRef = useRef(loopOnHover);
 		const isControlledRef = useRef(false);
 
@@ -130,7 +131,7 @@ const University = forwardRef<UniversityHandle, UniversityProps>(
 						cx="12"
 						cy="10"
 						r="2"
-						initial={{ scale: 0, opacity: 0 }}
+						initial={shouldReduceMotion ? false : { scale: 0, opacity: 0 }}
 						animate={{ scale: 1, opacity: 1 }}
 						transition={{ duration: 0.3, delay: 0.4 }}
 					/>
