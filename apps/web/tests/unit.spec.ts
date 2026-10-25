@@ -51,6 +51,12 @@ test.describe('config validation', () => {
 		expect(validateConfig(config).join('\n')).toContain('not a hex color');
 	});
 
+	test('rejects alpha colors outside the overlay token', () => {
+		const config = clone();
+		config.theme.colors.light.text = '#00000080';
+		expect(validateConfig(config).join('\n')).toContain('theme.colors.light.text');
+	});
+
 	test('rejects text with too little contrast', () => {
 		const config = clone();
 		config.theme.colors.light.textMuted = '#dddddd';
