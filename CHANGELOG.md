@@ -10,6 +10,17 @@ All notable changes to this project are documented here. The format follows
 
 - 9 icons from Lucide: `Avocado`, `Bacon`, `BelarusianRuble`, `BrainOff`, `EighthNote`,
   `EighthNotes`, `HalfNote`, `UsersCollaboration`, `UsersRoundCollaboration`.
+- 64 icons from Lucide: `Galaxy`, `GalleryHorizontal`, `GalleryHorizontalEnd`, `GalleryThumbnails`,
+  `GalleryVertical`, `GalleryVerticalEnd`, `Gamepad`, `Gamepad2`, `GamepadDirectional`,
+  `GapHorizontal`, `GapVertical`, `Gauge`, `Gavel`, `Gem`, `GeorgianLari`, `Germ`, `GermOff`,
+  `Ghost`, `Gift`, `GitBranch`, `GitBranchMinus`, `GitBranchPlus`, `GitCommitHorizontal`,
+  `GitCommitVertical`, `GitCompare`, `GitCompareArrows`, `GitFork`, `GitGraph`, `GitMerge`,
+  `GitMergeConflict`, `GitPullRequest`, `GitPullRequestArrow`, `GitPullRequestClosed`,
+  `GitPullRequestCreate`, `GitPullRequestCreateArrow`, `GitPullRequestDraft`, `GlassWater`,
+  `Glasses`, `Globe`, `GlobeCheck`, `GlobeCode`, `GlobeLock`, `GlobeOff`, `GlobeX`, `Goal`, `Gpu`,
+  `GraduationCap`, `Grape`, `GraphHub`, `GraphStar`, `Grid2x2`, `Grid2x2Check`, `Grid2x2Plus`,
+  `Grid2x2X`, `Grid3x2`, `Grid3x3`, `Grip`, `GripHorizontal`, `GripVertical`, `Groceries`, `Group`,
+  `Guitar`, `GuitarElectric`, `HockeyStick`.
 
 ## [1.3.0] - 2026-10-13
 
