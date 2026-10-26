@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- 9 icons from Lucide: `Avocado`, `Bacon`, `BelarusianRuble`, `BrainOff`, `EighthNote`,
+  `EighthNotes`, `HalfNote`, `UsersCollaboration`, `UsersRoundCollaboration`.
+
 ## [1.3.0] - 2026-10-13
 
 ### Added
