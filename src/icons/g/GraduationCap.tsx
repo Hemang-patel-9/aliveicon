@@ -9,8 +9,8 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 const tossVariants: Variants = {
 	normal: { y: 0, rotate: 0, transition: { duration: 0.2 } },
 	animate: {
-		y: [0, -3, 0],
-		rotate: [0, -8, 0],
+		y: [0, -2.5, 0],
+		rotate: [0, -5, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
@@ -18,7 +18,7 @@ const tossVariants: Variants = {
 const tasselVariants: Variants = {
 	normal: { rotate: 0, transition: { duration: 0.2 } },
 	animate: {
-		rotate: [0, 15, -10, 0],
+		rotate: [0, 15, -6, 0],
 		transition: { duration: 0.6, delay: 0.1, ease: 'easeInOut' },
 	},
 };

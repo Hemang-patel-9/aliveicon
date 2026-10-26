@@ -9,7 +9,7 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 const swingVariants: Variants = {
 	normal: { rotate: 0, transition: { duration: 0.2 } },
 	animate: {
-		rotate: [0, 10, -3, 0],
+		rotate: [0, 3, -1.5, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };

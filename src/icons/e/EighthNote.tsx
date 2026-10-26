@@ -9,7 +9,7 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 const bobVariants: Variants = {
 	normal: { y: 0, rotate: 0, transition: { duration: 0.2 } },
 	animate: {
-		y: [0, -2, 1, 0],
+		y: [0, -1, 0],
 		rotate: [0, -5, 3, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
@@ -50,7 +50,7 @@ const EighthNote = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 						variants={bobVariants}
 						initial="normal"
 						animate={controls}
-						style={{ originX: '50%', originY: '50%' }}
+						style={{ originX: '50%', originY: '100%' }}
 					>
 						<motion.path
 							d="m19 6-5.2-3.9a.5.5 0 0 0-.8.4V18"

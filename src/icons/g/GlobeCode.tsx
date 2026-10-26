@@ -49,7 +49,7 @@ const GlobeCode = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					<motion.path
 						d="M15.5 10 13 7.5 15.5 5"
 						variants={bracketVariants}
-						custom={{ x: -1.5, delay: 0.35 }}
+						custom={{ x: -1, delay: 0.35 }}
 						initial="normal"
 						animate={controls}
 					/>
@@ -63,7 +63,7 @@ const GlobeCode = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					<motion.path
 						d="M19.5 5 22 7.5 19.5 10"
 						variants={bracketVariants}
-						custom={{ x: 1.5, delay: 0.35 }}
+						custom={{ x: 1, delay: 0.35 }}
 						initial="normal"
 						animate={controls}
 					/>
