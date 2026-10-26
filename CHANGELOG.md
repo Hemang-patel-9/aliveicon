@@ -6,6 +6,10 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- 4 icons from Lucide: `AzerbaijaniManat`, `BallWave`, `EmiratiDirham`, `HotAirBalloon`.
+
 ### Fixed
 
 - `EighthNote`, `HalfNote`, `HockeyStick`, `GlobeCode`, `GraduationCap`, `Guitar` and
