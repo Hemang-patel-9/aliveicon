@@ -1,25 +1,12 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface ArrowDown10Handle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface ArrowDown10Props extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-const arrowVariants = {
+const arrowVariants: Variants = {
 	normal: { y: 0 },
 	animate: {
 		y: [0, 3, 0],
@@ -27,89 +14,31 @@ const arrowVariants = {
 	},
 };
 
-const zeroVariants = {
-	initial: { y: 0 },
+const oneVariants: Variants = {
+	normal: { y: 0 },
 	animate: {
-		y: [10, 0, 10],
+		y: [0, 10, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
 
-const oneVariants = {
-	initial: { y: 0 },
+const zeroVariants: Variants = {
+	normal: { y: 0 },
 	animate: {
-		y: [-10, 0, -10],
+		y: [0, -10, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
 
-export const ArrowDown10 = forwardRef<ArrowDown10Handle, ArrowDown10Props>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.stop(),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) controls.stop();
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+const ArrowDown10 = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
@@ -130,23 +59,18 @@ export const ArrowDown10 = forwardRef<ArrowDown10Handle, ArrowDown10Props>(
 						animate={controls}
 					/>
 					<path d="M7 20V4" />
+					<motion.path d="M17 10V4h-2" variants={oneVariants} initial="normal" animate={controls} />
+					<motion.path d="M15 10h4" variants={oneVariants} initial="normal" animate={controls} />
 					<motion.rect
 						x="15"
-						y="4"
+						y="14"
 						width="4"
 						height="6"
 						ry="2"
 						variants={zeroVariants}
-						initial="initial"
+						initial="normal"
 						animate={controls}
 					/>
-					<motion.path
-						d="M17 20v-6h-2"
-						variants={oneVariants}
-						initial="initial"
-						animate={controls}
-					/>
-					<motion.path d="M15 20h4" variants={oneVariants} initial="initial" animate={controls} />
 				</svg>
 			</div>
 		);
@@ -154,3 +78,5 @@ export const ArrowDown10 = forwardRef<ArrowDown10Handle, ArrowDown10Props>(
 );
 
 ArrowDown10.displayName = 'ArrowDown10';
+
+export { ArrowDown10 };

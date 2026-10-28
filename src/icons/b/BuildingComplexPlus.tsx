@@ -44,6 +44,7 @@ const BuildingComplexPlus = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
+					style={{ overflow: 'visible' }}
 				>
 					<motion.path
 						d="M10 12h4"

@@ -1,145 +1,97 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface ReplaceHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
+const partVariants: Variants = {
+	normal: { opacity: 1, scale: 1, y: 0, pathLength: 1 },
+	animate: (i: number) => {
+		const transition = { duration: 0.6, ease: 'easeInOut', delay: i * 0.05 };
+		if (i < 4) return { opacity: [0, 1], scale: [0.6, 1], transition };
+		if (i === 4) return { pathLength: [0, 1], opacity: [0, 1], transition };
+		if (i === 5) return { y: [-10, 0], opacity: [0, 1], transition };
+		return { scale: [0.8, 1], opacity: [0, 1], transition };
+	},
+};
 
-interface ReplaceProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	className?: string;
-	style?: React.CSSProperties;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-}
-
-const Replace = forwardRef<ReplaceHandle, ReplaceProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const animate = useCallback(async () => {
-			await controls.start((i) => {
-				const common = {
-					transition: {
-						duration: 0.6,
-						ease: 'easeInOut',
-						delay: i * 0.05,
-					},
-				};
-				if (i <= 3) {
-					return { opacity: [0, 1], scale: [0.6, 1], ...common };
-				}
-				if (i === 4) {
-					return { pathLength: [0, 1], opacity: [0, 1], ...common };
-				}
-				if (i === 5) {
-					return { y: [-10, 0], opacity: [0, 1], ...common };
-				}
-				return { scale: [0.8, 1], opacity: [0, 1], ...common };
-			});
-			await controls.start('visible');
-			if (loopRef.current) animate();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) animate();
-		}, [autoAnimateOnLoad, animate]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: animate,
-				stopAnimation: () => controls.start('visible'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) animate();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) {
-				controls.start('visible');
-			}
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate();
-			onClick?.(e);
-		};
-
-		const elements = [
-			<motion.path key="p1" d="M14 4a2 2 0 0 1 2-2" />,
-			<motion.path key="p2" d="M16 10a2 2 0 0 1-2-2" />,
-			<motion.path key="p3" d="M20 2a2 2 0 0 1 2 2" />,
-			<motion.path key="p4" d="M22 8a2 2 0 0 1-2 2" />,
-			<motion.path key="arrow" d="m3 7 3 3 3-3" />,
-			<motion.path key="line" d="M6 10V5a3 3 0 0 1 3-3h1" />,
-			<motion.rect key="rect" x="2" y="14" width="8" height="8" rx="2" />,
-		];
+const Replace = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
+					width="100%"
+					height="100%"
 				>
-					{elements.map((el, i) =>
-						React.cloneElement(el, {
-							initial: 'visible',
-							animate: controls,
-							custom: i,
-							variants: {
-								visible: { opacity: 1, scale: 1, y: 0, pathLength: 1 },
-							},
-						})
-					)}
+					<motion.path
+						d="M14 4a2 2 0 0 1 2-2"
+						custom={0}
+						variants={partVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M16 10a2 2 0 0 1-2-2"
+						custom={1}
+						variants={partVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M20 2a2 2 0 0 1 2 2"
+						custom={2}
+						variants={partVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M22 8a2 2 0 0 1-2 2"
+						custom={3}
+						variants={partVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="m3 7 3 3 3-3"
+						custom={4}
+						variants={partVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M6 10V5a3 3 0 0 1 3-3h1"
+						custom={5}
+						variants={partVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.rect
+						x="2"
+						y="14"
+						width="8"
+						height="8"
+						rx="2"
+						custom={6}
+						variants={partVariants}
+						initial="normal"
+						animate={controls}
+					/>
 				</svg>
 			</div>
 		);
@@ -147,4 +99,5 @@ const Replace = forwardRef<ReplaceHandle, ReplaceProps>(
 );
 
 Replace.displayName = 'Replace';
+
 export { Replace };

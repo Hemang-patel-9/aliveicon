@@ -1,120 +1,44 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import {
-	forwardRef,
-	useImperativeHandle,
-	useRef,
-	useCallback,
-	useEffect,
-	type HTMLAttributes,
-} from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface RockingChairHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface RockingChairProps extends HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-}
-
-const rockingVariants = {
+const rockingVariants: Variants = {
 	normal: { rotate: 0 },
 	animate: {
-		rotate: [-2, 2, -1.5, 1.5, -1, 1, -0.5, 0],
+		rotate: [0, -2, 2, -1.5, 1.5, -1, 1, -0.5, 0],
 		transition: {
 			duration: 2,
-			repeat: Infinity,
 			ease: 'easeInOut',
-			times: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1],
+			times: [0, 0.1, 0.2, 0.35, 0.5, 0.65, 0.8, 0.9, 1],
 		},
 	},
 };
 
-const RockingChair = forwardRef<RockingChairHandle, RockingChairProps>(
-	(
-		{
-			className,
-			size = 28,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const animate = useCallback(async () => {
-			await controls.start('animate');
-			if (loopRef.current) animate();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) animate();
-		}, [autoAnimateOnLoad, animate]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: animate,
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) animate();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) controls.start('normal');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate();
-			onClick?.(e);
-		};
+const RockingChair = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
-				style={{ width: size, height: size }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				style={{ width: size, height: size, ...style }}
+				{...iconProps}
 			>
 				<motion.svg
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
+					width="100%"
+					height="100%"
 					variants={rockingVariants}
 					initial="normal"
 					animate={controls}
@@ -130,4 +54,5 @@ const RockingChair = forwardRef<RockingChairHandle, RockingChairProps>(
 );
 
 RockingChair.displayName = 'RockingChair';
+
 export { RockingChair };

@@ -35,6 +35,7 @@ const BriefcasePlus = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
+					style={{ overflow: 'visible' }}
 				>
 					<path d="M13.354 20H4a2 2 0 01-2-2V8a2 2 0 012-2h16a2 2 0 012 2v3.354" />
 					<path d="M16 11.354V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" />

@@ -116,10 +116,7 @@ const bodyVariants = {
 
 export const BoomBox = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, {
-			animate: 'playing',
-			cycleMs: 1000,
-		});
+		const { controls, iconProps } = useAnimatedIcon(ref, props, { animate: 'playing' });
 
 		return (
 			<div

@@ -7,10 +7,11 @@ import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const downVariants: Variants = {
-	normal: { y: 0, transition: { duration: 0.2 } },
+	normal: { y: 0, opacity: 1, transition: { duration: 0.2 } },
 	animate: {
-		y: [0, 2, 0],
-		transition: { duration: 0.5, ease: 'easeInOut' },
+		y: [-2, 0],
+		opacity: [0, 1],
+		transition: { duration: 0.5, ease: 'easeOut' },
 	},
 };
 

@@ -85,28 +85,24 @@ const Accessibility = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 						variants={pathVariants}
 						animate={controls}
 						initial="normal"
-						style={{ strokeDasharray: 1 }}
 					/>
 					<motion.path
 						d="m5 8 3-3 5.5 3-2.36 3.5"
 						variants={pathVariants}
 						animate={controls}
 						initial="normal"
-						style={{ strokeDasharray: 1 }}
 					/>
 					<motion.path
 						d="M4.24 14.5a5 5 0 0 0 6.88 6"
 						variants={pathVariants}
 						animate={controls}
 						initial="normal"
-						style={{ strokeDasharray: 1 }}
 					/>
 					<motion.path
 						d="M13.76 17.5a5 5 0 0 0-6.88-6"
 						variants={pathVariants}
 						animate={controls}
 						initial="normal"
-						style={{ strokeDasharray: 1 }}
 					/>
 				</svg>
 			</div>

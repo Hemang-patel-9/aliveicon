@@ -1,25 +1,12 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface RadarHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface RadarProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-const pathVariants = {
+const pathVariants: Variants = {
 	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.2 } },
 	animate: {
 		pathLength: [0, 1],
@@ -28,7 +15,7 @@ const pathVariants = {
 	},
 };
 
-const beamVariants: any = {
+const beamVariants: Variants = {
 	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.2 } },
 	animate: {
 		pathLength: [0, 1],
@@ -37,81 +24,15 @@ const beamVariants: any = {
 	},
 };
 
-export const Radar = forwardRef<RadarHandle, RadarProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const beamControls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await Promise.all([controls.start('animate'), beamControls.start('animate')]);
-			await Promise.all([controls.start('normal'), beamControls.start('normal')]);
-			if (loopRef.current) triggerAnimation();
-		}, [controls, beamControls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => triggerAnimation(),
-				stopAnimation: () => {
-					controls.start('normal');
-					beamControls.start('normal');
-				},
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) {
-				controls.start('normal');
-				beamControls.start('normal');
-			}
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+const Radar = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props, { cycleMs: 800 });
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
@@ -163,7 +84,7 @@ export const Radar = forwardRef<RadarHandle, RadarProps>(
 						d="m13.41 10.59 5.66-5.66"
 						variants={beamVariants}
 						initial="normal"
-						animate={beamControls}
+						animate={controls}
 					/>
 				</svg>
 			</div>
@@ -172,3 +93,5 @@ export const Radar = forwardRef<RadarHandle, RadarProps>(
 );
 
 Radar.displayName = 'Radar';
+
+export { Radar };

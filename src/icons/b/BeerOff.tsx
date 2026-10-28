@@ -20,7 +20,11 @@ export const BeerOff = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 		};
 
 		return (
-			<div className={className} style={{ width: size, height: size, ...style }} {...iconProps}>
+			<div
+				className={cn('inline-block', className)}
+				style={{ width: size, height: size, ...style }}
+				{...iconProps}
+			>
 				<svg
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"

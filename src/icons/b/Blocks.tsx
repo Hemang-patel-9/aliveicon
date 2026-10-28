@@ -1,101 +1,33 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface BlocksHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
+const blockVariants: Variants = {
+	normal: {
+		x: 0,
+		y: 0,
+		transition: { type: 'spring', stiffness: 200, damping: 10 },
+	},
+	animate: {
+		x: 2,
+		y: -2,
+		transition: { duration: 0.4, ease: 'easeInOut' },
+	},
+};
 
-interface BlocksProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-export const Blocks = forwardRef<BlocksHandle, BlocksProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const pathControls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start({
-				x: 8,
-				y: -8,
-				transition: { duration: 0.4, ease: 'easeInOut' },
-			});
-			await controls.start({
-				x: 0,
-				y: 0,
-				transition: { type: 'spring', stiffness: 200, damping: 10 },
-			});
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => triggerAnimation(),
-				stopAnimation: () => controls.stop(),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) controls.start({ x: 0, y: 0 });
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+const Blocks = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
@@ -109,12 +41,17 @@ export const Blocks = forwardRef<BlocksHandle, BlocksProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.rect width="7" height="7" x="14" y="3" rx="1" animate={controls} />
-					<motion.path
-						d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"
-						initial={{ pathLength: 1, opacity: 1 }}
-						animate={pathControls}
+					<motion.rect
+						width="7"
+						height="7"
+						x="14"
+						y="3"
+						rx="1"
+						variants={blockVariants}
+						initial="normal"
+						animate={controls}
 					/>
+					<path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3" />
 				</svg>
 			</div>
 		);
@@ -122,3 +59,5 @@ export const Blocks = forwardRef<BlocksHandle, BlocksProps>(
 );
 
 Blocks.displayName = 'Blocks';
+
+export { Blocks };

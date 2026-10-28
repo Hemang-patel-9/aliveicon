@@ -1,23 +1,10 @@
 'use client';
 
-import type { Variants } from 'framer-motion';
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
-import type { HTMLAttributes } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
-
-interface AlarmClockMinusHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface AlarmClockMinusProps extends HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-}
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const pathVariants: Variants = {
 	normal: {
@@ -51,154 +38,69 @@ const secondaryPathVariants: Variants = {
 	},
 };
 
-const AlarmClockMinus = forwardRef<AlarmClockMinusHandle, AlarmClockMinusProps>(
-	(
-		{
-			className,
-			size = 28,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const isControlledRef = useRef(false);
-		const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-		const startAnimation = useCallback(() => {
-			controls.start('animate');
-		}, [controls]);
-
-		const stopAnimation = useCallback(() => {
-			controls.start('normal');
-		}, [controls]);
-
-		const startTimedAnimation = useCallback(() => {
-			startAnimation();
-			if (timeoutRef.current) clearTimeout(timeoutRef.current);
-			timeoutRef.current = setTimeout(() => {
-				stopAnimation();
-			}, 700);
-		}, [startAnimation, stopAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => startTimedAnimation(),
-				stopAnimation: () => stopAnimation(),
-			};
-		});
-
-		const handleMouseEnter = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (!isControlledRef.current && hoverable) {
-					if (loopOnHover) {
-						startAnimation();
-					} else {
-						startTimedAnimation();
-					}
-				}
-				onMouseEnter?.(e);
-			},
-			[hoverable, loopOnHover, onMouseEnter, startAnimation, startTimedAnimation]
-		);
-
-		const handleMouseLeave = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (!isControlledRef.current && hoverable && loopOnHover) {
-					stopAnimation();
-				}
-				onMouseLeave?.(e);
-			},
-			[hoverable, loopOnHover, onMouseLeave, stopAnimation]
-		);
-
-		const handleClick = useCallback(
-			(e: React.MouseEvent<HTMLDivElement>) => {
-				if (!isControlledRef.current && animateOnClick) {
-					startTimedAnimation();
-				}
-				onClick?.(e);
-			},
-			[animateOnClick, onClick, startTimedAnimation]
-		);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) {
-				startTimedAnimation();
-			}
-			return () => {
-				if (timeoutRef.current) clearTimeout(timeoutRef.current);
-			};
-		}, [autoAnimateOnLoad, startTimedAnimation]);
+const AlarmClockMinus = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props, { cycleMs: 700 });
 
 		return (
 			<div
-				className={cn(className)}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				className={cn('inline-block', className)}
+				style={{ width: size, height: size, ...style }}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
-					width={size}
-					height={size}
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
+					width="100%"
+					height="100%"
 					style={{ overflow: 'visible' }}
 				>
 					<motion.circle
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
 						cx="12"
 						cy="13"
 						r="8"
-					/>
-					<motion.path
-						variants={secondaryPathVariants}
+						variants={pathVariants}
 						initial="normal"
 						animate={controls}
+					/>
+					<motion.path
 						d="M5 3 2 6"
-					/>
-					<motion.path
 						variants={secondaryPathVariants}
 						initial="normal"
 						animate={controls}
+					/>
+					<motion.path
 						d="m22 6-3-3"
-					/>
-					<motion.path
-						variants={pathVariants}
+						variants={secondaryPathVariants}
 						initial="normal"
 						animate={controls}
+					/>
+					<motion.path
 						d="M6.38 18.7 4 21"
-					/>
-					<motion.path
 						variants={pathVariants}
 						initial="normal"
 						animate={controls}
+					/>
+					<motion.path
 						d="M17.64 18.67 20 21"
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
 					/>
 					<motion.line
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
 						x1="9"
 						y1="13"
 						x2="15"
 						y2="13"
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
 					/>
 				</svg>
 			</div>
@@ -207,4 +109,5 @@ const AlarmClockMinus = forwardRef<AlarmClockMinusHandle, AlarmClockMinusProps>(
 );
 
 AlarmClockMinus.displayName = 'AlarmClockMinus';
+
 export { AlarmClockMinus };

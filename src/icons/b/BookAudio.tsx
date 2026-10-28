@@ -25,16 +25,17 @@ const pathVariants = {
 };
 
 const audioPulseVariants = {
-	normal: { opacity: 0.6, scaleY: 1 },
-	animate: {
-		opacity: [0.6, 1, 0.6],
+	normal: { opacity: 1, scaleY: 1, transition: { duration: 0.3 } },
+	animate: (delay: number) => ({
+		opacity: [1, 0.6, 1],
 		scaleY: [1, 1.5, 1],
 		transition: {
 			duration: 1.2,
+			delay,
 			repeat: Infinity,
 			ease: 'easeInOut',
 		},
-	},
+	}),
 };
 
 export const BookAudio = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
@@ -68,23 +69,24 @@ export const BookAudio = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
 					<motion.path
 						d="M12 6v7"
+						custom={0}
 						variants={audioPulseVariants}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
 						d="M16 8v3"
+						custom={0.2}
 						variants={audioPulseVariants}
 						initial="normal"
 						animate={controls}
-						transition={{ delay: 0.2, repeat: Infinity, duration: 1.2 }}
 					/>
 					<motion.path
 						d="M8 8v3"
+						custom={0.4}
 						variants={audioPulseVariants}
 						initial="normal"
 						animate={controls}
-						transition={{ delay: 0.4, repeat: Infinity, duration: 1.2 }}
 					/>
 				</svg>
 			</div>

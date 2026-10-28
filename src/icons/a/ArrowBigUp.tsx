@@ -40,6 +40,7 @@ export const ArrowBigUp = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
+					style={{ overflow: 'visible' }}
 				>
 					<motion.g variants={groupVariants} initial="initial" animate={controls}>
 						<path d="M9 18V12H5l7-7 7 7h-4v6H9z" />

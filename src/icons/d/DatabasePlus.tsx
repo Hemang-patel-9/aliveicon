@@ -35,6 +35,7 @@ const DatabasePlus = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
+					style={{ overflow: 'visible' }}
 				>
 					<motion.path
 						d="M19 16v6"

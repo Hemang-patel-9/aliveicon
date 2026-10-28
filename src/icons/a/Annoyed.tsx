@@ -1,170 +1,128 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface AnnoyedHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface AnnoyedProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-	delay?: number;
+export interface AnnoyedProps extends AnimatedIconProps {
 	animationTrigger?: 'manual' | 'hover' | 'click' | 'load';
+	delay?: number;
 }
 
 const DURATION = 0.7;
 
-const faceVariants = {
+const faceVariants: Variants = {
 	normal: { scale: 1 },
-	animate: {
+	animate: (delay: number) => ({
 		scale: [1, 1.1, 0.95, 1.1, 1],
-		transition: { duration: DURATION, ease: 'easeInOut' },
-	},
+		transition: { duration: DURATION, delay, ease: 'easeInOut' },
+	}),
 };
 
-const mouthVariants = {
+const mouthVariants: Variants = {
 	normal: { x: 0 },
-	animate: {
-		x: [-1, 1, -0.5, 0],
-		transition: { duration: DURATION, ease: 'easeInOut' },
-	},
+	animate: (delay: number) => ({
+		x: [0, -1, 1, -0.5, 0],
+		transition: { duration: DURATION, delay, ease: 'easeInOut' },
+	}),
 };
 
-const leftEyeVariants = {
+const leftEyeVariants: Variants = {
 	normal: { y: 0 },
-	animate: {
-		y: [-1, -3, -1],
-		transition: { duration: DURATION, ease: 'easeOut' },
-	},
+	animate: (delay: number) => ({
+		y: [0, -3, -1, 0],
+		transition: { duration: DURATION, delay, ease: 'easeOut' },
+	}),
 };
 
-const rightEyeVariants = {
+const rightEyeVariants: Variants = {
 	normal: { y: 0 },
-	animate: {
-		y: [-1, -2, -1],
-		transition: { duration: DURATION, ease: 'easeOut' },
-	},
+	animate: (delay: number) => ({
+		y: [0, -2, -1, 0],
+		transition: { duration: DURATION, delay, ease: 'easeOut' },
+	}),
 };
 
-export const Annoyed = forwardRef<AnnoyedHandle, AnnoyedProps>(
+const Annoyed = forwardRef<AnimatedIconHandle, AnnoyedProps>(
 	(
 		{
-			size = 28,
 			className,
+			size = 28,
 			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
 			animationTrigger = 'hover',
 			delay = 0,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
+			hoverable = true,
+			animateOnClick = false,
+			autoAnimateOnLoad = false,
 			...props
 		},
 		ref
 	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			if (!loopRef.current) {
-				await controls.start('normal');
-			} else {
-				triggerAnimation();
-			}
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad || animationTrigger === 'load') {
-				timeoutRef.current = setTimeout(() => {
-					triggerAnimation();
-				}, delay);
-			}
-			return () => {
-				if (timeoutRef.current) clearTimeout(timeoutRef.current);
-			};
-		}, [autoAnimateOnLoad, animationTrigger, delay, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
+		const playsOnLoad = animationTrigger === 'load' || autoAnimateOnLoad;
+		const startDelay = playsOnLoad ? delay / 1000 : 0;
+		const { controls, iconProps } = useAnimatedIcon(ref, {
+			...props,
+			hoverable: animationTrigger === 'hover' && hoverable,
+			animateOnClick: animationTrigger === 'click' || animateOnClick,
+			autoAnimateOnLoad: playsOnLoad,
 		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable && animationTrigger === 'hover') {
-				triggerAnimation();
-			}
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable && animationTrigger === 'hover' && !loopOnHover) {
-				controls.start('normal');
-			}
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if ((!isControlledRef.current && animateOnClick) || animationTrigger === 'click') {
-				triggerAnimation();
-			}
-			onClick?.(e);
-		};
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
-				<motion.svg
+				<svg
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
-					animate={controls}
-					initial="normal"
+					width="100%"
+					height="100%"
 				>
-					<motion.circle cx="12" cy="12" r="10" variants={faceVariants} />
-					<motion.path d="M8 15h8" variants={mouthVariants} />
-					<motion.path d="M8 9h2" variants={leftEyeVariants} />
-					<motion.path d="M14 9h2" variants={rightEyeVariants} />
-				</motion.svg>
+					<motion.circle
+						cx="12"
+						cy="12"
+						r="10"
+						custom={startDelay}
+						variants={faceVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M8 15h8"
+						custom={startDelay}
+						variants={mouthVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M8 9h2"
+						custom={startDelay}
+						variants={leftEyeVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M14 9h2"
+						custom={startDelay}
+						variants={rightEyeVariants}
+						initial="normal"
+						animate={controls}
+					/>
+				</svg>
 			</div>
 		);
 	}
 );
 
 Annoyed.displayName = 'Annoyed';
+
+export { Annoyed };

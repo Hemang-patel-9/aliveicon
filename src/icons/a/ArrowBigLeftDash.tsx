@@ -19,7 +19,7 @@ const arrowVariants = {
 };
 
 const dashVariants = {
-	initial: { y: 0, scale: 1 },
+	initial: { x: 0, scale: 1 },
 	animate: {
 		x: [0, -2, 0],
 		scale: [1, 1.1, 1],
@@ -51,6 +51,7 @@ export const ArrowBigLeftDash = forwardRef<AnimatedIconHandle, AnimatedIconProps
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
+					style={{ overflow: 'visible' }}
 				>
 					<motion.path d="M19 15V9" variants={dashVariants} initial="initial" animate={controls} />
 					<motion.path

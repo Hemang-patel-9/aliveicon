@@ -1,25 +1,12 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface CalendarSearchHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface CalendarSearchProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-const pathVariants = {
+const pathVariants: Variants = {
 	normal: {
 		pathLength: 1,
 		pathOffset: 0,
@@ -30,102 +17,27 @@ const pathVariants = {
 		pathLength: [0, 1],
 		pathOffset: [1, 0],
 		opacity: [0, 1],
-		transition: {
-			duration: 0.6,
-			ease: 'easeInOut',
-		},
+		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
 
-const scaleVariants = {
+const scaleVariants: Variants = {
 	normal: { scale: 1, transition: { duration: 0.3 } },
 	animate: {
 		scale: [1, 1.15, 1],
-		transition: {
-			duration: 0.6,
-			ease: 'easeInOut',
-		},
+		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
 
-export const CalendarSearch = forwardRef<CalendarSearchHandle, CalendarSearchProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const magnifierControls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await Promise.all([controls.start('animate'), magnifierControls.start('animate')]);
-			await Promise.all([controls.start('normal'), magnifierControls.start('normal')]);
-			if (loopRef.current) triggerAnimation();
-		}, [controls, magnifierControls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => {
-					controls.start('animate');
-					magnifierControls.start('animate');
-				},
-				stopAnimation: () => {
-					controls.start('normal');
-					magnifierControls.start('normal');
-				},
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) {
-				controls.start('normal');
-				magnifierControls.start('normal');
-			}
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+const CalendarSearch = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
@@ -160,7 +72,7 @@ export const CalendarSearch = forwardRef<CalendarSearchHandle, CalendarSearchPro
 						r="3"
 						variants={scaleVariants}
 						initial="normal"
-						animate={magnifierControls}
+						animate={controls}
 					/>
 				</svg>
 			</div>
@@ -169,3 +81,5 @@ export const CalendarSearch = forwardRef<CalendarSearchHandle, CalendarSearchPro
 );
 
 CalendarSearch.displayName = 'CalendarSearch';
+
+export { CalendarSearch };

@@ -9,7 +9,7 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 const popVariants: Variants = {
 	normal: { scale: 1, transition: { duration: 0.2 } },
 	animate: (i: number) => ({
-		scale: [1, 1.35, 1],
+		scale: [1, 1.1, 1],
 		transition: { duration: 0.4, delay: i * 0.08, ease: 'easeInOut' },
 	}),
 };

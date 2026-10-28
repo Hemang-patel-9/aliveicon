@@ -1,165 +1,110 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface BowArrowHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
+const timing = { duration: 0.9, times: [0, 0.33, 0.5, 0.67, 1] };
 
-interface BowArrowProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-const bowStringVariants = {
+const bowStringVariants: Variants = {
 	normal: {
 		d: 'M18.575 11.082a13 13 0 0 1 1.048 9.027 1.17 1.17 0 0 1-1.914.597L14 17',
 		transition: { duration: 0.2 },
 	},
-	pullBack: {
-		d: 'M17.575 12.582a11 11 0 0 1 0.548 7.527 1.17 1.17 0 0 1-1.914.597L13 15.5',
-		transition: { duration: 0.3, ease: 'easeOut' },
+	animate: {
+		d: [
+			'M18.575 11.082a13 13 0 0 1 1.048 9.027 1.17 1.17 0 0 1-1.914.597L14 17',
+			'M17.575 12.582a11 11 0 0 1 0.548 7.527 1.17 1.17 0 0 1-1.914.597L13 15.5',
+			'M17.575 12.582a11 11 0 0 1 0.548 7.527 1.17 1.17 0 0 1-1.914.597L13 15.5',
+			'M18.575 11.082a13 13 0 0 1 1.048 9.027 1.17 1.17 0 0 1-1.914.597L14 17',
+			'M18.575 11.082a13 13 0 0 1 1.048 9.027 1.17 1.17 0 0 1-1.914.597L14 17',
+		],
+		transition: { ...timing, ease: 'easeOut' },
 	},
 };
 
-const bowBottomVariants = {
+const bowBottomVariants: Variants = {
 	normal: {
 		d: 'M7 10 3.29 6.29a1.17 1.17 0 0 1 .6-1.91 13 13 0 0 1 9.03 1.05',
 		transition: { duration: 0.2 },
 	},
-	pullBack: {
-		d: 'M8 11.5 3.29 6.29a1.17 1.17 0 0 1 .6-1.91 13 13 0 0 1 9.03 1.05',
-		transition: { duration: 0.3, ease: 'easeOut' },
+	animate: {
+		d: [
+			'M7 10 3.29 6.29a1.17 1.17 0 0 1 .6-1.91 13 13 0 0 1 9.03 1.05',
+			'M8 11.5 3.29 6.29a1.17 1.17 0 0 1 .6-1.91 13 13 0 0 1 9.03 1.05',
+			'M8 11.5 3.29 6.29a1.17 1.17 0 0 1 .6-1.91 13 13 0 0 1 9.03 1.05',
+			'M7 10 3.29 6.29a1.17 1.17 0 0 1 .6-1.91 13 13 0 0 1 9.03 1.05',
+			'M7 10 3.29 6.29a1.17 1.17 0 0 1 .6-1.91 13 13 0 0 1 9.03 1.05',
+		],
+		transition: { ...timing, ease: 'easeOut' },
 	},
 };
 
-const arrowShaftVariants = {
-	normal: {
-		d: 'M9.707 14.293 21 3',
-		x: 0,
-		y: 0,
-		transition: { duration: 0.2 },
-	},
-	pullBack: {
-		d: 'M7.707 15.793 19 4.5',
-		x: 0,
-		y: 0,
-		transition: { duration: 0.3, ease: 'easeOut' },
-	},
-	shoot: {
-		d: 'M9.707 14.293 21 3',
-		x: 20,
-		y: -20,
-		transition: { duration: 0.15, ease: 'easeIn' },
+const flight = {
+	x: [0, -1.5, -1.5, 20, 20],
+	y: [0, 1.5, 1.5, -20, -20],
+	opacity: [1, 1, 1, 0, 0],
+	transition: { ...timing, ease: 'easeIn' },
+};
+
+const restAfterFlight = {
+	x: 0,
+	y: 0,
+	opacity: 1,
+	transition: { x: { duration: 0 }, y: { duration: 0 }, opacity: { duration: 0.3 } },
+};
+
+const arrowTipVariants: Variants = {
+	normal: restAfterFlight,
+	animate: flight,
+};
+
+const arrowShaftVariants: Variants = {
+	normal: { d: 'M9.707 14.293 21 3', ...restAfterFlight },
+	animate: {
+		...flight,
+		d: [
+			'M9.707 14.293 21 3',
+			'M7.707 15.793 19 4.5',
+			'M7.707 15.793 19 4.5',
+			'M9.707 14.293 21 3',
+			'M9.707 14.293 21 3',
+		],
+		x: [0, 0, 0, 20, 20],
+		y: [0, 0, 0, -20, -20],
 	},
 };
 
-const arrowHeadVariants = {
+const arrowHeadVariants: Variants = {
 	normal: {
 		d: 'M7 14a1.7 1.7 0 0 0-1.207.5l-2.646 2.646A.5.5 0 0 0 3.5 18H5a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 .854.354L9.5 18.207A1.7 1.7 0 0 0 10 17v-2a1 1 0 0 0-1-1z',
-		x: 0,
-		y: 0,
-		opacity: 1,
-		transition: { duration: 0.2 },
+		...restAfterFlight,
 	},
-	pullBack: {
-		d: 'M5 15.5a1.7 1.7 0 0 0-1.207.5l-2.646 2.646A.5.5 0 0 0 1.5 19.5H3a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 .854.354L7.5 19.707A1.7 1.7 0 0 0 8 18.5v-2a1 1 0 0 0-1-1z',
-		x: 0,
-		y: 0,
-		opacity: 1,
-		transition: { duration: 0.3, ease: 'easeOut' },
-	},
-	shoot: {
-		d: 'M7 14a1.7 1.7 0 0 0-1.207.5l-2.646 2.646A.5.5 0 0 0 3.5 18H5a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 .854.354L9.5 18.207A1.7 1.7 0 0 0 10 17v-2a1 1 0 0 0-1-1z',
-		x: 20,
-		y: -20,
-		opacity: 0,
-		transition: { duration: 0.15, ease: 'easeIn' },
+	animate: {
+		...flight,
+		d: [
+			'M7 14a1.7 1.7 0 0 0-1.207.5l-2.646 2.646A.5.5 0 0 0 3.5 18H5a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 .854.354L9.5 18.207A1.7 1.7 0 0 0 10 17v-2a1 1 0 0 0-1-1z',
+			'M5 15.5a1.7 1.7 0 0 0-1.207.5l-2.646 2.646A.5.5 0 0 0 1.5 19.5H3a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 .854.354L7.5 19.707A1.7 1.7 0 0 0 8 18.5v-2a1 1 0 0 0-1-1z',
+			'M5 15.5a1.7 1.7 0 0 0-1.207.5l-2.646 2.646A.5.5 0 0 0 1.5 19.5H3a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 .854.354L7.5 19.707A1.7 1.7 0 0 0 8 18.5v-2a1 1 0 0 0-1-1z',
+			'M7 14a1.7 1.7 0 0 0-1.207.5l-2.646 2.646A.5.5 0 0 0 3.5 18H5a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 .854.354L9.5 18.207A1.7 1.7 0 0 0 10 17v-2a1 1 0 0 0-1-1z',
+			'M7 14a1.7 1.7 0 0 0-1.207.5l-2.646 2.646A.5.5 0 0 0 3.5 18H5a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 .854.354L9.5 18.207A1.7 1.7 0 0 0 10 17v-2a1 1 0 0 0-1-1z',
+		],
+		x: [0, 0, 0, 20, 20],
+		y: [0, 0, 0, -20, -20],
 	},
 };
 
-export const BowArrow = forwardRef<BowArrowHandle, BowArrowProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('pullBack');
-			await new Promise((resolve) => setTimeout(resolve, 150));
-			await controls.start('shoot');
-			await new Promise((resolve) => setTimeout(resolve, 300));
-			await controls.start('normal');
-
-			if (loopRef.current) {
-				setTimeout(() => triggerAnimation(), 800);
-			}
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => triggerAnimation(),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) controls.start('normal');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+const BowArrow = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
@@ -175,24 +120,34 @@ export const BowArrow = forwardRef<BowArrowHandle, BowArrowProps>(
 				>
 					<motion.path
 						d="M17 3h4v4"
-						variants={{
-							normal: { opacity: 1, x: 0, y: 0 },
-							pullBack: {
-								opacity: 1,
-								x: -1.5,
-								y: 1.5,
-								transition: { duration: 0.3, ease: 'easeOut' },
-							},
-							shoot: { opacity: 1, x: 20, y: -20, transition: { duration: 0.15, ease: 'easeIn' } },
-						}}
+						variants={arrowTipVariants}
 						initial="normal"
 						animate={controls}
 					/>
-
-					<motion.path variants={bowStringVariants} initial="normal" animate={controls} />
-					<motion.path variants={bowBottomVariants} initial="normal" animate={controls} />
-					<motion.path variants={arrowHeadVariants} initial="normal" animate={controls} />
-					<motion.path variants={arrowShaftVariants} initial="normal" animate={controls} />
+					<motion.path
+						d="M18.575 11.082a13 13 0 0 1 1.048 9.027 1.17 1.17 0 0 1-1.914.597L14 17"
+						variants={bowStringVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M7 10 3.29 6.29a1.17 1.17 0 0 1 .6-1.91 13 13 0 0 1 9.03 1.05"
+						variants={bowBottomVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M7 14a1.7 1.7 0 0 0-1.207.5l-2.646 2.646A.5.5 0 0 0 3.5 18H5a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 .854.354L9.5 18.207A1.7 1.7 0 0 0 10 17v-2a1 1 0 0 0-1-1z"
+						variants={arrowHeadVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M9.707 14.293 21 3"
+						variants={arrowShaftVariants}
+						initial="normal"
+						animate={controls}
+					/>
 				</svg>
 			</div>
 		);
@@ -200,3 +155,5 @@ export const BowArrow = forwardRef<BowArrowHandle, BowArrowProps>(
 );
 
 BowArrow.displayName = 'BowArrow';
+
+export { BowArrow };

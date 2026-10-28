@@ -19,7 +19,7 @@ const arrowVariants = {
 };
 
 const dashVariants = {
-	initial: { y: 0, scale: 1 },
+	initial: { x: 0, scale: 1 },
 	animate: {
 		x: [0, 2, 0],
 		scale: [1, 1.1, 1],

@@ -6,14 +6,77 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-10-29
+
 ### Added
 
 - 4 icons from Lucide: `AzerbaijaniManat`, `BallWave`, `EmiratiDirham`, `HotAirBalloon`.
+- 70 icons from Lucide: `CalendarArrowLeft`, `CalendarArrowRight`, `CalendarCog`, `Calendars`,
+  `CarBattery`, `Certificate`, `CctvOff`, `ChartBarStacked`, `ChartColumnBig`, `ChartColumnStacked`,
+  `ChartRadar`, `ChevronFirst`, `ChevronLast`, `CircleChevronsDown`, `CircleChevronsLeft`,
+  `CircleChevronsRight`, `CircleChevronsUp`, `CircleDashedCheck`, `CircleEuro`, `CirclePlay`,
+  `CircleStar`, `Clapperboard`, `ClipboardClock`, `ClockAlert`, `ClockCheck`, `ClockFading`,
+  `ClockPlus`, `ClosedCaption`, `Cloud`, `CloudAlert`, `CloudCheck`, `CloudDownload`,
+  `CloudDrizzle`, `CloudFog`, `CloudLightning`, `CloudMoon`, `CloudOff`, `CloudRain`, `CloudSnow`,
+  `CloudSun`, `CloudSync`, `CloudUpload`, `Clover`, `Code`, `CodeXml`, `Coffee`, `Cog`, `Coins`,
+  `Command`, `Compass`, `ConciergeBell`, `Construction`, `Contact`, `Container`, `Contrast`,
+  `CookingPot`, `Cookie`, `Copy`, `CopyCheck`, `CopyPlus`, `CopyX`, `Cpu`, `CreditCard`,
+  `CreditCardCheck`, `CreditCardPlus`, `CreditCardX`, `Crop`, `Crosshair`, `Cross`, `Crown`.
+- 70 more icons from Lucide: `CalendarChevronsLeft`, `CalendarChevronsRight`, `CalendarMinus2`,
+  `CalendarPlus2`, `Can`, `CanSoda`, `CannabisOff`, `Carton`, `CartonOff`, `CaseSensitive`,
+  `ChartQuadrant`, `ChessBishop`, `ChessKing`, `ChessKnight`, `ChessPawn`, `ChessQueen`, `ChessRook`,
+  `CircleArrowOutDownLeft`, `CircleArrowOutDownRight`, `CircleArrowOutUpLeft`,
+  `CircleArrowOutUpRight`, `CircleFadingPlay`, `CirclePile`, `CircleQuestionMark`, `ClefAlto`,
+  `ClefBass`, `ClefTreble`, `ClockArrowDown`, `ClockArrowLeft`, `ClockArrowRight`, `ClockArrowUp`,
+  `CloudBackup`, `CloudCog`, `CloudHail`, `CloudMoonRain`, `CloudRainWind`, `CloudSunRain`, `Cloudy`,
+  `Club`, `Columns2`, `Columns3`, `Columns3Cog`, `Columns4`, `Combine`, `Component`, `Computer`,
+  `Cone`, `ContactRound`, `CopyMinus`, `CopySlash`, `Copyleft`, `Copyright`, `CornerDownLeft`,
+  `CornerDownRight`, `CornerLeftDown`, `CornerLeftUp`, `CornerRightDown`, `CornerRightUp`,
+  `CornerUpLeft`, `CornerUpRight`, `CpuAi`, `CreativeCommons`, `CreditCardMinus`,
+  `CreditCardReader`, `Croissant`, `Cuboid`, `CupSoda`, `Cupcake`, `Currency`, `Cylinder`.
+- 42 icons from Lucide, completing A, B and C: `ArchiveArrowDown`, `ArchiveArrowUp`, `BoxesLinked`,
+  `CircleLetterA`, `CircleLetterB`, `CircleLetterC`, `CircleLetterD`, `CircleLetterE`,
+  `CircleLetterF`, `CircleLetterG`, `CircleLetterH`, `CircleLetterI`, `CircleLetterJ`,
+  `CircleLetterK`, `CircleLetterL`, `CircleLetterM`, `CircleLetterN`, `CircleLetterO`,
+  `CircleLetterP`, `CircleLetterPOff`, `CircleLetterQ`, `CircleLetterR`, `CircleLetterS`,
+  `CircleLetterT`, `CircleLetterU`, `CircleLetterV`, `CircleLetterW`, `CircleLetterX`,
+  `CircleLetterY`, `CircleLetterZ`, `Clock1`, `Clock2`, `Clock3`, `Clock4`, `Clock5`, `Clock6`,
+  `Clock7`, `Clock8`, `Clock9`, `Clock10`, `Clock11`, `Clock12`.
+- 5 icons from Lucide, completing D, E, N and U: `DatabaseCog`, `Earbuds`, `EarbudsOff`, `Numbers`,
+  `UserRoundShield`.
+
+### Changed
+
+- The last 64 icons with their own trigger code now use the shared animation hook, so hover, click,
+  load, loop and ref behave the same on every icon and all of them respect `prefers-reduced-motion`.
+  `Bell` keeps `swingAngle` and `duration`; `Annoyed` and `Antenna` keep `animationTrigger` and `delay`.
+- `Bell` now defaults to `size` 28 like every other icon (was 48).
+- `AirVent`, `AlarmClock`, `AlarmClockCheck`, `AlarmClockMinus`, `AlarmClockPlus` and `BeerOff` use the
+  same inline-block wrapper as the other icons and accept `style`.
 
 ### Fixed
 
 - `EighthNote`, `HalfNote`, `HockeyStick`, `GlobeCode`, `GraduationCap`, `Guitar` and
   `GuitarElectric` no longer get cut off at the edge of the icon while animating.
+- Wrong shapes: `ArrowDown10` showed 0 over 1, `ArrowDownZA` showed A over Z, `Activity` was half
+  size and `Video` was clipped on the left. `ArrowDownAZ` and `ArrowDownZA` draw their letters as
+  paths instead of font text.
+- Parts hidden at rest: `BatteryFull`, `BatteryLow` and `BatteryMedium` showed an empty battery,
+  `Wind` was blank and `University` hid its window dots until hovered.
+- `Bandage`, `Banknote`, `BanknoteArrowDown`, `BanknoteArrowUp`, `BanknoteX` and `Barcode` drew their
+  outlines as dotted lines; `BookAudio` showed its bars faded at rest.
+- Animations that never played: `ArrowDown`, `ArrowUp`, `ArrowLeft` and `ArrowRight` (with console
+  errors), and the draw on `Activity`, `AudioWaveform`, `Accessibility`, `Album` and `SquareActivity`.
+- Animations that never ended or reset: `AudioLines`, `Antenna`, `Radar` and `BatteryCharging` looped
+  forever after a click or `startAnimation`; `BookAudio` kept pulsing after the mouse left; the
+  sorting arrows, `Bot` and other former custom icons froze mid-animation on mouse leave;
+  `RefreshCw`, `RefreshCcw` and `RefreshCcwDot` spun backwards at the end; `ArrowBigDownDash`,
+  `ArrowBigLeftDash` and `ArrowBigRightDash` reset the wrong axis; `BoomBox` didn't loop.
+- Icons no longer get cut off at the edge while animating: `Blocks`, `BowArrow`, `Antenna`,
+  `BetweenHorizontalStart`, `BetweenHorizontalEnd`, `BetweenVerticalStart`, `BetweenVerticalEnd`,
+  `UnfoldHorizontal`, `UnfoldVertical`, `ImageDown`, `DatabaseZap`, `RotateCw`, `RotateCwClock`,
+  `RotateCwFadingClock`, `Clapperboard`, `CloudSync` and a few smaller overshoots.
+- `AppWindowMac` no longer blinks on its own when the page loads.
 
 ## [1.4.0] - 2026-10-26
 

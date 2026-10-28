@@ -23,7 +23,7 @@ const variants = {
 
 const AudioLines = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+		const { controls, iconProps } = useAnimatedIcon(ref, props, { cycleMs: 1500 });
 
 		return (
 			<div

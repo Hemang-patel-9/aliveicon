@@ -1,25 +1,12 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface ArrowDownAZHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface ArrowDownAZProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-const arrowVariants = {
+const arrowVariants: Variants = {
 	normal: { y: 0 },
 	animate: {
 		y: [0, 3, 0],
@@ -27,89 +14,31 @@ const arrowVariants = {
 	},
 };
 
-const aVariants = {
-	initial: { y: 0 },
+const aVariants: Variants = {
+	normal: { y: 0 },
 	animate: {
 		y: [0, 10, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
 
-const zVariants = {
-	initial: { y: 0 },
+const zVariants: Variants = {
+	normal: { y: 0 },
 	animate: {
 		y: [0, -10, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
 
-export const ArrowDownAZ = forwardRef<ArrowDownAZHandle, ArrowDownAZProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.stop(),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) controls.stop();
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+const ArrowDownAZ = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
@@ -130,28 +59,16 @@ export const ArrowDownAZ = forwardRef<ArrowDownAZHandle, ArrowDownAZProps>(
 						animate={controls}
 					/>
 					<path d="M7 20V4" />
-
-					<motion.text
-						x="15"
-						y="10"
-						fontSize="6"
-						variants={aVariants}
-						initial="initial"
-						animate={controls}
-					>
-						A
-					</motion.text>
-
-					<motion.text
-						x="15"
-						y="20"
-						fontSize="6"
+					<motion.g variants={aVariants} initial="normal" animate={controls}>
+						<path d="M20 8h-5" />
+						<path d="M15 10V6.5a2.5 2.5 0 0 1 5 0V10" />
+					</motion.g>
+					<motion.path
+						d="M15 14h5l-5 6h5"
 						variants={zVariants}
-						initial="initial"
+						initial="normal"
 						animate={controls}
-					>
-						Z
-					</motion.text>
+					/>
 				</svg>
 			</div>
 		);
@@ -159,3 +76,5 @@ export const ArrowDownAZ = forwardRef<ArrowDownAZHandle, ArrowDownAZProps>(
 );
 
 ArrowDownAZ.displayName = 'ArrowDownAZ';
+
+export { ArrowDownAZ };

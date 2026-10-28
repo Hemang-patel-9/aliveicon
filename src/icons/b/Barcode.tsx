@@ -7,10 +7,9 @@ import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const strokeVariants: Variants = {
-	normal: { opacity: 1, strokeDashoffset: 0, strokeDasharray: '0 1' },
+	normal: { opacity: 1, pathLength: 1, transition: { duration: 0.3 } },
 	animate: {
-		strokeDashoffset: [1, 0],
-		strokeDasharray: ['0 1', '1 0'],
+		pathLength: [0, 1],
 		opacity: [0, 1],
 		transition: { duration: 0.5, ease: 'easeInOut' },
 	},

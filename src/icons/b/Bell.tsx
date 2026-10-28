@@ -1,110 +1,33 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface BellHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface BellProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
+export interface BellProps extends AnimatedIconProps {
 	swingAngle?: number;
 	duration?: number;
-	className?: string;
-	style?: React.CSSProperties;
 }
 
-export const Bell = forwardRef<BellHandle, BellProps>(
-	(
-		{
-			size = 48,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			swingAngle = 15,
-			duration = 1,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
+const bellVariants: Variants = {
+	normal: { rotate: 0 },
+	animate: ([angle, duration]: [number, number]) => ({
+		rotate: [0, -angle, angle, -angle, 0],
+		transition: { duration, ease: 'easeInOut' },
+	}),
+};
 
-		const swingAnimation = useCallback(async () => {
-			await controls.start({
-				rotate: [-swingAngle, swingAngle, -swingAngle],
-				transition: { duration, ease: 'easeInOut' },
-			});
-			if (loopRef.current) {
-				swingAnimation();
-			} else {
-				await controls.start({ rotate: 0 });
-			}
-		}, [controls, duration, swingAngle]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) {
-				swingAnimation();
-			}
-		}, [autoAnimateOnLoad, swingAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => swingAnimation(),
-				stopAnimation: () => controls.start({ rotate: 0 }),
-			};
-		});
-
-		function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) {
-				swingAnimation();
-			}
-			onMouseEnter?.(e);
-		}
-
-		function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) {
-				controls.start({ rotate: 0 });
-			}
-			onMouseLeave?.(e);
-		}
-
-		function handleClick(e: React.MouseEvent<HTMLDivElement>) {
-			if (animateOnClick) {
-				swingAnimation();
-			}
-			onClick?.(e);
-		}
+const Bell = forwardRef<AnimatedIconHandle, BellProps>(
+	({ className, size = 28, style, swingAngle = 15, duration = 1, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<motion.svg
 					aria-hidden="true"
@@ -117,9 +40,11 @@ export const Bell = forwardRef<BellHandle, BellProps>(
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
-					style={{ originX: '50%', originY: '10%' }}
+					custom={[swingAngle, duration]}
+					variants={bellVariants}
+					initial="normal"
 					animate={controls}
-					initial={{ rotate: 0 }}
+					style={{ originX: '50%', originY: '10%' }}
 				>
 					<path d="M10.268 21a2 2 0 0 0 3.464 0" />
 					<path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" />
@@ -130,3 +55,5 @@ export const Bell = forwardRef<BellHandle, BellProps>(
 );
 
 Bell.displayName = 'Bell';
+
+export { Bell };

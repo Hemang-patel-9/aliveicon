@@ -1,131 +1,77 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface RemoveFormattingHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
+const pathVariants: Variants = {
+	normal: { pathLength: 1, opacity: 1 },
+	animate: (i: number) => ({
+		pathLength: [0, 1],
+		opacity: [0, 1],
+		transition: { duration: 0.5, delay: i * 0.12, ease: 'easeInOut' },
+	}),
+};
 
-interface RemoveFormattingProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	className?: string;
-	style?: React.CSSProperties;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-}
-
-const RemoveFormatting = forwardRef<RemoveFormattingHandle, RemoveFormattingProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const pathControls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const animate = useCallback(async () => {
-			await pathControls.start((i) => ({
-				pathLength: [0, 1],
-				opacity: [0, 1],
-				transition: {
-					duration: 0.5,
-					delay: i * 0.12,
-					ease: 'easeInOut',
-				},
-			}));
-			await pathControls.start('visible');
-			if (loopRef.current) animate();
-		}, [pathControls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) animate();
-		}, [autoAnimateOnLoad, animate]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: animate,
-				stopAnimation: () => {
-					pathControls.start('visible');
-				},
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) animate();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) {
-				pathControls.start('visible');
-			}
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate();
-			onClick?.(e);
-		};
-
-		const paths = ['M4 7V4h16v3', 'M5 20h6', 'M13 4L8 20', 'M15 15l5 5', 'M20 15l-5 5'];
+const RemoveFormatting = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
+					width="100%"
+					height="100%"
 				>
-					{paths.map((d, i) => (
-						<motion.path
-							key={i}
-							d={d}
-							initial="visible"
-							animate={pathControls}
-							custom={i}
-							variants={{
-								visible: { pathLength: 1, opacity: 1 },
-							}}
-						/>
-					))}
+					<motion.path
+						d="M4 7V4h16v3"
+						custom={0}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M5 20h6"
+						custom={1}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M13 4L8 20"
+						custom={2}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M15 15l5 5"
+						custom={3}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M20 15l-5 5"
+						custom={4}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
 				</svg>
 			</div>
 		);
@@ -133,4 +79,5 @@ const RemoveFormatting = forwardRef<RemoveFormattingHandle, RemoveFormattingProp
 );
 
 RemoveFormatting.displayName = 'RemoveFormatting';
+
 export { RemoveFormatting };

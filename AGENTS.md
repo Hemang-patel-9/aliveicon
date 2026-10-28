@@ -48,8 +48,7 @@ Run `npm run check` before you finish any change. Run `npm run build && npm test
 - An `animate` variant with `repeat: Infinity` needs `{ cycleMs }` so a single play ends.
 - Set `<Name>.displayName = '<Name>'`. No `console.*`.
 - No code comments. The only exception is `@deprecated` in `src/aliases.ts`.
-- 65 older icons still own their trigger logic and are listed in `legacyIcons` in
-  `scripts/lint-icons.mjs`. Do not add new icons to that list.
+- Every icon uses `useAnimatedIcon`. `legacyIcons` in `scripts/lint-icons.mjs` is empty; keep it that way.
 
 New icon checklist: add the file, run `npm run generate`, then `npm run check`.
 

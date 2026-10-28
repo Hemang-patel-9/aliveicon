@@ -35,6 +35,7 @@ const RotateCwClock = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
+					style={{ overflow: 'visible' }}
 				>
 					<path d="M12 7v5l4 2" />
 					<motion.g

@@ -16,17 +16,16 @@ const animateTarget: AnimationDefinition = (i) => ({
 	},
 });
 
+const visibleVariants = {
+	visible: { pathLength: 1, opacity: 1 },
+};
+
 const Video = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props, {
 			rest: 'visible',
 			animate: animateTarget,
 		});
-
-		const paths = [
-			'M16 13l5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5',
-			'M2 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z',
-		];
 
 		return (
 			<div
@@ -46,18 +45,24 @@ const Video = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					strokeLinecap="round"
 					strokeLinejoin="round"
 				>
-					{paths.map((d, i) => (
-						<motion.path
-							key={i}
-							d={d}
-							initial="visible"
-							animate={controls}
-							custom={i}
-							variants={{
-								visible: { pathLength: 1, opacity: 1 },
-							}}
-						/>
-					))}
+					<motion.path
+						d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"
+						initial="visible"
+						animate={controls}
+						custom={0}
+						variants={visibleVariants}
+					/>
+					<motion.rect
+						x="2"
+						y="6"
+						width="14"
+						height="12"
+						rx="2"
+						initial="visible"
+						animate={controls}
+						custom={1}
+						variants={visibleVariants}
+					/>
 				</svg>
 			</div>
 		);

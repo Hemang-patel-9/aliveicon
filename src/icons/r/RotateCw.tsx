@@ -35,6 +35,7 @@ const RotateCw = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
+					style={{ overflow: 'visible' }}
 				>
 					<motion.g
 						variants={spinCwVariants}

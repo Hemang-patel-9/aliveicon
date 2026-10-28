@@ -34,9 +34,9 @@ export const BetweenVerticalStart = forwardRef<AnimatedIconHandle, AnimatedIconP
 		const arrowVariants = {
 			normal: { y: 0, opacity: 1 },
 			animate: {
-				y: [0, 5, 0, -5, 0],
+				y: [0, 2, 0, 2, 0],
 				opacity: [1, 0.7, 1, 0.7, 1],
-				transition: { duration: 2, ease: 'easeInOut' },
+				transition: { duration: 1.2, ease: 'easeInOut' },
 			},
 		};
 

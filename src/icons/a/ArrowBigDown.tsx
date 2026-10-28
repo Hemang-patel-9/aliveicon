@@ -40,6 +40,7 @@ export const ArrowBigDown = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
+					style={{ overflow: 'visible' }}
 				>
 					<motion.g variants={groupVariants} initial="initial" animate={controls}>
 						<path d="M15 6v6h4l-7 7-7-7h4V6h6z" />

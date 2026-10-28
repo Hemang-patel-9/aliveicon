@@ -1,25 +1,12 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface ChartBarBigHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface ChartBarBigProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-const pathVariants = {
+const pathVariants: Variants = {
 	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.3 } },
 	animate: {
 		pathLength: [0, 1],
@@ -28,74 +15,24 @@ const pathVariants = {
 	},
 };
 
-export const ChartBarBig = forwardRef<ChartBarBigHandle, ChartBarBigProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
+const barVariants: Variants = {
+	normal: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+	animate: {
+		opacity: [0, 1],
+		scale: [0.8, 1],
+		transition: { duration: 0.7, ease: 'easeInOut' },
+	},
+};
 
-		const triggerAnimation = useCallback(async () => {
-			await controls.start('animate');
-			await controls.start('normal');
-			if (loopRef.current) triggerAnimation();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) triggerAnimation();
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) triggerAnimation();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) controls.start('normal');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) triggerAnimation();
-			onClick?.(e);
-		};
+const ChartBarBig = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
@@ -121,16 +58,9 @@ export const ChartBarBig = forwardRef<ChartBarBigHandle, ChartBarBigProps>(
 						width="9"
 						height="4"
 						rx="1"
-						initial={{ opacity: 1 }}
+						variants={barVariants}
+						initial="normal"
 						animate={controls}
-						variants={{
-							normal: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
-							animate: {
-								opacity: [0, 1],
-								scale: [0.8, 1],
-								transition: { duration: 0.7, ease: 'easeInOut' },
-							},
-						}}
 					/>
 					<motion.rect
 						x="7"
@@ -138,16 +68,9 @@ export const ChartBarBig = forwardRef<ChartBarBigHandle, ChartBarBigProps>(
 						width="12"
 						height="4"
 						rx="1"
-						initial={{ opacity: 1 }}
+						variants={barVariants}
+						initial="normal"
 						animate={controls}
-						variants={{
-							normal: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
-							animate: {
-								opacity: [0, 1],
-								scale: [0.8, 1],
-								transition: { duration: 0.7, ease: 'easeInOut' },
-							},
-						}}
 					/>
 				</svg>
 			</div>
@@ -156,3 +79,5 @@ export const ChartBarBig = forwardRef<ChartBarBigHandle, ChartBarBigProps>(
 );
 
 ChartBarBig.displayName = 'ChartBarBig';
+
+export { ChartBarBig };

@@ -6,7 +6,7 @@
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/v/aliveicon.svg?color=blue" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/dm/aliveicon.svg?color=blue" alt="npm downloads" /></a>
   <a href="https://github.com/Hemang-patel-9/aliveicon/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/aliveicon.svg?color=green" alt="license" /></a>
-  <img src="https://img.shields.io/badge/icons-911-orange" alt="icon count" />
+  <img src="https://img.shields.io/badge/icons-1098-orange" alt="icon count" />
   <img src="https://img.shields.io/badge/types-included-blue" alt="typescript" />
 </p>
 
@@ -148,7 +148,7 @@ The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decora
 
 ## 📚 Available icons
 
-`aliveicon` ships **911 icons**, and more are being added. Import any icon by its PascalCase name:
+`aliveicon` ships **1098 icons**, and more are being added. Import any icon by its PascalCase name:
 
 ```tsx
 import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
@@ -156,22 +156,22 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 
 | Group | Count | Examples |
 | ----- | ----- | -------- |
-| **A** | 116 | `Activity`, `Airplay`, `AlarmClock`, `Anchor`, `Anvil`, `ArrowRight`, `ArrowUpRight`, `Atom`, `Award` |
-| **B** | 162 | `Battery`, `Bell`, `Bluetooth`, `Book`, `Bot`, `Brain`, `Broom`, `Bug`, `Building` |
-| **C** | 140 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `ChevronDown`, `Circle`, `Clock` |
-| **D** | 58 | `Database`, `Dice1`, `Diamond`, `Disc`, `DoorOpen`, `Download`, `Droplet`, `Dumbbell` |
-| **E** | 30 | `Earth`, `Egg`, `Eject`, `Ellipsis`, `Eraser`, `Euro`, `Expand`, `Eye` |
+| **A** | 118 | `Activity`, `Airplay`, `AlarmClock`, `Anchor`, `Anvil`, `ArrowRight`, `ArrowUpRight`, `Atom`, `Award` |
+| **B** | 163 | `Battery`, `Bell`, `Bluetooth`, `Book`, `Bot`, `Brain`, `Broom`, `Bug`, `Building` |
+| **C** | 319 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `Circle`, `Clock`, `Cloud`, `Cog`, `Copy` |
+| **D** | 59 | `Database`, `Dice1`, `Diamond`, `Disc`, `DoorOpen`, `Download`, `Droplet`, `Dumbbell` |
+| **E** | 32 | `Earth`, `Egg`, `Eject`, `Ellipsis`, `Eraser`, `Euro`, `Expand`, `Eye` |
 | **G** | 63 | `Gamepad`, `Gauge`, `Gem`, `Ghost`, `Gift`, `GitBranch`, `Globe`, `Grid3x3`, `Guitar` |
 | **H** | 62 | `Hammer`, `Hand`, `Hash`, `Headphones`, `Heart`, `Hourglass`, `House` |
 | **I** | 23 | `IceCreamCone`, `IdCard`, `Image`, `Import`, `Inbox`, `Info`, `Italic` |
 | **J** | 2 | `JapaneseYen`, `Joystick` |
 | **K** | 9 | `Kanban`, `Kayak`, `Key`, `KeyRound`, `Keyboard`, `KeyboardMusic` |
-| **N** | 18 | `Navigation`, `Network`, `Newspaper`, `Notebook`, `NotebookDot`, `Nut` |
+| **N** | 19 | `Navigation`, `Network`, `Newspaper`, `Notebook`, `NotebookDot`, `Nut` |
 | **O** | 10 | `Octagon`, `Omega`, `Option`, `Orbit`, `Origami` |
 | **Q** | 2 | `Quote`, `QrCode` |
 | **R** | 76 | `Rabbit`, `Radar`, `Radio`, `Receipt`, `RefreshCw`, `Rocket`, `RotateCcw` |
 | **S** | 1 | `SquareActivity` |
-| **U** | 48 | `Umbrella`, `Undo`, `Unplug`, `Upload`, `User`, `UserGroup`, `Users`, `Utensils` |
+| **U** | 49 | `Umbrella`, `Undo`, `Unplug`, `Upload`, `User`, `UserGroup`, `Users`, `Utensils` |
 | **V** | 25 | `Van`, `Variable`, `Vault`, `Video`, `Virus`, `Volume`, `Vote` |
 | **W** | 45 | `Wallet`, `Wand`, `Watch`, `Waves`, `Webcam`, `Whistle`, `Wifi`, `Wind`, `Wrench` |
 | **X** | 3 | `X`, `XLineTop`, `XTwitter` |

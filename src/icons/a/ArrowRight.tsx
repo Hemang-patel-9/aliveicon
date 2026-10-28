@@ -31,7 +31,7 @@ const arrowLineVariants = {
 
 export const ArrowRight = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, { rest: 'initial' });
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
@@ -54,13 +54,13 @@ export const ArrowRight = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					<motion.path
 						d="m12 5 7 7-7 7"
 						variants={arrowHeadVariants}
-						initial="initial"
+						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
 						d="M5 12h14"
 						variants={arrowLineVariants}
-						initial="initial"
+						initial="normal"
 						animate={controls}
 					/>
 				</svg>

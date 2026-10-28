@@ -1,25 +1,12 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface ApertureHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
-
-interface ApertureProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-	className?: string;
-	style?: React.CSSProperties;
-}
-
-const circleVariants = {
+const circleVariants: Variants = {
 	normal: {
 		rotate: 0,
 		originX: '50%',
@@ -32,7 +19,7 @@ const circleVariants = {
 	},
 };
 
-const bladeVariants = {
+const bladeVariants: Variants = {
 	normal: {
 		rotate: 0,
 		scale: 1,
@@ -49,109 +36,27 @@ const bladeVariants = {
 	},
 };
 
-export const Aperture = forwardRef<ApertureHandle, ApertureProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-		const isMounted = useRef(true);
-
-		const triggerAnimation = useCallback(async () => {
-			if (!isMounted.current) return;
-			await controls.start('animate');
-			if (!isMounted.current) return;
-			await controls.start('normal');
-			if (loopRef.current && isMounted.current) {
-				triggerAnimation();
-			}
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) {
-				triggerAnimation();
-			}
-		}, [autoAnimateOnLoad, triggerAnimation]);
-
-		useEffect(() => {
-			return () => {
-				isMounted.current = false;
-			};
-		}, []);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: () => controls.start('animate'),
-				stopAnimation: () => controls.start('normal'),
-			};
-		}, [controls]);
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) {
-				if (loopOnHover) {
-					loopRef.current = true;
-					triggerAnimation();
-				} else {
-					controls.start('animate');
-				}
-			}
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && hoverable) {
-				loopRef.current = false;
-				controls.start('normal');
-			}
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (!isControlledRef.current && animateOnClick) {
-				triggerAnimation();
-			}
-			onClick?.(e);
-		};
+const Aperture = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
-				<motion.svg
+				<svg
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
+					width="100%"
+					height="100%"
 				>
 					<motion.circle
 						cx="12"
@@ -197,10 +102,12 @@ export const Aperture = forwardRef<ApertureHandle, ApertureProps>(
 						initial="normal"
 						animate={controls}
 					/>
-				</motion.svg>
+				</svg>
 			</div>
 		);
 	}
 );
 
 Aperture.displayName = 'Aperture';
+
+export { Aperture };

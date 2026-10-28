@@ -1,132 +1,70 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface WindArrowDownHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
+const pathVariants: Variants = {
+	normal: { pathLength: 1, opacity: 1 },
+	animate: (i: number) => ({
+		pathLength: [0, 1],
+		opacity: [0, 1],
+		transition: { duration: 0.6, delay: i * 0.08, ease: 'easeInOut' },
+	}),
+};
 
-interface WindArrowDownProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	className?: string;
-	style?: React.CSSProperties;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-}
-
-const WindArrowDown = forwardRef<WindArrowDownHandle, WindArrowDownProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const animate = useCallback(async () => {
-			await controls.start((i) => ({
-				pathLength: [0, 1],
-				opacity: [0, 1],
-				transition: {
-					duration: 0.6,
-					delay: i * 0.08,
-					ease: 'easeInOut',
-				},
-			}));
-			await controls.start('visible');
-			if (loopRef.current) animate();
-		}, [controls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) animate();
-		}, [autoAnimateOnLoad, animate]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: animate,
-				stopAnimation: () => controls.start('visible'),
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) animate();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) controls.start('visible');
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate();
-			onClick?.(e);
-		};
-
-		const paths = [
-			'M10 2v8',
-			'M12.8 21.6A2 2 0 1 0 14 18H2',
-			'M17.5 10a2.5 2.5 0 1 1 2 4H2',
-			'M6 6l4 4 4-4',
-		];
+const WindArrowDown = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
+					width="100%"
+					height="100%"
 				>
-					{paths.map((d, i) => (
-						<motion.path
-							key={i}
-							d={d}
-							initial={false}
-							variants={{
-								visible: { pathLength: 1, opacity: 1 },
-							}}
-							custom={i}
-							animate={controls}
-						/>
-					))}
+					<motion.path
+						d="M10 2v8"
+						custom={0}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M12.8 21.6A2 2 0 1 0 14 18H2"
+						custom={1}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M17.5 10a2.5 2.5 0 1 1 2 4H2"
+						custom={2}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M6 6l4 4 4-4"
+						custom={3}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
 				</svg>
 			</div>
 		);
@@ -134,4 +72,5 @@ const WindArrowDown = forwardRef<WindArrowDownHandle, WindArrowDownProps>(
 );
 
 WindArrowDown.displayName = 'WindArrowDown';
+
 export { WindArrowDown };

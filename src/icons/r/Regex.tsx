@@ -1,149 +1,77 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
+import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
+import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-interface RegexHandle {
-	startAnimation: () => void;
-	stopAnimation: () => void;
-}
+const pathVariants: Variants = {
+	normal: { pathLength: 1, opacity: 1 },
+	animate: (i: number) => ({
+		pathLength: [0, 1],
+		opacity: [0, 1],
+		transition: { duration: 0.6, delay: i * 0.1, ease: 'easeInOut' },
+	}),
+};
 
-interface RegexProps extends React.HTMLAttributes<HTMLDivElement> {
-	size?: number;
-	className?: string;
-	style?: React.CSSProperties;
-	autoAnimateOnLoad?: boolean;
-	hoverable?: boolean;
-	loopOnHover?: boolean;
-	animateOnClick?: boolean;
-}
+const boxVariants: Variants = {
+	normal: { pathLength: 1, opacity: 1, scale: 1 },
+	animate: {
+		scale: [0.8, 1],
+		opacity: [0, 1],
+		transition: { duration: 0.3, delay: 0.8 },
+	},
+};
 
-const Regex = forwardRef<RegexHandle, RegexProps>(
-	(
-		{
-			size = 28,
-			className,
-			style,
-			autoAnimateOnLoad = false,
-			hoverable = true,
-			loopOnHover = false,
-			animateOnClick = false,
-			onMouseEnter,
-			onMouseLeave,
-			onClick,
-			...props
-		},
-		ref
-	) => {
-		const controls = useAnimation();
-		const boxControls = useAnimation();
-		const loopRef = useRef(loopOnHover);
-		const isControlledRef = useRef(false);
-
-		const animate = useCallback(async () => {
-			await controls.start((i) => ({
-				pathLength: [0, 1],
-				opacity: [0, 1],
-				transition: {
-					duration: 0.6,
-					delay: i * 0.1,
-					ease: 'easeInOut',
-				},
-			}));
-			await boxControls.start({
-				scale: [0.8, 1],
-				opacity: [0, 1],
-				transition: { duration: 0.3 },
-			});
-			await controls.start('visible');
-			await boxControls.start('visible');
-			if (loopRef.current) animate();
-		}, [controls, boxControls]);
-
-		useEffect(() => {
-			loopRef.current = loopOnHover;
-		}, [loopOnHover]);
-
-		useEffect(() => {
-			if (autoAnimateOnLoad) animate();
-		}, [autoAnimateOnLoad, animate]);
-
-		useImperativeHandle(ref, () => {
-			isControlledRef.current = true;
-			return {
-				startAnimation: animate,
-				stopAnimation: () => {
-					controls.start('visible');
-					boxControls.start('visible');
-				},
-			};
-		});
-
-		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = loopOnHover;
-			if (!isControlledRef.current && hoverable) animate();
-			onMouseEnter?.(e);
-		};
-
-		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-			loopRef.current = false;
-			if (!isControlledRef.current && hoverable) {
-				controls.start('visible');
-				boxControls.start('visible');
-			}
-			onMouseLeave?.(e);
-		};
-
-		const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-			if (animateOnClick) animate();
-			onClick?.(e);
-		};
-
-		const paths = ['M17 3v10', 'M12.67 5.5l8.66 5', 'M12.67 10.5l8.66-5'];
-
-		const box = 'M9 17a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2z';
+const Regex = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+	({ className, size = 28, style, ...props }, ref) => {
+		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
 		return (
 			<div
 				className={cn('inline-block', className)}
 				style={{ width: size, height: size, ...style }}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={handleClick}
-				{...props}
+				{...iconProps}
 			>
 				<svg
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
+					width="100%"
+					height="100%"
 				>
-					{paths.map((d, i) => (
-						<motion.path
-							key={i}
-							d={d}
-							initial="visible"
-							animate={controls}
-							custom={i}
-							variants={{
-								visible: { pathLength: 1, opacity: 1 },
-							}}
-						/>
-					))}
 					<motion.path
-						d={box}
-						initial="visible"
-						animate={boxControls}
-						variants={{
-							visible: { pathLength: 1, opacity: 1, scale: 1 },
-						}}
+						d="M17 3v10"
+						custom={0}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M12.67 5.5l8.66 5"
+						custom={1}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M12.67 10.5l8.66-5"
+						custom={2}
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
+					<motion.path
+						d="M9 17a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2z"
+						variants={boxVariants}
+						initial="normal"
+						animate={controls}
 					/>
 				</svg>
 			</div>
@@ -152,4 +80,5 @@ const Regex = forwardRef<RegexHandle, RegexProps>(
 );
 
 Regex.displayName = 'Regex';
+
 export { Regex };

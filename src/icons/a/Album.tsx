@@ -84,7 +84,6 @@ const Album = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 						variants={pathVariants}
 						animate={controls}
 						initial="normal"
-						style={{ strokeDasharray: 1 }}
 					/>
 				</svg>
 			</div>

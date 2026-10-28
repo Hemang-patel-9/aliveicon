@@ -34,9 +34,9 @@ export const BetweenHorizontalEnd = forwardRef<AnimatedIconHandle, AnimatedIconP
 		const arrowVariants = {
 			normal: { x: 0, opacity: 1 },
 			animate: {
-				x: [0, -5, 0, 5, 0],
+				x: [0, -2, 0, -2, 0],
 				opacity: [1, 0.7, 1, 0.7, 1],
-				transition: { duration: 2, ease: 'easeInOut' },
+				transition: { duration: 1.2, ease: 'easeInOut' },
 			},
 		};
 
