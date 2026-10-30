@@ -354,6 +354,7 @@ export { ChartBarBig } from './icons/c/ChartBarBig';
 export { ChartBarDecreasing } from './icons/c/ChartBarDecreasing';
 export { ChartBarIncreasing } from './icons/c/ChartBarIncreasing';
 export { ChartBarStacked } from './icons/c/ChartBarStacked';
+export { ChartBellCurve } from './icons/c/ChartBellCurve';
 export { ChartCandlestick } from './icons/c/ChartCandlestick';
 export { ChartColumn } from './icons/c/ChartColumn';
 export { ChartColumnBig } from './icons/c/ChartColumnBig';
