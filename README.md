@@ -6,11 +6,11 @@
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/v/aliveicon.svg?color=blue" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/dm/aliveicon.svg?color=blue" alt="npm downloads" /></a>
   <a href="https://github.com/Hemang-patel-9/aliveicon/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/aliveicon.svg?color=green" alt="license" /></a>
-  <img src="https://img.shields.io/badge/icons-1210-orange" alt="icon count" />
+  <img src="https://img.shields.io/badge/icons-1324-orange" alt="icon count" />
   <img src="https://img.shields.io/badge/types-included-blue" alt="typescript" />
 </p>
 
-`aliveicon` is a set of **1210 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
+`aliveicon` is a set of **1324 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
 
 ---
 
@@ -148,7 +148,7 @@ The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decora
 
 ## 📚 Available icons
 
-`aliveicon` ships **1210 icons**, and more are being added. Import any icon by its PascalCase name:
+`aliveicon` ships **1324 icons**, and more are being added. Import any icon by its PascalCase name:
 
 ```tsx
 import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
@@ -168,6 +168,7 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 | **K** | 9 | `Kanban`, `Kayak`, `Key`, `KeyRound`, `Keyboard`, `KeyboardMusic` |
 | **N** | 19 | `Navigation`, `Network`, `Newspaper`, `Notebook`, `NotebookDot`, `Nut` |
 | **O** | 10 | `Octagon`, `Omega`, `Option`, `Orbit`, `Origami` |
+| **P** | 114 | `Package`, `Paintbrush`, `Palette`, `PanelLeft`, `Paperclip`, `Pause`, `PawPrint`, `Pen`, `Phone`, `Plane`, `Play`, `Plus`, `Power`, `Printer`, `Puzzle` |
 | **Q** | 2 | `Quote`, `QrCode` |
 | **R** | 76 | `Rabbit`, `Radar`, `Radio`, `Receipt`, `RefreshCw`, `Rocket`, `RotateCcw` |
 | **S** | 1 | `SquareActivity` |
