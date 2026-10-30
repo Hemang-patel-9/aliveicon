@@ -6,6 +6,30 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-10-30
+
+### Added
+
+- 50 icons from Lucide: `Package`, `Package2`, `PackageCheck`, `PackageMinus`, `PackageOpen`,
+  `PackagePlus`, `PackageSearch`, `PackageX`, `PaintBucket`, `PaintRoller`, `Paintbrush`,
+  `PaintbrushVertical`, `Palette`, `Panda`, `PanelBottom`, `PanelBottomClose`, `PanelBottomDashed`,
+  `PanelBottomOpen`, `PanelLeft`, `PanelLeftClose`, `PanelLeftDashed`, `PanelLeftOpen`,
+  `PanelLeftRightDashed`, `PanelRight`, `PanelRightClose`, `PanelRightDashed`, `PanelRightOpen`,
+  `PanelTop`, `PanelTopBottomDashed`, `PanelTopClose`, `PanelTopDashed`, `PanelTopOpen`,
+  `PanelsLeftBottom`, `PanelsRightBottom`, `PanelsTopLeft`, `PaperBag`, `Paperclip`, `Parasol`,
+  `Parentheses`, `Park`, `ParkingMeter`, `PartyPopper`, `Pause`, `PawPrint`, `PcCase`, `Pen`,
+  `PenLine`, `PenOff`, `PenTool`, `Pencil`.
+- 64 more icons from Lucide, completing the P set: `PencilLine`, `PencilOff`, `PencilRuler`,
+  `PencilSparkles`, `Pentagon`, `Percent`, `PerfumeBottle`, `PersonStanding`, `Phi`,
+  `PhilippinePeso`, `Phone`, `PhoneCall`, `PhoneForwarded`, `PhoneIncoming`, `PhoneLog`,
+  `PhoneMissed`, `PhoneOff`, `PhoneOutgoing`, `Pi`, `Piano`, `Pickaxe`, `PictureInPicture`,
+  `PictureInPicture2`, `PiggyBank`, `Pilcrow`, `PilcrowLeft`, `PilcrowRight`, `Pill`, `PillBottle`,
+  `Pin`, `PinOff`, `Pipette`, `Pizza`, `Plane`, `PlaneLanding`, `PlaneTakeoff`, `PlantPot`, `Play`,
+  `PlayOff`, `PlayingCard`, `PlayingCards`, `PlayingCardsFan`, `Plug`, `Plug2`, `PlugZap`, `Plus`,
+  `PocketKnife`, `Podium`, `Pointer`, `PointerOff`, `Popcorn`, `Popsicle`, `PoundSterling`,
+  `Power`, `PowerOff`, `Presentation`, `Printer`, `Printer3d`, `PrinterCheck`, `PrinterX`,
+  `Projector`, `Proportions`, `Puzzle`, `Pyramid`.
+
 ## [1.6.0] - 2026-10-30
 
 ### Added
