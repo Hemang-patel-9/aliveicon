@@ -6,6 +6,12 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-10-31
+
+### Added
+
+- `ChartBellCurve` from Lucide, which completes the C set.
+
 ## [1.7.0] - 2026-10-30
 
 ### Added
