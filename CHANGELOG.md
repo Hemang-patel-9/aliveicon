@@ -6,6 +6,31 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-10-30
+
+### Added
+
+- 50 icons from Lucide: `Table`, `Table2`, `TableCellsMerge`, `TableCellsSplit`,
+  `TableColumnsSplit`, `TableOfContents`, `TableProperties`, `TableRowsSplit`, `Tablet`,
+  `TabletSmartphone`, `Tablets`, `Tag`, `TagPlus`, `TagX`, `Tags`, `Tally1`, `Tally2`, `Tally3`,
+  `Tally4`, `Tally5`, `Tangent`, `Target`, `Telescope`, `Tent`, `TentTree`, `Terminal`, `TestTube`,
+  `TestTubeDiagonal`, `TestTubes`, `TextAlignCenter`, `TextAlignEnd`, `TextAlignJustify`,
+  `TextAlignJustifyCenter`, `TextAlignJustifyEnd`, `TextAlignJustifyStart`, `TextAlignStart`,
+  `TextCursor`, `TextCursorInput`, `TextInitial`, `TextQuote`, `TextSearch`, `TextWrap`, `Theater`,
+  `Thermometer`, `ThermometerSnowflake`, `ThermometerSun`, `ThumbsDown`, `ThumbsUp`, `TicTacToe`,
+  `Ticket`.
+- 62 more icons from Lucide, completing the T set: `TicketCheck`, `TicketMinus`, `TicketPercent`,
+  `TicketPlus`, `TicketSlash`, `TicketX`, `Tickets`, `TicketsPlane`, `Timeline`, `Timer`,
+  `TimerOff`, `TimerReset`, `ToggleLeft`, `ToggleRight`, `Toilet`, `Tombstone`, `ToolCase`,
+  `Toolbox`, `Toothbrush`, `ToothbrushSparkles`, `Tornado`, `Torus`, `Touchpad`, `TouchpadOff`,
+  `TowelRack`, `TowerControl`, `ToyBrick`, `Tractor`, `TrafficCone`, `Trailer`, `TrainFront`,
+  `TrainFrontTunnel`, `TrainTrack`, `TramFront`, `Transgender`, `Trash`, `TrashOff`,
+  `TreeDeciduous`, `TreePalm`, `TreePine`, `Trees`, `TrendingDown`, `TrendingUp`, `TrendingUpDown`,
+  `Triangle`, `TriangleAlert`, `TriangleDashed`, `TriangleRight`,
+  `TrianglesCenterlineDashedHorizontal`, `TrianglesCenterlineDashedVertical`, `Trophy`, `Truck`,
+  `TruckElectric`, `TubeLotion`, `TurkishLira`, `Turntable`, `Turtle`, `Tv`, `TvMinimal`,
+  `TvMinimalPlay`, `Type`, `TypeOutline`.
+
 ## [1.5.0] - 2026-10-29
 
 ### Added
