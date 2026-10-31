@@ -6,6 +6,34 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.9.0] - 2026-11-01
+
+### Added
+
+- 50 icons from Lucide: `FaceAngry`, `FaceExpressionless`, `FaceGrinning`, `FaceNeutral`,
+  `FaceSlightlyFrowning`, `FaceSlightlySmiling`, `FaceSlightlySmilingPlus`, `Factory`, `Fan`,
+  `FastForward`, `Faucet`, `Feather`, `Fence`, `FerrisWheel`, `File`, `FileArchive`, `FileAxis3d`,
+  `FileBadge`, `FileBox`, `FileBraces`, `FileBracesCorner`, `FileChartColumn`,
+  `FileChartColumnIncreasing`, `FileChartLine`, `FileChartPie`, `FileCheck`, `FileCheckCorner`,
+  `FileClock`, `FileCode`, `FileCodeCorner`, `FileCog`, `FileDatabase`, `FileDiff`, `FileDigit`,
+  `FileDown`, `FileExclamationPoint`, `FileHeadphone`, `FileHeart`, `FileImage`, `FileInput`,
+  `FileKey`, `FileLock`, `FileMinus`, `FileMinusCorner`, `FileMusic`, `FileOutput`, `FilePen`,
+  `FilePenLine`, `FilePlay`, `FilePlus`.
+- 89 more icons from Lucide, completing the F set: `FilePlusCorner`, `FileQuestionMark`, `FileScan`,
+  `FileSearch`, `FileSearchCorner`, `FileSignal`, `FileSliders`, `FileSpreadsheet`, `FileStack`,
+  `FileSymlink`, `FileTerminal`, `FileText`, `FileType`, `FileTypeCorner`, `FileUp`, `FileUser`,
+  `FileVideoCamera`, `FileVolume`, `FileX`, `FileXCorner`, `Files`, `Film`, `FingerprintPattern`,
+  `FireExtinguisher`, `Fish`, `FishOff`, `FishSymbol`, `FishingHook`, `FishingRod`, `Flag`,
+  `FlagOff`, `FlagTriangleLeft`, `FlagTriangleRight`, `Flame`, `FlameKindling`, `Flashlight`,
+  `FlashlightOff`, `FlaskConical`, `FlaskConicalOff`, `FlaskRound`, `Flower`, `Flower2`, `Focus`,
+  `FoldHorizontal`, `FoldVertical`, `Folder`, `FolderArchive`, `FolderBookmark`, `FolderCheck`,
+  `FolderClock`, `FolderClosed`, `FolderCode`, `FolderCog`, `FolderDot`, `FolderDown`, `FolderGit`,
+  `FolderGit2`, `FolderHeart`, `FolderInput`, `FolderKanban`, `FolderKey`, `FolderLock`,
+  `FolderMinus`, `FolderOpen`, `FolderOpenDot`, `FolderOutput`, `FolderPen`, `FolderPlus`,
+  `FolderRoot`, `FolderSearch`, `FolderSearch2`, `FolderSymlink`, `FolderSync`, `FolderTree`,
+  `FolderUp`, `FolderUser`, `FolderUsers`, `FolderX`, `Folders`, `Footprints`, `Forklift`, `Form`,
+  `Forward`, `Frame`, `Fuel`, `Fullscreen`, `Funnel`, `FunnelPlus`, `FunnelX`.
+
 ## [1.8.0] - 2026-10-31
 
 ### Added

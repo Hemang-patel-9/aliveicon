@@ -6,11 +6,11 @@
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/v/aliveicon.svg?color=blue" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/dm/aliveicon.svg?color=blue" alt="npm downloads" /></a>
   <a href="https://github.com/Hemang-patel-9/aliveicon/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/aliveicon.svg?color=green" alt="license" /></a>
-  <img src="https://img.shields.io/badge/icons-1325-orange" alt="icon count" />
+  <img src="https://img.shields.io/badge/icons-1464-orange" alt="icon count" />
   <img src="https://img.shields.io/badge/types-included-blue" alt="typescript" />
 </p>
 
-`aliveicon` is a set of **1325 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
+`aliveicon` is a set of **1464 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
 
 ---
 
@@ -148,7 +148,7 @@ The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decora
 
 ## 📚 Available icons
 
-`aliveicon` ships **1325 icons**, and more are being added. Import any icon by its PascalCase name:
+`aliveicon` ships **1464 icons**, and more are being added. Import any icon by its PascalCase name:
 
 ```tsx
 import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
@@ -161,6 +161,7 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 | **C** | 320 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `Circle`, `Clock`, `Cloud`, `Cog`, `Copy` |
 | **D** | 59 | `Database`, `Dice1`, `Diamond`, `Disc`, `DoorOpen`, `Download`, `Droplet`, `Dumbbell` |
 | **E** | 32 | `Earth`, `Egg`, `Eject`, `Ellipsis`, `Eraser`, `Euro`, `Expand`, `Eye` |
+| **F** | 139 | `Factory`, `Fan`, `Feather`, `File`, `Film`, `Fish`, `Flag`, `Flame`, `Flower`, `Folder`, `Forklift`, `Funnel` |
 | **G** | 63 | `Gamepad`, `Gauge`, `Gem`, `Ghost`, `Gift`, `GitBranch`, `Globe`, `Grid3x3`, `Guitar` |
 | **H** | 62 | `Hammer`, `Hand`, `Hash`, `Headphones`, `Heart`, `Hourglass`, `House` |
 | **I** | 23 | `IceCreamCone`, `IdCard`, `Image`, `Import`, `Inbox`, `Info`, `Italic` |
