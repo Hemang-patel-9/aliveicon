@@ -1,7 +1,7 @@
 {
   "name": "aliveicon",
   "version": "1.9.0",
-  "description": "500+ animated SVG icons for React that draw themselves on hover, click, or load.",
+  "description": "1400+ animated React icons built on Lucide shapes and Framer Motion. Play on hover, click, mount, loop or via ref. Tree-shakeable, fully typed, Next.js ready.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
