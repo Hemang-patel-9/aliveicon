@@ -1076,6 +1076,7 @@ export { LetterO } from './icons/l/LetterO';
 export { LetterP } from './icons/l/LetterP';
 export { LetterQ } from './icons/l/LetterQ';
 export { LetterR } from './icons/l/LetterR';
+export { LetterSUpper } from './icons/l/LetterSUpper';
 export { LetterSpacing } from './icons/l/LetterSpacing';
 export { LetterT } from './icons/l/LetterT';
 export { LetterU } from './icons/l/LetterU';

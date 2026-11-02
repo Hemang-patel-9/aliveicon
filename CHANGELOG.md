@@ -6,6 +6,14 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.11.0] - 2026-11-02
+
+### Added
+
+- `LetterS`, the last missing Lucide icon. It is defined in `LetterSUpper` (a different file name
+  avoids a case clash with `Letters` on Windows) and exported as `LetterS`; the strokes draw like
+  handwriting.
+
 ## [1.10.0] - 2026-11-02
 
 ### Added

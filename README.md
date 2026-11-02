@@ -6,11 +6,11 @@
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/v/aliveicon.svg?color=blue" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/dm/aliveicon.svg?color=blue" alt="npm downloads" /></a>
   <a href="https://github.com/Hemang-patel-9/aliveicon/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/aliveicon.svg?color=green" alt="license" /></a>
-  <img src="https://img.shields.io/badge/icons-2044-orange" alt="icon count" />
+  <img src="https://img.shields.io/badge/icons-2045-orange" alt="icon count" />
   <img src="https://img.shields.io/badge/types-included-blue" alt="typescript" />
 </p>
 
-`aliveicon` is a set of **2044 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
+`aliveicon` is a set of **2045 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
 
 ---
 
@@ -148,7 +148,7 @@ The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decora
 
 ## 📚 Available icons
 
-`aliveicon` ships **2044 icons**, and more are being added. Import any icon by its PascalCase name:
+`aliveicon` ships **2045 icons**, and more are being added. Import any icon by its PascalCase name:
 
 ```tsx
 import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
