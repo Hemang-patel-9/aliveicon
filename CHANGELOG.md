@@ -6,6 +6,14 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-11-02
+
+### Added
+
+- 580 icons from Lucide, completing the D, G, L, M and S sets (`DiagramFlowHorizontal`,
+  `DiagramFlowVertical`, `GlobeBan`, `GlobePlus`, the L, M and S icons). `Letters` is included;
+  `LetterS` is not, because its file name differs from `Letters` only by case.
+
 ## [1.9.0] - 2026-11-01
 
 ### Added
