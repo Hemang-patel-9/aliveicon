@@ -1,6 +1,6 @@
 {
   "name": "aliveicon",
-  "version": "1.11.0",
+  "version": "1.12.0",
   "description": "1400+ animated React icons built on Lucide shapes and Framer Motion. Play on hover, click, mount, loop or via ref. Tree-shakeable, fully typed, Next.js ready.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
