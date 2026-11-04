@@ -6,6 +6,10 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Added a Buy Me a Coffee link to the documentation site navigation and footer.
+
 ## [1.11.0] - 2026-11-02
 
 ### Added

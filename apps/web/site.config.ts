@@ -17,6 +17,7 @@ export const siteConfig = {
 			{ label: 'Icons', href: '/' },
 			{ label: 'GitHub', href: repoUrl, external: true },
 			{ label: 'npm', href: 'https://www.npmjs.com/package/aliveicon', external: true },
+			{ label: 'Buy me a coffee', href: 'https://buymeacoffee.com/hemang9705', external: true },
 		],
 		footer: {
 			columns: [
@@ -39,6 +40,16 @@ export const siteConfig = {
 							external: true,
 						},
 						{ label: 'Lucide', href: 'https://lucide.dev', external: true },
+					],
+				},
+				{
+					title: 'Support',
+					links: [
+						{
+							label: 'Buy me a coffee',
+							href: 'https://buymeacoffee.com/hemang9705',
+							external: true,
+						},
 					],
 				},
 			],
