@@ -24,7 +24,7 @@ const warningVariants: Variants = {
 	},
 };
 
-const BatteryWarning = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const BatteryExclamationPoint = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -54,19 +54,19 @@ const BatteryWarning = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					/>
 					<motion.path d="M10 7v6" variants={warningVariants} initial="normal" animate={controls} />
 					<motion.path
-						d="M14 7h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"
+						d="M14 6h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"
 						variants={outlineVariants}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M22 11v2"
+						d="M22 14v-4"
 						variants={outlineVariants}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M6 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"
+						d="M6 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2"
 						variants={outlineVariants}
 						initial="normal"
 						animate={controls}
@@ -77,6 +77,6 @@ const BatteryWarning = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	}
 );
 
-BatteryWarning.displayName = 'BatteryWarning';
+BatteryExclamationPoint.displayName = 'BatteryExclamationPoint';
 
-export { BatteryWarning };
+export { BatteryExclamationPoint };

@@ -6,15 +6,17 @@ import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const wiggleVariants: Variants = {
-	normal: { x: 0, transition: { duration: 0.2 } },
-	animate: {
-		x: [0, -2, 2, -1.5, 1.5, 0],
-		transition: { duration: 0.5, ease: 'easeInOut' },
-	},
+const drawVariants: Variants = {
+	normal: { pathLength: 1, pathOffset: 0, opacity: 1, transition: { duration: 0.3 } },
+	animate: ([delay, from, duration]: [number, number, number]) => ({
+		pathLength: [0, 1],
+		pathOffset: [from, 0],
+		opacity: [0, 1],
+		transition: { duration, delay, ease: 'easeInOut' },
+	}),
 };
 
-const MailWarning = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const Mango = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -36,23 +38,26 @@ const MailWarning = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.g
-						variants={wiggleVariants}
-						style={{ originX: '50%', originY: '50%' }}
+					<motion.path
+						d="m17 6 3-3"
+						variants={drawVariants}
+						custom={[0.5, 0, 0.3]}
 						initial="normal"
 						animate={controls}
-					>
-						<path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h12.5" />
-						<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-						<path d="M20 14v4" />
-						<path d="M20 22v.01" />
-					</motion.g>
+					/>
+					<motion.path
+						d="M7 22a4 4 0 01-2.62-7.023A2 2 0 005 13.383V10a8 8 0 1116 0A12 12 0 019 22z"
+						variants={drawVariants}
+						custom={[0, 1, 0.7]}
+						initial="normal"
+						animate={controls}
+					/>
 				</svg>
 			</div>
 		);
 	}
 );
 
-MailWarning.displayName = 'MailWarning';
+Mango.displayName = 'Mango';
 
-export { MailWarning };
+export { Mango };

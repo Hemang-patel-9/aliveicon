@@ -6,26 +6,25 @@ import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const drawVariants: Variants = {
-	normal: { pathLength: 1, pathOffset: 0, opacity: 1, transition: { duration: 0.2 } },
-	animate: ([delay, from, duration]: [number, number, number]) => ({
+const barVariants: Variants = {
+	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.2 } },
+	animate: {
 		pathLength: [0, 1],
-		pathOffset: [from, 0],
 		opacity: [0, 1],
-		transition: { duration, delay, ease: 'easeInOut' },
-	}),
+		transition: { duration: 0.35, ease: 'easeOut' },
+	},
 };
 
-const popVariants: Variants = {
+const dotVariants: Variants = {
 	normal: { scale: 1, opacity: 1, transition: { duration: 0.2 } },
-	animate: (delay: number) => ({
-		scale: [0, 1.4, 1],
+	animate: {
+		scale: [0.4, 1.6, 1],
 		opacity: [0, 1, 1],
-		transition: { duration: 0.4, delay, ease: 'easeInOut' },
-	}),
+		transition: { duration: 0.35, delay: 0.3, ease: 'easeOut' },
+	},
 };
 
-const TriangleAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const CloudExclamationPoint = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -47,27 +46,15 @@ const TriangleAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					width="100%"
 					height="100%"
 				>
-					<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
-					<motion.path
-						d="M12 9v4"
-						variants={drawVariants}
-						custom={[0, 0, 0.3]}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M12 17h.01"
-						variants={popVariants}
-						custom={0.25}
-						initial="normal"
-						animate={controls}
-					/>
+					<motion.path d="M12 12v4" variants={barVariants} initial="normal" animate={controls} />
+					<motion.path d="M12 20h.01" variants={dotVariants} initial="normal" animate={controls} />
+					<path d="M8.128 16.949A7 7 0 1 1 15.71 8h1.79a1 1 0 0 1 0 9h-1.642" />
 				</svg>
 			</div>
 		);
 	}
 );
 
-TriangleAlert.displayName = 'TriangleAlert';
+CloudExclamationPoint.displayName = 'CloudExclamationPoint';
 
-export { TriangleAlert };
+export { CloudExclamationPoint };

@@ -17,7 +17,7 @@ plays on hover, click, mount, loop, or through a ref.
 | `src/lib/use-animated-icon.ts`  | Shared trigger hook: hover, loopOnHover, animateOnClick, autoAnimateOnLoad, ref handle. |
 | `src/lib/types.ts`              | Public types: `AnimatedIconProps`, `AnimatedIconHandle`, `AnimatedIconTriggers`.        |
 | `src/lib/cn.ts`                 | `clsx` + `tailwind-merge`. Icons import it; they never define their own.                |
-| `src/aliases.ts`                | Deprecated misspelled names, kept for compatibility until 2.0.0.                        |
+| `src/aliases.ts`                | Deprecated misspellings (removed at 2.0.0) and Lucide aliases like `CircleAlert`.       |
 | `src/index.ts`                  | **Generated.** Never edit by hand; run `npm run generate`.                              |
 | `scripts/`                      | Index generator, icon linter, smoke test.                                               |
 | `apps/web`                      | Documentation site.                                                                     |
@@ -117,7 +117,7 @@ Treat each of these as P0:
 
 - The `'use client'` `banner` removed from `rollup.config.js`, or its explicit rpt2 `include` dropped.
 - Changes to `exports`, `main`, `module`, `types`, `files` or `sideEffects` in `package.json`.
-- A public export removed or renamed, including the deprecated names in `src/aliases.ts` before 2.0.0.
+- A public export removed or renamed, including the Lucide aliases in `src/aliases.ts` (any version) and the deprecated names there before 2.0.0.
 
 ### Project rules (P1)
 

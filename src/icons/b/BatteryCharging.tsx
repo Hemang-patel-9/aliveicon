@@ -53,13 +53,13 @@ const BatteryCharging = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					height="100%"
 				>
 					<motion.path
-						d="M15 7h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"
+						d="M14.856 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.935"
 						variants={pathVariants}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M6 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1"
+						d="M5.14 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.936"
 						variants={pathVariants}
 						initial="normal"
 						animate={controls}
@@ -70,15 +70,7 @@ const BatteryCharging = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 						initial="normal"
 						animate={controls}
 					/>
-					<motion.line
-						x1="22"
-						y1="11"
-						x2="22"
-						y2="13"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
+					<motion.path d="M22 14v-4" variants={pathVariants} initial="normal" animate={controls} />
 				</svg>
 			</div>
 		);

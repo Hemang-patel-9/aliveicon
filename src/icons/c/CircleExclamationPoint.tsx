@@ -1,29 +1,29 @@
 'use client';
 
-import { motion, type Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
 import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const popVariants: Variants = {
-	normal: { scale: 1, transition: { duration: 0.2 } },
-	animate: (i: number) => ({
-		scale: [1, 1.35, 1],
-		transition: { duration: 0.4, delay: i * 0.08, ease: 'easeInOut' },
-	}),
-};
-
-const drawVariants: Variants = {
-	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.2 } },
-	animate: (i: number) => ({
+const pathVariants = {
+	normal: {
+		pathLength: 1,
+		opacity: 1,
+		transition: { duration: 0.3 },
+	},
+	animate: {
 		pathLength: [0, 1],
 		opacity: [0, 1],
-		transition: { duration: 0.5, delay: i * 0.1, ease: 'easeInOut' },
-	}),
+		transition: {
+			duration: 0.6,
+			ease: 'easeInOut',
+			staggerChildren: 0.05,
+		},
+	},
 };
 
-const BookAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+export const CircleExclamationPoint = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -45,27 +45,36 @@ const BookAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.path
-						d="M12 13h.01"
-						variants={popVariants}
+					<motion.circle
+						cx="12"
+						cy="12"
+						r="10"
+						variants={pathVariants}
 						initial="normal"
 						animate={controls}
-						custom={0}
 					/>
-					<motion.path
-						d="M12 6v3"
-						variants={drawVariants}
+					<motion.line
+						x1="12"
+						y1="8"
+						x2="12"
+						y2="12"
+						variants={pathVariants}
 						initial="normal"
 						animate={controls}
-						custom={0}
 					/>
-					<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
+					<motion.line
+						x1="12"
+						y1="16"
+						x2="12.01"
+						y2="16"
+						variants={pathVariants}
+						initial="normal"
+						animate={controls}
+					/>
 				</svg>
 			</div>
 		);
 	}
 );
 
-BookAlert.displayName = 'BookAlert';
-
-export { BookAlert };
+CircleExclamationPoint.displayName = 'CircleExclamationPoint';

@@ -10,6 +10,7 @@ export interface IconMeta {
 export interface AliasMeta {
 	name: string;
 	target: string;
+	deprecated: boolean;
 	slug: string;
 	targetSlug: string;
 }

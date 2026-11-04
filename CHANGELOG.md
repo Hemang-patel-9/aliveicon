@@ -6,9 +6,24 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.12.0] - 2026-11-05
+
 ### Added
 
 - Added a Buy Me a Coffee link to the documentation site navigation and footer.
+- 5 icons from Lucide: `CircleFadingCheck`, `Mango`, `Opacity`, `PackagePen` and
+  `PackageQuestionMark`.
+- Lucide's new names for 13 icons: `BadgeExclamationPoint`, `BatteryExclamationPoint`,
+  `BookExclamationPoint`, `CircleExclamationPoint`, `ClockExclamationPoint`, `CloudExclamationPoint`,
+  `MailExclamationPoint`, `MessageCircleExclamationPoint`, `MessageSquareExclamationPoint`,
+  `OctagonExclamationPoint`, `SearchExclamationPoint`, `ShieldExclamationPoint` and
+  `TriangleExclamationPoint`. The old names (`CircleAlert`, `TriangleAlert`, `MailWarning`, …) keep
+  working as aliases, the same as in `lucide-react`, and are not deprecated.
+
+### Changed
+
+- The battery icons use Lucide's redrawn battery outline (a taller body and a longer terminal).
+- The documentation site labels Lucide aliases as "Alias" and misspelled names as "Deprecated".
 
 ## [1.11.0] - 2026-11-02
 

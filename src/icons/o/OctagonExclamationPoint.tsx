@@ -9,21 +9,22 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 const pathVariants = {
 	normal: {
 		pathLength: 1,
+		pathOffset: 0,
 		opacity: 1,
 		transition: { duration: 0.3 },
 	},
 	animate: {
 		pathLength: [0, 1],
+		pathOffset: [1, 0],
 		opacity: [0, 1],
 		transition: {
-			duration: 0.6,
+			duration: 0.7,
 			ease: 'easeInOut',
-			staggerChildren: 0.05,
 		},
 	},
 };
 
-export const CircleAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+export const OctagonExclamationPoint = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -45,28 +46,10 @@ export const CircleAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.circle
-						cx="12"
-						cy="12"
-						r="10"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.line
-						x1="12"
-						y1="8"
-						x2="12"
-						y2="12"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.line
-						x1="12"
-						y1="16"
-						x2="12.01"
-						y2="16"
+					<motion.path d="M12 16h.01" variants={pathVariants} initial="normal" animate={controls} />
+					<motion.path d="M12 8v4" variants={pathVariants} initial="normal" animate={controls} />
+					<motion.path
+						d="M15.312 2a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586l-4.688-4.688A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2z"
 						variants={pathVariants}
 						initial="normal"
 						animate={controls}
@@ -77,4 +60,4 @@ export const CircleAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	}
 );
 
-CircleAlert.displayName = 'CircleAlert';
+OctagonExclamationPoint.displayName = 'OctagonExclamationPoint';

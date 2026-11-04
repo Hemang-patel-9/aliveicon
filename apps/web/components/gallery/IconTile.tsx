@@ -57,7 +57,11 @@ function IconTileView({
 				id={`tile-${slug}`}
 				role="button"
 				tabIndex={tabbable ? 0 : -1}
-				aria-label={icon.target ? `${label}, deprecated name for ${icon.target}` : label}
+				aria-label={
+					icon.target
+						? `${label}, ${icon.deprecated ? 'deprecated name for' : 'alias of'} ${icon.target}`
+						: label
+				}
 				className="g-tile"
 				data-tile=""
 				data-slug={slug}
@@ -84,7 +88,7 @@ function IconTileView({
 				</span>
 			</div>
 			{icon.target ? (
-				<span className="g-badge">Deprecated</span>
+				<span className="g-badge">{icon.deprecated ? 'Deprecated' : 'Alias'}</span>
 			) : showNew && icon.isNew ? (
 				<span className="g-badge">New</span>
 			) : null}

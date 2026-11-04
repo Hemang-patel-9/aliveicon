@@ -6,11 +6,11 @@
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/v/aliveicon.svg?color=blue" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/dm/aliveicon.svg?color=blue" alt="npm downloads" /></a>
   <a href="https://github.com/Hemang-patel-9/aliveicon/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/aliveicon.svg?color=green" alt="license" /></a>
-  <img src="https://img.shields.io/badge/icons-2045-orange" alt="icon count" />
+  <img src="https://img.shields.io/badge/icons-2050-orange" alt="icon count" />
   <img src="https://img.shields.io/badge/types-included-blue" alt="typescript" />
 </p>
 
-`aliveicon` is a set of **2045 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
+`aliveicon` is a set of **2050 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
 
 ---
 
@@ -148,7 +148,7 @@ The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decora
 
 ## 📚 Available icons
 
-`aliveicon` ships **2045 icons**, and more are being added. Import any icon by its PascalCase name:
+`aliveicon` ships **2050 icons**, and more are being added. Import any icon by its PascalCase name:
 
 ```tsx
 import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
@@ -158,21 +158,23 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 | ----- | ----- | -------- |
 | **A** | 118 | `Activity`, `Airplay`, `AlarmClock`, `Anchor`, `Anvil`, `ArrowRight`, `ArrowUpRight`, `Atom`, `Award` |
 | **B** | 163 | `Battery`, `Bell`, `Bluetooth`, `Book`, `Bot`, `Brain`, `Broom`, `Bug`, `Building` |
-| **C** | 320 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `Circle`, `Clock`, `Cloud`, `Cog`, `Copy` |
-| **D** | 59 | `Database`, `Dice1`, `Diamond`, `Disc`, `DoorOpen`, `Download`, `Droplet`, `Dumbbell` |
+| **C** | 321 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `Circle`, `Clock`, `Cloud`, `Cog`, `Copy` |
+| **D** | 61 | `Database`, `Dice1`, `Diamond`, `Disc`, `DoorOpen`, `Download`, `Droplet`, `Dumbbell` |
 | **E** | 32 | `Earth`, `Egg`, `Eject`, `Ellipsis`, `Eraser`, `Euro`, `Expand`, `Eye` |
 | **F** | 139 | `Factory`, `Fan`, `Feather`, `File`, `Film`, `Fish`, `Flag`, `Flame`, `Flower`, `Folder`, `Forklift`, `Funnel` |
-| **G** | 63 | `Gamepad`, `Gauge`, `Gem`, `Ghost`, `Gift`, `GitBranch`, `Globe`, `Grid3x3`, `Guitar` |
+| **G** | 65 | `Gamepad`, `Gauge`, `Gem`, `Ghost`, `Gift`, `GitBranch`, `Globe`, `Grid3x3`, `Guitar` |
 | **H** | 62 | `Hammer`, `Hand`, `Hash`, `Headphones`, `Heart`, `Hourglass`, `House` |
 | **I** | 23 | `IceCreamCone`, `IdCard`, `Image`, `Import`, `Inbox`, `Info`, `Italic` |
 | **J** | 2 | `JapaneseYen`, `Joystick` |
 | **K** | 9 | `Kanban`, `Kayak`, `Key`, `KeyRound`, `Keyboard`, `KeyboardMusic` |
+| **L** | 124 | `Lamp`, `Laptop`, `Layers`, `Leaf`, `Lightbulb`, `Link`, `Lock`, `LogIn` |
+| **M** | 152 | `Mail`, `Mango`, `Map`, `MapPin`, `Medal`, `Megaphone`, `Mic`, `Monitor`, `Moon`, `Mountain` |
 | **N** | 19 | `Navigation`, `Network`, `Newspaper`, `Notebook`, `NotebookDot`, `Nut` |
-| **O** | 10 | `Octagon`, `Omega`, `Option`, `Orbit`, `Origami` |
-| **P** | 114 | `Package`, `Paintbrush`, `Palette`, `PanelLeft`, `Paperclip`, `Pause`, `PawPrint`, `Pen`, `Phone`, `Plane`, `Play`, `Plus`, `Power`, `Printer`, `Puzzle` |
+| **O** | 11 | `Octagon`, `Omega`, `Opacity`, `Option`, `Orbit`, `Origami` |
+| **P** | 116 | `Package`, `Paintbrush`, `Palette`, `PanelLeft`, `Paperclip`, `Pause`, `PawPrint`, `Pen`, `Phone`, `Plane`, `Play`, `Plus`, `Power`, `Printer`, `Puzzle` |
 | **Q** | 2 | `Quote`, `QrCode` |
 | **R** | 76 | `Rabbit`, `Radar`, `Radio`, `Receipt`, `RefreshCw`, `Rocket`, `RotateCcw` |
-| **S** | 1 | `SquareActivity` |
+| **S** | 303 | `Save`, `Search`, `Send`, `Settings`, `Share`, `Shield`, `ShoppingCart`, `Sparkles`, `Star`, `Sun` |
 | **T** | 112 | `Table`, `Tag`, `Target`, `Telescope`, `Tent`, `Terminal`, `Thermometer`, `ThumbsUp`, `Ticket`, `Timer`, `Trash`, `Trophy`, `Truck`, `Type` |
 | **U** | 49 | `Umbrella`, `Undo`, `Unplug`, `Upload`, `User`, `UserGroup`, `Users`, `Utensils` |
 | **V** | 25 | `Van`, `Variable`, `Vault`, `Video`, `Virus`, `Volume`, `Vote` |
@@ -197,6 +199,26 @@ These names were misspelled in earlier versions. The old names still work but ar
 | `QRCode` | `QrCode` |
 | `USB` | `Usb` |
 | `WebhooksOff` | `WebhookOff` |
+
+### Lucide aliases
+
+Lucide renamed these icons, and `aliveicon` follows the new names. The old names are kept as aliases, the same as in `lucide-react`, so they are not deprecated and will keep working.
+
+| Alias | Name |
+| ----- | ---- |
+| `BadgeAlert` | `BadgeExclamationPoint` |
+| `BatteryWarning` | `BatteryExclamationPoint` |
+| `BookAlert` | `BookExclamationPoint` |
+| `CircleAlert` | `CircleExclamationPoint` |
+| `ClockAlert` | `ClockExclamationPoint` |
+| `CloudAlert` | `CloudExclamationPoint` |
+| `MailWarning` | `MailExclamationPoint` |
+| `MessageCircleWarning` | `MessageCircleExclamationPoint` |
+| `MessageSquareWarning` | `MessageSquareExclamationPoint` |
+| `OctagonAlert` | `OctagonExclamationPoint` |
+| `SearchAlert` | `SearchExclamationPoint` |
+| `ShieldAlert` | `ShieldExclamationPoint` |
+| `TriangleAlert` | `TriangleExclamationPoint` |
 
 ---
 

@@ -11,6 +11,7 @@ export interface Icon extends IconMeta {
 	flat: string;
 	words: string[];
 	target?: string;
+	deprecated?: boolean;
 }
 
 const build = (
@@ -18,7 +19,8 @@ const build = (
 	slug: string,
 	letter: string,
 	isNew: boolean,
-	target?: string
+	target?: string,
+	deprecated?: boolean
 ): Icon => ({
 	name,
 	slug,
@@ -27,6 +29,7 @@ const build = (
 	flat: name.toLowerCase(),
 	words: toWords(name),
 	target,
+	deprecated,
 });
 
 const byName = (a: Icon, b: Icon) =>
@@ -35,7 +38,7 @@ const byName = (a: Icon, b: Icon) =>
 export const icons: Icon[] = meta.icons.map((i) => build(i.name, i.slug, i.letter, i.isNew));
 
 const aliasIcons: Icon[] = meta.aliases.map((a) =>
-	build(a.name, a.slug, a.name[0].toLowerCase(), false, a.target)
+	build(a.name, a.slug, a.name[0].toLowerCase(), false, a.target, a.deprecated)
 );
 
 export const iconsWithAliases: Icon[] = [...icons, ...aliasIcons].sort(byName);

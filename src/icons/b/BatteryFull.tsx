@@ -50,49 +50,31 @@ const BatteryFull = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 				>
 					<motion.rect
 						x="2"
-						y="7"
+						y="6"
 						width="16"
-						height="10"
+						height="12"
 						rx="2"
-						ry="2"
 						variants={shellVariants}
 						initial="normal"
 						animate={controls}
 					/>
-					<motion.line
-						x1="22"
-						y1="11"
-						x2="22"
-						y2="13"
-						variants={shellVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.line
-						x1="6"
-						y1="11"
-						x2="6"
-						y2="13"
+					<motion.path d="M22 14v-4" variants={shellVariants} initial="normal" animate={controls} />
+					<motion.path
+						d="M6 10v4"
 						custom={0}
 						variants={barVariants}
 						initial="normal"
 						animate={controls}
 					/>
-					<motion.line
-						x1="10"
-						y1="11"
-						x2="10"
-						y2="13"
+					<motion.path
+						d="M10 10v4"
 						custom={1}
 						variants={barVariants}
 						initial="normal"
 						animate={controls}
 					/>
-					<motion.line
-						x1="14"
-						y1="11"
-						x2="14"
-						y2="13"
+					<motion.path
+						d="M14 10v4"
 						custom={2}
 						variants={barVariants}
 						initial="normal"

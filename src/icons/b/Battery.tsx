@@ -48,24 +48,15 @@ export const Battery = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 				>
 					<motion.rect
 						x="2"
-						y="7"
+						y="6"
 						width="16"
-						height="10"
+						height="12"
 						rx="2"
-						ry="2"
 						variants={pathVariants}
 						animate={controls}
 						initial="normal"
 					/>
-					<motion.line
-						x1="22"
-						y1="11"
-						x2="22"
-						y2="13"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
+					<motion.path d="M22 14v-4" variants={pathVariants} animate={controls} initial="normal" />
 				</svg>
 			</div>
 		);

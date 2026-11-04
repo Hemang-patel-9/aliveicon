@@ -48,19 +48,19 @@ const BatteryPlus = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 				>
 					<motion.path d="M10 9v6" variants={plusVariants} initial="normal" animate={controls} />
 					<motion.path
-						d="M13.5 7H16a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2.5"
+						d="M12.543 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3.605"
 						variants={outlineVariants}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M22 11v2"
+						d="M22 14v-4"
 						variants={outlineVariants}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M6.5 17H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2.5"
+						d="M7.606 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.606"
 						variants={outlineVariants}
 						initial="normal"
 						animate={controls}

@@ -6,25 +6,15 @@ import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const barVariants: Variants = {
-	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.2 } },
+const bounceVariants: Variants = {
+	normal: { y: 0, transition: { duration: 0.2 } },
 	animate: {
-		pathLength: [0, 1],
-		opacity: [0, 1],
-		transition: { duration: 0.35, ease: 'easeOut' },
+		y: [0, -3, 0, -1.5, 0],
+		transition: { duration: 0.6, ease: 'easeOut' },
 	},
 };
 
-const dotVariants: Variants = {
-	normal: { scale: 1, opacity: 1, transition: { duration: 0.2 } },
-	animate: {
-		scale: [0.4, 1.6, 1],
-		opacity: [0, 1, 1],
-		transition: { duration: 0.35, delay: 0.3, ease: 'easeOut' },
-	},
-};
-
-const CloudAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const MessageCircleExclamationPoint = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -46,15 +36,22 @@ const CloudAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.path d="M12 12v4" variants={barVariants} initial="normal" animate={controls} />
-					<motion.path d="M12 20h.01" variants={dotVariants} initial="normal" animate={controls} />
-					<path d="M8.128 16.949A7 7 0 1 1 15.71 8h1.79a1 1 0 0 1 0 9h-1.642" />
+					<motion.g
+						variants={bounceVariants}
+						style={{ originX: '50%', originY: '50%' }}
+						initial="normal"
+						animate={controls}
+					>
+						<path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" />
+						<path d="M12 8v4" />
+						<path d="M12 16h.01" />
+					</motion.g>
 				</svg>
 			</div>
 		);
 	}
 );
 
-CloudAlert.displayName = 'CloudAlert';
+MessageCircleExclamationPoint.displayName = 'MessageCircleExclamationPoint';
 
-export { CloudAlert };
+export { MessageCircleExclamationPoint };

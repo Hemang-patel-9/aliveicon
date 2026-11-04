@@ -29,7 +29,7 @@ const tiltVariants: Variants = {
 	},
 };
 
-const BadgeAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const BadgeExclamationPoint = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -86,6 +86,6 @@ const BadgeAlert = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	}
 );
 
-BadgeAlert.displayName = 'BadgeAlert';
+BadgeExclamationPoint.displayName = 'BadgeExclamationPoint';
 
-export { BadgeAlert };
+export { BadgeExclamationPoint };

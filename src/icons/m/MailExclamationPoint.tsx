@@ -6,15 +6,15 @@ import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const bounceVariants: Variants = {
-	normal: { y: 0, transition: { duration: 0.2 } },
+const wiggleVariants: Variants = {
+	normal: { x: 0, transition: { duration: 0.2 } },
 	animate: {
-		y: [0, -3, 0, -1.5, 0],
-		transition: { duration: 0.6, ease: 'easeOut' },
+		x: [0, -2, 2, -1.5, 1.5, 0],
+		transition: { duration: 0.5, ease: 'easeInOut' },
 	},
 };
 
-const MessageCircleWarning = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const MailExclamationPoint = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -37,14 +37,15 @@ const MessageCircleWarning = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					height="100%"
 				>
 					<motion.g
-						variants={bounceVariants}
+						variants={wiggleVariants}
 						style={{ originX: '50%', originY: '50%' }}
 						initial="normal"
 						animate={controls}
 					>
-						<path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" />
-						<path d="M12 8v4" />
-						<path d="M12 16h.01" />
+						<path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h12.5" />
+						<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+						<path d="M20 14v4" />
+						<path d="M20 22v.01" />
 					</motion.g>
 				</svg>
 			</div>
@@ -52,6 +53,6 @@ const MessageCircleWarning = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	}
 );
 
-MessageCircleWarning.displayName = 'MessageCircleWarning';
+MailExclamationPoint.displayName = 'MailExclamationPoint';
 
-export { MessageCircleWarning };
+export { MailExclamationPoint };

@@ -33,9 +33,14 @@ const readNames = async () => {
 const { names: exported, version } = await readNames();
 
 const aliasSource = fs.readFileSync(path.join(repoRoot, 'src/aliases.ts'), 'utf8');
-const aliasPairs = [...aliasSource.matchAll(/^export const (\w+) = (\w+);$/gm)].map((m) => ({
-	name: m[1],
-	target: m[2],
+const aliasPairs = [
+	...aliasSource
+		.replace(/\r\n/g, '\n')
+		.matchAll(/^(\/\*\* @deprecated[^\n]*\*\/\n)?export const (\w+) = (\w+);$/gm),
+].map((m) => ({
+	name: m[2],
+	target: m[3],
+	deprecated: Boolean(m[1]),
 }));
 const exportedSet = new Set(exported);
 if (mode === 'src') for (const a of aliasPairs) exportedSet.add(a.name);

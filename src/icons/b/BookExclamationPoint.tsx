@@ -6,25 +6,24 @@ import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const bodyVariants: Variants = {
+const popVariants: Variants = {
 	normal: { scale: 1, transition: { duration: 0.2 } },
-	animate: {
-		scale: [1, 1.06, 1],
-		transition: { duration: 0.5, ease: 'easeInOut' },
-	},
-};
-
-const detailVariants: Variants = {
-	normal: { pathLength: 1, pathOffset: 0, opacity: 1, transition: { duration: 0.2 } },
 	animate: (i: number) => ({
-		pathLength: [0, 1],
-		pathOffset: [1, 0],
-		opacity: [0, 1],
-		transition: { duration: 0.4, delay: 0.15 + i * 0.1, ease: 'easeInOut' },
+		scale: [1, 1.35, 1],
+		transition: { duration: 0.4, delay: i * 0.08, ease: 'easeInOut' },
 	}),
 };
 
-const MessageSquareWarning = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const drawVariants: Variants = {
+	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.2 } },
+	animate: (i: number) => ({
+		pathLength: [0, 1],
+		opacity: [0, 1],
+		transition: { duration: 0.5, delay: i * 0.1, ease: 'easeInOut' },
+	}),
+};
+
+const BookExclamationPoint = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -46,34 +45,27 @@ const MessageSquareWarning = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.g
-						variants={bodyVariants}
-						style={{ originX: '50%', originY: '50%' }}
+					<motion.path
+						d="M12 13h.01"
+						variants={popVariants}
 						initial="normal"
 						animate={controls}
-					>
-						<path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" />
-					</motion.g>
-					<motion.path
-						d="M12 15h.01"
-						variants={detailVariants}
 						custom={0}
-						initial="normal"
-						animate={controls}
 					/>
 					<motion.path
-						d="M12 7v4"
-						variants={detailVariants}
-						custom={1}
+						d="M12 6v3"
+						variants={drawVariants}
 						initial="normal"
 						animate={controls}
+						custom={0}
 					/>
+					<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
 				</svg>
 			</div>
 		);
 	}
 );
 
-MessageSquareWarning.displayName = 'MessageSquareWarning';
+BookExclamationPoint.displayName = 'BookExclamationPoint';
 
-export { MessageSquareWarning };
+export { BookExclamationPoint };

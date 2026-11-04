@@ -215,8 +215,8 @@ export const fields: Field[] = [
 	}),
 	toggle('groupByLetter', 'group', 'behavior', 'Group by letter', g.groupByLetter),
 	toggle('letterRail', 'rail', 'behavior', 'Letter rail', g.letterRail),
-	toggle('showAliases', 'alias', 'behavior', 'Show deprecated names', g.showAliases, {
-		hint: 'Old misspelled names that still work.',
+	toggle('showAliases', 'alias', 'behavior', 'Show aliases and old names', g.showAliases, {
+		hint: 'Other names that import the same icon, including old misspelled ones.',
 	}),
 ];
 
