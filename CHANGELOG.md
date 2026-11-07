@@ -6,6 +6,22 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.13.0] - 2026-11-08
+
+### Added
+
+- 5 icons from Lucide: `Grid3x3Off`, `Moped`, `SquareDashedSearch`, `UserExclamationPoint` and
+  `UserRoundExclamationPoint`.
+- 7 brand icons: `Git`, `Gitbook`, `Github`, `GithubActions`, `GithubCopilot`, `GithubSponsors` and
+  `Gitlab`, also exported with brand casing (`GitBook`, `GitHub`, `GitHubActions`, `GitHubCopilot`,
+  `GitHubSponsors`, `GitLab`). Sources and trademark notes are in `THIRD_PARTY_NOTICES.md`.
+- 27 social and messaging brand icons: `Behance`, `Bluesky`, `Discord`, `Dribbble`, `Facebook`,
+  `Instagram`, `LineMessenger`, `Linkedin`, `Mastodon`, `Medium`, `Messenger`, `Pinterest`, `Quora`,
+  `Reddit`, `SignalMessenger`, `Slack`, `Snapchat`, `Spotify`, `Telegram`, `Threads`, `Tiktok`,
+  `Tumblr`, `Twitch`, `Viber`, `Vimeo`, `Wechat` and `Whatsapp`, also exported as `LinkedIn`,
+  `TikTok`, `WeChat` and `WhatsApp`. `Signal` stays the signal-strength icon; the messenger is
+  `SignalMessenger`.
+
 ## [1.12.0] - 2026-11-05
 
 ### Added

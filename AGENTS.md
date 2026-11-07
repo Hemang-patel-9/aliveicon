@@ -130,7 +130,8 @@ Treat each of these as P1:
 - An `animate` variant with `repeat: Infinity` and no `{ cycleMs }`.
 - A change to the shared hook, `src/lib/types.ts`, props, triggers, the wrapper element, its `inline-block`
   display, or reduced-motion handling, without a linked issue where the maintainer agreed to it.
-- Brand or trademarked icons.
+- Brand or trademarked icons that the maintainer has not approved, or that are not credited in
+  `THIRD_PARTY_NOTICES.md`.
 - Code comments (other than `@deprecated` in `src/aliases.ts`) or `console.*` calls.
 - A user-facing change with no line under `Unreleased` in `CHANGELOG.md`, or new icons without an updated
   README icon count and table.
