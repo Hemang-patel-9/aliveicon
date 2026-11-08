@@ -6,6 +6,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Every old icon name that `lucide-react` exports now works in `aliveicon` too: 257 more aliases, such
+  as `Home`, `Edit`, `Loader2`, `CheckCircle`, `AlertTriangle`, `MoreHorizontal` and `BarChart`.
+  Imports copied from `lucide-react` keep their names. Like the existing Lucide aliases, they point at
+  the current icons and are not deprecated.
+
 ## [1.13.0] - 2026-11-08
 
 ### Added

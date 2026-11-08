@@ -17,7 +17,7 @@ plays on hover, click, mount, loop, or through a ref.
 | `src/lib/use-animated-icon.ts`  | Shared trigger hook: hover, loopOnHover, animateOnClick, autoAnimateOnLoad, ref handle. |
 | `src/lib/types.ts`              | Public types: `AnimatedIconProps`, `AnimatedIconHandle`, `AnimatedIconTriggers`.        |
 | `src/lib/cn.ts`                 | `clsx` + `tailwind-merge`. Icons import it; they never define their own.                |
-| `src/aliases.ts`                | Deprecated misspellings (removed at 2.0.0) and Lucide aliases like `CircleAlert`.       |
+| `src/aliases.ts`                | Deprecated misspellings (removed at 2.0.0) and every lucide-react alias, like `Home`.    |
 | `src/index.ts`                  | **Generated.** Never edit by hand; run `npm run generate`.                              |
 | `scripts/`                      | Index generator, icon linter, smoke test.                                               |
 | `apps/web`                      | Documentation site.                                                                     |

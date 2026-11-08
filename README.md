@@ -220,6 +220,10 @@ Lucide renamed these icons, and `aliveicon` follows the new names. The old names
 | `ShieldAlert` | `ShieldExclamationPoint` |
 | `TriangleAlert` | `TriangleExclamationPoint` |
 
+Every other old name that `lucide-react` exports works too, such as `Home`, `Edit`, `Loader2`, `CheckCircle`
+and `MoreHorizontal`, so imports copied from `lucide-react` keep their names. The full list is in
+[`src/aliases.ts`](src/aliases.ts), and the documentation site shows them with the "Show aliases" setting.
+
 ---
 
 ## 🎬 How the animation works
