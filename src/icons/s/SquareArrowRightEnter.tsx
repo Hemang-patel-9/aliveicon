@@ -6,11 +6,12 @@ import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const nudgeRightVariants: Variants = {
-	normal: { x: 0, transition: { duration: 0.2 } },
+const arrowVariants: Variants = {
+	normal: { x: 0, opacity: 1, transition: { duration: 0.2 } },
 	animate: {
-		x: [0, 3, 0],
-		transition: { duration: 0.5, ease: 'easeInOut' },
+		x: [-5, 0],
+		opacity: [0, 1],
+		transition: { duration: 0.5, ease: 'easeOut' },
 	},
 };
 
@@ -36,15 +37,10 @@ const SquareArrowRightEnter = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.g
-						variants={nudgeRightVariants}
-						style={{ originX: '50%', originY: '50%' }}
-						initial="normal"
-						animate={controls}
-					>
-						<path d="m10 16 4-4-4-4" />
-						<path d="M3 12h11" />
-						<path d="M3 8V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3" />
+					<path d="M3 8V5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2v-3" />
+					<motion.g variants={arrowVariants} initial="normal" animate={controls}>
+						<path d="M3 12h10" />
+						<path d="m9 16 4-4-4-4" />
 					</motion.g>
 				</svg>
 			</div>

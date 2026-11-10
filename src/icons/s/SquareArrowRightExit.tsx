@@ -6,10 +6,10 @@ import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const nudgeRightVariants: Variants = {
+const arrowVariants: Variants = {
 	normal: { x: 0, transition: { duration: 0.2 } },
 	animate: {
-		x: [0, 3, 0],
+		x: [0, 2, 0],
 		transition: { duration: 0.5, ease: 'easeInOut' },
 	},
 };
@@ -36,15 +36,10 @@ const SquareArrowRightExit = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.g
-						variants={nudgeRightVariants}
-						style={{ originX: '50%', originY: '50%' }}
-						initial="normal"
-						animate={controls}
-					>
-						<path d="M10 12h11" />
+					<path d="M21 6.33V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-1.33" />
+					<motion.g variants={arrowVariants} initial="normal" animate={controls}>
+						<path d="M11 12h10" />
 						<path d="m17 16 4-4-4-4" />
-						<path d="M21 6.344V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1.344" />
 					</motion.g>
 				</svg>
 			</div>

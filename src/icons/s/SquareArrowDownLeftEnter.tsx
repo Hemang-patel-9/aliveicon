@@ -9,14 +9,14 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 const arrowVariants: Variants = {
 	normal: { x: 0, y: 0, opacity: 1, transition: { duration: 0.2 } },
 	animate: {
-		x: [1.5, 0],
-		y: [1.5, 0],
+		x: [3.5, 0],
+		y: [-3.5, 0],
 		opacity: [0, 1],
-		transition: { duration: 0.45, ease: 'easeOut' },
+		transition: { duration: 0.5, ease: 'easeOut' },
 	},
 };
 
-const CircleArrowOutUpLeft = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const SquareArrowDownLeftEnter = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -38,10 +38,10 @@ const CircleArrowOutUpLeft = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					width="100%"
 					height="100%"
 				>
-					<path d="M12 2A10 10 0 1 1 2 12" />
+					<path d="M21 8.67V19a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h10.33" />
 					<motion.g variants={arrowVariants} initial="normal" animate={controls}>
-						<path d="m2 2 10 10" />
-						<path d="M2 8V2h6" />
+						<path d="M11 7v6h6" />
+						<path d="m20 4-9 9" />
 					</motion.g>
 				</svg>
 			</div>
@@ -49,6 +49,6 @@ const CircleArrowOutUpLeft = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	}
 );
 
-CircleArrowOutUpLeft.displayName = 'CircleArrowOutUpLeft';
+SquareArrowDownLeftEnter.displayName = 'SquareArrowDownLeftEnter';
 
-export { CircleArrowOutUpLeft };
+export { SquareArrowDownLeftEnter };

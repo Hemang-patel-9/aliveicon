@@ -6,15 +6,16 @@ import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const nudgeLeftVariants: Variants = {
-	normal: { x: 0, transition: { duration: 0.2 } },
+const arrowVariants: Variants = {
+	normal: { x: 0, opacity: 1, transition: { duration: 0.2 } },
 	animate: {
-		x: [0, -3, 0],
-		transition: { duration: 0.5, ease: 'easeInOut' },
+		x: [5, 0],
+		opacity: [0, 1],
+		transition: { duration: 0.5, ease: 'easeOut' },
 	},
 };
 
-const SquareArrowOutUpLeft = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const SquareArrowLeftEnter = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -36,15 +37,10 @@ const SquareArrowOutUpLeft = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 					width="100%"
 					height="100%"
 				>
-					<motion.g
-						variants={nudgeLeftVariants}
-						style={{ originX: '50%', originY: '50%' }}
-						initial="normal"
-						animate={controls}
-					>
-						<path d="M13 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6" />
-						<path d="m3 3 9 9" />
-						<path d="M3 9V3h6" />
+					<path d="M21 16v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v3" />
+					<motion.g variants={arrowVariants} initial="normal" animate={controls}>
+						<path d="m15 8-4 4 4 4" />
+						<path d="M21 12H11" />
 					</motion.g>
 				</svg>
 			</div>
@@ -52,6 +48,6 @@ const SquareArrowOutUpLeft = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	}
 );
 
-SquareArrowOutUpLeft.displayName = 'SquareArrowOutUpLeft';
+SquareArrowLeftEnter.displayName = 'SquareArrowLeftEnter';
 
-export { SquareArrowOutUpLeft };
+export { SquareArrowLeftEnter };

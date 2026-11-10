@@ -6,11 +6,11 @@
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/v/aliveicon.svg?color=blue" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/dm/aliveicon.svg?color=blue" alt="npm downloads" /></a>
   <a href="https://github.com/Hemang-patel-9/aliveicon/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/aliveicon.svg?color=green" alt="license" /></a>
-  <img src="https://img.shields.io/badge/icons-2089-orange" alt="icon count" />
+  <img src="https://img.shields.io/badge/icons-2107-orange" alt="icon count" />
   <img src="https://img.shields.io/badge/types-included-blue" alt="typescript" />
 </p>
 
-`aliveicon` is a set of **2089 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
+`aliveicon` is a set of **2107 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
 
 ---
 
@@ -148,7 +148,7 @@ The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decora
 
 ## 📚 Available icons
 
-`aliveicon` ships **2089 icons**, and more are being added. Import any icon by its PascalCase name:
+`aliveicon` ships **2107 icons**, and more are being added. Import any icon by its PascalCase name:
 
 ```tsx
 import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
@@ -158,7 +158,7 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 | ----- | ----- | -------- |
 | **A** | 118 | `Activity`, `Airplay`, `AlarmClock`, `Anchor`, `Anvil`, `ArrowRight`, `ArrowUpRight`, `Atom`, `Award` |
 | **B** | 165 | `Battery`, `Bell`, `Bluetooth`, `Book`, `Bot`, `Brain`, `Broom`, `Bug`, `Building` |
-| **C** | 321 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `Circle`, `Clock`, `Cloud`, `Cog`, `Copy` |
+| **C** | 322 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `Circle`, `Clock`, `Cloud`, `Cog`, `Copy` |
 | **D** | 63 | `Database`, `Dice1`, `Diamond`, `Disc`, `DoorOpen`, `Download`, `Droplet`, `Dumbbell` |
 | **E** | 32 | `Earth`, `Egg`, `Eject`, `Ellipsis`, `Eraser`, `Euro`, `Expand`, `Eye` |
 | **F** | 140 | `Factory`, `Fan`, `Feather`, `File`, `Film`, `Fish`, `Flag`, `Flame`, `Flower`, `Folder`, `Forklift`, `Funnel` |
@@ -168,13 +168,13 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 | **J** | 2 | `JapaneseYen`, `Joystick` |
 | **K** | 9 | `Kanban`, `Kayak`, `Key`, `KeyRound`, `Keyboard`, `KeyboardMusic` |
 | **L** | 126 | `Lamp`, `Laptop`, `Layers`, `Leaf`, `Lightbulb`, `Link`, `Linkedin`, `Lock`, `LogIn` |
-| **M** | 156 | `Mail`, `Mango`, `Map`, `MapPin`, `Medal`, `Megaphone`, `Mic`, `Monitor`, `Moon`, `Mountain` |
+| **M** | 157 | `Mail`, `Mango`, `Map`, `MapPin`, `Medal`, `Megaphone`, `Mic`, `Monitor`, `Moon`, `Mountain` |
 | **N** | 19 | `Navigation`, `Network`, `Newspaper`, `Notebook`, `NotebookDot`, `Nut` |
 | **O** | 11 | `Octagon`, `Omega`, `Opacity`, `Option`, `Orbit`, `Origami` |
 | **P** | 117 | `Package`, `Paintbrush`, `Palette`, `PanelLeft`, `Paperclip`, `Pause`, `PawPrint`, `Pen`, `Phone`, `Plane`, `Play`, `Plus`, `Power`, `Printer`, `Puzzle` |
 | **Q** | 3 | `Quote`, `QrCode` |
 | **R** | 77 | `Rabbit`, `Radar`, `Radio`, `Receipt`, `RefreshCw`, `Rocket`, `RotateCcw` |
-| **S** | 308 | `Save`, `Search`, `Send`, `Settings`, `Share`, `Shield`, `ShoppingCart`, `Sparkles`, `Star`, `Sun` |
+| **S** | 324 | `Save`, `Search`, `Send`, `Settings`, `Share`, `Shield`, `ShoppingCart`, `Sparkles`, `Star`, `Sun` |
 | **T** | 117 | `Table`, `Tag`, `Target`, `Telescope`, `Tent`, `Terminal`, `Thermometer`, `ThumbsUp`, `Ticket`, `Timer`, `Trash`, `Trophy`, `Truck`, `Type` |
 | **U** | 51 | `Umbrella`, `Undo`, `Unplug`, `Upload`, `User`, `UserGroup`, `Users`, `Utensils` |
 | **V** | 27 | `Van`, `Variable`, `Vault`, `Video`, `Virus`, `Volume`, `Vote` |

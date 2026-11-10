@@ -7,16 +7,15 @@ import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const arrowVariants: Variants = {
-	normal: { x: 0, y: 0, opacity: 1, transition: { duration: 0.2 } },
+	normal: { y: 0, opacity: 1, transition: { duration: 0.2 } },
 	animate: {
-		x: [-1.5, 0],
-		y: [-1.5, 0],
+		y: [-5, 0],
 		opacity: [0, 1],
-		transition: { duration: 0.45, ease: 'easeOut' },
+		transition: { duration: 0.5, ease: 'easeOut' },
 	},
 };
 
-const CircleArrowOutDownRight = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const SquareArrowDownEnter = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	({ className, size = 28, style, ...props }, ref) => {
 		const { controls, iconProps } = useAnimatedIcon(ref, props);
 
@@ -38,10 +37,10 @@ const CircleArrowOutDownRight = forwardRef<AnimatedIconHandle, AnimatedIconProps
 					width="100%"
 					height="100%"
 				>
-					<path d="M12 22a10 10 0 1 1 10-10" />
+					<path d="M16 3h3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h3" />
 					<motion.g variants={arrowVariants} initial="normal" animate={controls}>
-						<path d="M22 22 12 12" />
-						<path d="M22 16v6h-6" />
+						<path d="M12 3v10" />
+						<path d="m8 9 4 4 4-4" />
 					</motion.g>
 				</svg>
 			</div>
@@ -49,6 +48,6 @@ const CircleArrowOutDownRight = forwardRef<AnimatedIconHandle, AnimatedIconProps
 	}
 );
 
-CircleArrowOutDownRight.displayName = 'CircleArrowOutDownRight';
+SquareArrowDownEnter.displayName = 'SquareArrowDownEnter';
 
-export { CircleArrowOutDownRight };
+export { SquareArrowDownEnter };

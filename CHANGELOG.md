@@ -6,12 +6,33 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.14.0] - 2026-11-10
+
 ### Added
 
 - Every old icon name that `lucide-react` exports now works in `aliveicon` too: 257 more aliases, such
   as `Home`, `Edit`, `Loader2`, `CheckCircle`, `AlertTriangle`, `MoreHorizontal` and `BarChart`.
   Imports copied from `lucide-react` keep their names. Like the existing Lucide aliases, they point at
   the current icons and are not deprecated.
+- 18 icons from Lucide: `Cheese`, `MoundShovel`, `SquareArrowDownEnter`, `SquareArrowDownExit`,
+  `SquareArrowDownLeftEnter`, `SquareArrowDownRightEnter`, `SquareArrowLeftEnter`,
+  `SquareArrowLeftExit`, `SquareArrowUpEnter`, `SquareArrowUpExit`, `SquareArrowUpLeftEnter`,
+  `SquareArrowUpRightEnter`, `StrokeLineCapButt`, `StrokeLineCapRound`, `StrokeLineCapSquare`,
+  `StrokeLineJoinBevel`, `StrokeLineJoinMiter` and `StrokeLineJoinRound`.
+- Lucide's new names for 8 icons: `CircleArrowDownLeftExit`, `CircleArrowDownRightExit`,
+  `CircleArrowUpLeftExit`, `CircleArrowUpRightExit`, `SquareArrowDownLeftExit`,
+  `SquareArrowDownRightExit`, `SquareArrowUpLeftExit` and `SquareArrowUpRightExit`. The old
+  `CircleArrowOut…` and `SquareArrowOut…` names keep working as aliases, the same as in `lucide-react`,
+  and are not deprecated.
+- The `lucide-react` spellings `Grid3X2`, `Grid3X3Off` and `Printer3D` as aliases.
+
+### Changed
+
+- `SquareArrowRightEnter` and `SquareArrowRightExit` use Lucide's redrawn arrows.
+- The square enter/exit arrows move only the arrow now: on enter it slides in through the gap in the
+  square, on exit it pushes out through the gap and back. The square stays still. This affects
+  `SquareArrowRightEnter`, `SquareArrowRightExit` and the four diagonal `SquareArrow…Exit` icons, which
+  used to nudge the whole icon.
 
 ## [1.13.0] - 2026-11-08
 
