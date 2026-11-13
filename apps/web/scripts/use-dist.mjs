@@ -8,10 +8,19 @@ const packDir = path.join(appDir, '.pack');
 const skipBuild = process.argv.includes('--skip-build');
 
 const fromEnv = process.env.npm_execpath;
+const nodeDir = path.dirname(process.execPath);
 const npmCli =
 	fromEnv && path.basename(fromEnv).startsWith('npm')
 		? fromEnv
-		: path.join(path.dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npm-cli.js');
+		: [
+				path.join(nodeDir, 'node_modules', 'npm', 'bin', 'npm-cli.js'),
+				path.join(nodeDir, '..', 'lib', 'node_modules', 'npm', 'bin', 'npm-cli.js'),
+			].find((file) => fs.existsSync(file));
+
+if (!npmCli) {
+	console.error('could not find npm-cli.js; run this script through npm');
+	process.exit(1);
+}
 
 const run = (cwd, args) => {
 	const result = spawnSync(process.execPath, [npmCli, ...args], { cwd, stdio: 'inherit' });
