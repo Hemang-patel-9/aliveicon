@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -14,44 +13,38 @@ const nudgeUpVariants: Variants = {
 	},
 };
 
-const LayersArrowUp = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const LayersArrowUp = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
+				<motion.g
+					variants={nudgeUpVariants}
+					style={{ originX: '50%', originY: '50%' }}
+					initial="normal"
+					animate={controls}
 				>
-					<motion.g
-						variants={nudgeUpVariants}
-						style={{ originX: '50%', originY: '50%' }}
-						initial="normal"
-						animate={controls}
-					>
-						<path d="M12 12V2" />
-						<path d="M2 17.002a1 1 0 00.58.91l8.6 3.91a2 2 0 001.65 0l8.58-3.9a1 1 0 00.59-.92" />
-						<path d="M7.674 8.774 2.58 11.09a1 1 0 000 1.822l8.6 3.91a2 2 0 001.65 0l8.58-3.9a1 1 0 00.59-.92 1 1 0 00-.59-.922l-5.078-2.308" />
-						<path d="m9 5 3-3 3 3" />
-					</motion.g>
-				</svg>
-			</div>
-		);
-	}
-);
+					<path d="M12 12V2" />
+					<path d="M2 17.002a1 1 0 00.58.91l8.6 3.91a2 2 0 001.65 0l8.58-3.9a1 1 0 00.59-.92" />
+					<path d="M7.674 8.774 2.58 11.09a1 1 0 000 1.822l8.6 3.91a2 2 0 001.65 0l8.58-3.9a1 1 0 00.59-.92 1 1 0 00-.59-.922l-5.078-2.308" />
+					<path d="m9 5 3-3 3 3" />
+				</motion.g>
+			</svg>
+		</div>
+	);
+});
 
 LayersArrowUp.displayName = 'LayersArrowUp';
 

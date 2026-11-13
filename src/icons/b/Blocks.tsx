@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -19,44 +18,38 @@ const blockVariants: Variants = {
 	},
 };
 
-const Blocks = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const Blocks = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.rect
-						width="7"
-						height="7"
-						x="14"
-						y="3"
-						rx="1"
-						variants={blockVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3" />
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.rect
+					width="7"
+					height="7"
+					x="14"
+					y="3"
+					rx="1"
+					variants={blockVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3" />
+			</svg>
+		</div>
+	);
+});
 
 Blocks.displayName = 'Blocks';
 

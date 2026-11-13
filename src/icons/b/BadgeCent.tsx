@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -29,59 +28,48 @@ const pathVariants: Variants = {
 	}),
 };
 
-const BadgeCent = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const BadgeCent = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn(className)}
-				style={{
-					width: size,
-					height: size,
-					display: 'inline-block',
-					...style,
-				}}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				width="100%"
+				height="100%"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					width={size}
-					height={size}
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				>
-					<motion.path
-						d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-						custom={0}
-					/>
-					<motion.path
-						d="M12 7v10"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-						custom={0.1}
-					/>
-					<motion.path
-						d="M15.4 10a4 4 0 1 0 0 4"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-						custom={0.2}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+					custom={0}
+				/>
+				<motion.path
+					d="M12 7v10"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+					custom={0.1}
+				/>
+				<motion.path
+					d="M15.4 10a4 4 0 1 0 0 4"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+					custom={0.2}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 BadgeCent.displayName = 'BadgeCent';
 

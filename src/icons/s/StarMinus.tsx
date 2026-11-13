@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -14,42 +13,36 @@ const popVariants: Variants = {
 	},
 };
 
-const StarMinus = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const StarMinus = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
+				<motion.g
+					variants={popVariants}
+					style={{ originX: '50%', originY: '50%' }}
+					initial="normal"
+					animate={controls}
 				>
-					<motion.g
-						variants={popVariants}
-						style={{ originX: '50%', originY: '50%' }}
-						initial="normal"
-						animate={controls}
-					>
-						<path d="M15 18h6" />
-						<path d="M17.688 14a2.1 2.1 0 0 1 .416-.568l3.736-3.638a.53.53 0 0 0-.294-.905l-5.166-.755a2.1 2.1 0 0 1-1.595-1.16l-2.31-4.68a.53.53 0 0 0-.95.001L9.216 6.974a2.1 2.1 0 0 1-1.597 1.16l-5.165.755a.53.53 0 0 0-.294.906l3.736 3.637a2.1 2.1 0 0 1 .611 1.879l-.88 5.139a.53.53 0 0 0 .769.56l4.617-2.428.027-.014" />
-					</motion.g>
-				</svg>
-			</div>
-		);
-	}
-);
+					<path d="M15 18h6" />
+					<path d="M17.688 14a2.1 2.1 0 0 1 .416-.568l3.736-3.638a.53.53 0 0 0-.294-.905l-5.166-.755a2.1 2.1 0 0 1-1.595-1.16l-2.31-4.68a.53.53 0 0 0-.95.001L9.216 6.974a2.1 2.1 0 0 1-1.597 1.16l-5.165.755a.53.53 0 0 0-.294.906l3.736 3.637a2.1 2.1 0 0 1 .611 1.879l-.88 5.139a.53.53 0 0 0 .769.56l4.617-2.428.027-.014" />
+				</motion.g>
+			</svg>
+		</div>
+	);
+});
 
 StarMinus.displayName = 'StarMinus';
 

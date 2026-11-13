@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -23,49 +22,43 @@ const popVariants: Variants = {
 	}),
 };
 
-const Eye = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const Eye = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.path
-						d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
-						variants={drawVariants}
-						initial="normal"
-						animate={controls}
-						custom={0}
-					/>
-					<motion.circle
-						cx="12"
-						cy="12"
-						r="3"
-						variants={popVariants}
-						initial="normal"
-						animate={controls}
-						custom={0}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+					variants={drawVariants}
+					initial="normal"
+					animate={controls}
+					custom={0}
+				/>
+				<motion.circle
+					cx="12"
+					cy="12"
+					r="3"
+					variants={popVariants}
+					initial="normal"
+					animate={controls}
+					custom={0}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 Eye.displayName = 'Eye';
 

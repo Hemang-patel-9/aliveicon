@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -16,77 +15,71 @@ const drawVariants: Variants = {
 	}),
 };
 
-const ScanEye = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const ScanEye = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.path
-						d="M3 7V5a2 2 0 0 1 2-2h2"
-						variants={drawVariants}
-						custom={0}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M17 3h2a2 2 0 0 1 2 2v2"
-						variants={drawVariants}
-						custom={1}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M21 17v2a2 2 0 0 1-2 2h-2"
-						variants={drawVariants}
-						custom={2}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M7 21H5a2 2 0 0 1-2-2v-2"
-						variants={drawVariants}
-						custom={3}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.circle
-						cx="12"
-						cy="12"
-						r="1"
-						variants={drawVariants}
-						custom={4}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"
-						variants={drawVariants}
-						custom={5}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M3 7V5a2 2 0 0 1 2-2h2"
+					variants={drawVariants}
+					custom={0}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M17 3h2a2 2 0 0 1 2 2v2"
+					variants={drawVariants}
+					custom={1}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M21 17v2a2 2 0 0 1-2 2h-2"
+					variants={drawVariants}
+					custom={2}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M7 21H5a2 2 0 0 1-2-2v-2"
+					variants={drawVariants}
+					custom={3}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.circle
+					cx="12"
+					cy="12"
+					r="1"
+					variants={drawVariants}
+					custom={4}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"
+					variants={drawVariants}
+					custom={5}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 ScanEye.displayName = 'ScanEye';
 

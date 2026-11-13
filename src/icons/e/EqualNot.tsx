@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -24,62 +23,56 @@ const slashVariants: Variants = {
 	},
 };
 
-const EqualNot = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const EqualNot = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.line
-						x1="5"
-						x2="19"
-						y1="9"
-						y2="9"
-						variants={drawVariants}
-						initial="normal"
-						animate={controls}
-						custom={0}
-					/>
-					<motion.line
-						x1="5"
-						x2="19"
-						y1="15"
-						y2="15"
-						variants={drawVariants}
-						initial="normal"
-						animate={controls}
-						custom={1}
-					/>
-					<motion.line
-						x1="19"
-						x2="5"
-						y1="5"
-						y2="19"
-						variants={slashVariants}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.line
+					x1="5"
+					x2="19"
+					y1="9"
+					y2="9"
+					variants={drawVariants}
+					initial="normal"
+					animate={controls}
+					custom={0}
+				/>
+				<motion.line
+					x1="5"
+					x2="19"
+					y1="15"
+					y2="15"
+					variants={drawVariants}
+					initial="normal"
+					animate={controls}
+					custom={1}
+				/>
+				<motion.line
+					x1="19"
+					x2="5"
+					y1="5"
+					y2="19"
+					variants={slashVariants}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 EqualNot.displayName = 'EqualNot';
 

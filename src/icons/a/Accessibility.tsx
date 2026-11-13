@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -45,70 +44,59 @@ const pathVariants = {
 	},
 };
 
-const Accessibility = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const Accessibility = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('rounded-md', className)}
-				style={{
-					width: size,
-					height: size,
-					display: 'inline-block',
-					...style,
-				}}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.circle
-						cx="16"
-						cy="4"
-						r="1"
-						variants={circleVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.path
-						d="m18 19 1-7-6 1"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.path
-						d="m5 8 3-3 5.5 3-2.36 3.5"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.path
-						d="M4.24 14.5a5 5 0 0 0 6.88 6"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.path
-						d="M13.76 17.5a5 5 0 0 0-6.88-6"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.circle
+					cx="16"
+					cy="4"
+					r="1"
+					variants={circleVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.path
+					d="m18 19 1-7-6 1"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.path
+					d="m5 8 3-3 5.5 3-2.36 3.5"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.path
+					d="M4.24 14.5a5 5 0 0 0 6.88 6"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.path
+					d="M13.76 17.5a5 5 0 0 0-6.88-6"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+			</svg>
+		</div>
+	);
+});
 
 Accessibility.displayName = 'Accessibility';
 

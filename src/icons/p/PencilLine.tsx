@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -24,50 +23,44 @@ const writeVariants: Variants = {
 	},
 };
 
-const PencilLine = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const PencilLine = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
+				style={{ overflow: 'visible' }}
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-					style={{ overflow: 'visible' }}
+				<motion.path
+					d="M13 21h8"
+					variants={drawVariants}
+					custom={[0.3, 0, 0.35]}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.g
+					variants={writeVariants}
+					style={{ originX: '0%', originY: '100%' }}
+					initial="normal"
+					animate={controls}
 				>
-					<motion.path
-						d="M13 21h8"
-						variants={drawVariants}
-						custom={[0.3, 0, 0.35]}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.g
-						variants={writeVariants}
-						style={{ originX: '0%', originY: '100%' }}
-						initial="normal"
-						animate={controls}
-					>
-						<path d="m15 5 4 4" />
-						<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
-					</motion.g>
-				</svg>
-			</div>
-		);
-	}
-);
+					<path d="m15 5 4 4" />
+					<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+				</motion.g>
+			</svg>
+		</div>
+	);
+});
 
 PencilLine.displayName = 'PencilLine';
 

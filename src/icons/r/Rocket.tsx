@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -32,45 +31,39 @@ const flameVariants: Variants = {
 	},
 };
 
-const Rocket = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const Rocket = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<motion.svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
+				variants={rocketVariants}
+				initial="normal"
+				animate={controls}
 			>
-				<motion.svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-					variants={rocketVariants}
+				<motion.path
+					d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"
+					variants={flameVariants}
 					initial="normal"
 					animate={controls}
-				>
-					<motion.path
-						d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"
-						variants={flameVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-					<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-					<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-				</motion.svg>
-			</div>
-		);
-	}
-);
+				/>
+				<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+				<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+				<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+			</motion.svg>
+		</div>
+	);
+});
 
 Rocket.displayName = 'Rocket';
 

@@ -13,5 +13,7 @@ export interface AnimatedIconTriggers {
 }
 
 export interface AnimatedIconProps extends HTMLAttributes<HTMLDivElement>, AnimatedIconTriggers {
-	size?: number;
+	size?: number | string;
+	color?: string;
+	strokeWidth?: number | string;
 }

@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -23,75 +22,69 @@ const pathVariants = {
 	},
 };
 
-export const Chrome = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+export const Chrome = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.circle
-						cx="12"
-						cy="12"
-						r="10"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.circle
-						cx="12"
-						cy="12"
-						r="4"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.line
-						x1="21.17"
-						y1="8"
-						x2="12"
-						y2="8"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.line
-						x1="3.95"
-						y1="6.06"
-						x2="8.54"
-						y2="14"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.line
-						x1="10.88"
-						y1="21.94"
-						x2="15.46"
-						y2="14"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.circle
+					cx="12"
+					cy="12"
+					r="10"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.circle
+					cx="12"
+					cy="12"
+					r="4"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.line
+					x1="21.17"
+					y1="8"
+					x2="12"
+					y2="8"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.line
+					x1="3.95"
+					y1="6.06"
+					x2="8.54"
+					y2="14"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.line
+					x1="10.88"
+					y1="21.94"
+					x2="15.46"
+					y2="14"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+			</svg>
+		</div>
+	);
+});
 
 Chrome.displayName = 'Chrome';

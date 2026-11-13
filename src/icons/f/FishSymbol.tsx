@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -15,40 +14,34 @@ const swimVariants: Variants = {
 	},
 };
 
-const FishSymbol = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const FishSymbol = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
+				style={{ overflow: 'visible' }}
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-					style={{ overflow: 'visible' }}
-				>
-					<motion.path
-						d="M2 16s9-15 20-4C11 23 2 8 2 8"
-						variants={swimVariants}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M2 16s9-15 20-4C11 23 2 8 2 8"
+					variants={swimVariants}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 FishSymbol.displayName = 'FishSymbol';
 

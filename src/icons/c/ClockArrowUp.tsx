@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -24,45 +23,39 @@ const arrowVariants: Variants = {
 	},
 };
 
-const ClockArrowUp = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const ClockArrowUp = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.path
-						d="M12 6v6l1.56.78"
-						custom={0}
-						variants={handVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<path d="M13.227 21.925a10 10 0 1 1 8.767-9.588" />
-					<motion.g variants={arrowVariants} initial="normal" animate={controls}>
-						<path d="m14 18 4-4 4 4" />
-						<path d="M18 22v-8" />
-					</motion.g>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M12 6v6l1.56.78"
+					custom={0}
+					variants={handVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<path d="M13.227 21.925a10 10 0 1 1 8.767-9.588" />
+				<motion.g variants={arrowVariants} initial="normal" animate={controls}>
+					<path d="m14 18 4-4 4 4" />
+					<path d="M18 22v-8" />
+				</motion.g>
+			</svg>
+		</div>
+	);
+});
 
 ClockArrowUp.displayName = 'ClockArrowUp';
 

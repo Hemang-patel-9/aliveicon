@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon, type AnimationDefinition } from '../../lib/use-animated-icon';
 
@@ -32,65 +31,63 @@ const animateTarget: AnimationDefinition = (i) => {
 	return {};
 };
 
-const Webcam = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, { animate: animateTarget });
+const pathVariants = { normal: { pathLength: 1, opacity: 1 } };
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+const Webcam = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, {
+		animate: animateTarget,
+	});
+
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				width="100%"
+				height="100%"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				>
-					<motion.circle
-						cx="12"
-						cy="10"
-						r="8"
-						initial="normal"
-						animate={controls}
-						custom={0}
-						variants={{ normal: { r: 8, opacity: 1 } }}
-					/>
-					<motion.circle
-						cx="12"
-						cy="10"
-						r="3"
-						initial="normal"
-						animate={controls}
-						custom={1}
-						variants={{ normal: { scale: 1, opacity: 1 } }}
-					/>
-					<motion.path
-						d="M7 22h10"
-						initial="normal"
-						animate={controls}
-						custom={2}
-						variants={{ normal: { pathLength: 1, opacity: 1 } }}
-					/>
-					<motion.path
-						d="M12 22v-4"
-						initial="normal"
-						animate={controls}
-						custom={3}
-						variants={{ normal: { pathLength: 1, opacity: 1 } }}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.circle
+					cx="12"
+					cy="10"
+					r="8"
+					initial="normal"
+					animate={controls}
+					custom={0}
+					variants={{ normal: { r: 8, opacity: 1 } }}
+				/>
+				<motion.circle
+					cx="12"
+					cy="10"
+					r="3"
+					initial="normal"
+					animate={controls}
+					custom={1}
+					variants={{ normal: { scale: 1, opacity: 1 } }}
+				/>
+				<motion.path
+					d="M7 22h10"
+					initial="normal"
+					animate={controls}
+					custom={2}
+					variants={pathVariants}
+				/>
+				<motion.path
+					d="M12 22v-4"
+					initial="normal"
+					animate={controls}
+					custom={3}
+					variants={pathVariants}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 Webcam.displayName = 'Webcam';
 export { Webcam };

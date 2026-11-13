@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -25,65 +24,59 @@ const drawVariants: Variants = {
 	}),
 };
 
-const Tangent = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const Tangent = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.circle
-						cx="17"
-						cy="4"
-						r="2"
-						variants={popVariants}
-						custom={0.3}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M15.59 5.41 5.41 15.59"
-						variants={drawVariants}
-						custom={[0.35, 0, 0.3]}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.circle
-						cx="4"
-						cy="17"
-						r="2"
-						variants={popVariants}
-						custom={0.65}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M12 22s-4-9-1.5-11.5S22 12 22 12"
-						variants={drawVariants}
-						custom={[0, 0, 0.6]}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.circle
+					cx="17"
+					cy="4"
+					r="2"
+					variants={popVariants}
+					custom={0.3}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M15.59 5.41 5.41 15.59"
+					variants={drawVariants}
+					custom={[0.35, 0, 0.3]}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.circle
+					cx="4"
+					cy="17"
+					r="2"
+					variants={popVariants}
+					custom={0.65}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M12 22s-4-9-1.5-11.5S22 12 22 12"
+					variants={drawVariants}
+					custom={[0, 0, 0.6]}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 Tangent.displayName = 'Tangent';
 

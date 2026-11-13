@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -24,50 +23,44 @@ const pathVariants = {
 	},
 };
 
-export const BookCopy = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+export const BookCopy = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.path
-						d="M2 16V4a2 2 0 0 1 2-2h11"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.path
-						d="M22 18H11a2 2 0 1 0 0 4h10.5a.5.5 0 0 0 .5-.5v-15a.5.5 0 0 0-.5-.5H11a2 2 0 0 0-2 2v12"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.path
-						d="M5 14H4a2 2 0 1 0 0 4h1"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M2 16V4a2 2 0 0 1 2-2h11"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.path
+					d="M22 18H11a2 2 0 1 0 0 4h10.5a.5.5 0 0 0 .5-.5v-15a.5.5 0 0 0-.5-.5H11a2 2 0 0 0-2 2v12"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.path
+					d="M5 14H4a2 2 0 1 0 0 4h1"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+			</svg>
+		</div>
+	);
+});
 
 BookCopy.displayName = 'BookCopy';

@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -14,46 +13,40 @@ const wiggleVariants: Variants = {
 	},
 };
 
-const ServerNas = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const ServerNas = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
+				<motion.g
+					variants={wiggleVariants}
+					style={{ originX: '50%', originY: '50%' }}
+					initial="normal"
+					animate={controls}
 				>
-					<motion.g
-						variants={wiggleVariants}
-						style={{ originX: '50%', originY: '50%' }}
-						initial="normal"
-						animate={controls}
-					>
-						<path d="M10 16V8" />
-						<path d="M14 16V8" />
-						<path d="M18 16V8" />
-						<path d="M6 12h.01" />
-						<path d="M6 16h.01" />
-						<rect x="2" y="4" width="20" height="16" rx="2" />
-					</motion.g>
-				</svg>
-			</div>
-		);
-	}
-);
+					<path d="M10 16V8" />
+					<path d="M14 16V8" />
+					<path d="M18 16V8" />
+					<path d="M6 12h.01" />
+					<path d="M6 16h.01" />
+					<rect x="2" y="4" width="20" height="16" rx="2" />
+				</motion.g>
+			</svg>
+		</div>
+	);
+});
 
 ServerNas.displayName = 'ServerNas';
 

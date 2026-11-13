@@ -6,6 +6,41 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.15.0] - 2026-11-13
+
+### Added
+
+- `color` prop on every icon, as in `lucide-react`. Without it the icon still takes the surrounding
+  text color.
+- `strokeWidth` prop on every icon. The default is `2`.
+- `size` also takes a string: a number in a string (`"32"`) or any CSS length (`"1.5em"`).
+
+### Changed
+
+- Icons are `inline-block` without Tailwind. The wrapper now sets `display: inline-block` as an inline
+  style, so icons no longer break onto their own line in apps that don't use Tailwind. When
+  `className` has a Tailwind display class (`hidden`, `block`, `flex`, `md:hidden`, …) the class
+  decides, as before. If you set the display from your own CSS class, pass it through `style` instead.
+- On touch screens a tap plays the animation once. With `loopOnHover` it used to loop until the next
+  tap somewhere else.
+- An `animateOnClick` animation finishes when the pointer leaves the icon. It used to be cut short.
+- `prefers-reduced-motion` is followed while the page is open, not only read when the icon mounts.
+
+### Fixed
+
+- 36 icons did not scale when the wrapper was resized with `className` or `style`: `Ampersand`,
+  `Asterisk`, `AtSign`, `Atom`, `AudioLines`, `Award`, `Baby`, `Backpack`, the `Badge…` icons,
+  `BaggageClaim`, `Ban`, `Banana`, `Bandage`, the `Banknote…` icons, `Barcode`, `Baseline` and `Bath`.
+- `className="hidden"` and other display classes had no effect on those icons and on `Accessibility`,
+  `Activity`, `Airplay`, `Album`, `AudioWaveform` and `SquareActivity`.
+- `color` was passed to the wrapper as an HTML attribute and did nothing.
+
+### Removed
+
+- Undocumented props on five icons: `isBounce` (`AArrowDown`, `AArrowUp`), `animationTrigger` and
+  `delay` (`Annoyed`, `Antenna`), `swingAngle` and `duration` (`Bell`). Every icon has the same props
+  now. In place of `animationTrigger` use `hoverable`, `animateOnClick`, `autoAnimateOnLoad` or a `ref`.
+
 ## [1.14.0] - 2026-11-10
 
 ### Added

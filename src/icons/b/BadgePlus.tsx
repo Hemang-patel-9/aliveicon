@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -29,65 +28,54 @@ const pathVariants: Variants = {
 	}),
 };
 
-const BadgePlus = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const BadgePlus = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn(className)}
-				style={{
-					width: size,
-					height: size,
-					display: 'inline-block',
-					...style,
-				}}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				width="100%"
+				height="100%"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					width={size}
-					height={size}
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				>
-					<motion.path
-						d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-						custom={0}
-					/>
-					<motion.line
-						x1="12"
-						y1="8"
-						x2="12"
-						y2="16"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-						custom={0.15}
-					/>
-					<motion.line
-						x1="8"
-						y1="12"
-						x2="16"
-						y2="12"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-						custom={0.3}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+					custom={0}
+				/>
+				<motion.line
+					x1="12"
+					y1="8"
+					x2="12"
+					y2="16"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+					custom={0.15}
+				/>
+				<motion.line
+					x1="8"
+					y1="12"
+					x2="16"
+					y2="12"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+					custom={0.3}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 BadgePlus.displayName = 'BadgePlus';
 

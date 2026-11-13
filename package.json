@@ -23,14 +23,15 @@
     "build": "rollup -c",
     "generate": "node scripts/generate-index.mjs",
     "lint:icons": "node scripts/lint-icons.mjs",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc -p tsconfig.check.json",
     "test": "node scripts/smoke-test.mjs",
+    "test:unit": "node scripts/unit-test.mjs",
     "dev": "node scripts/web.mjs dev",
     "web": "node scripts/web.mjs",
-    "check": "node scripts/generate-index.mjs --check && npm run lint:icons && npm run format:check && npm run typecheck",
+    "check": "node scripts/generate-index.mjs --check && npm run lint:icons && npm run format:check && npm run typecheck && npm run test:unit",
     "prepublishOnly": "npm run check && npm run build && npm test",
-    "format": "prettier --write src scripts rollup.config.js",
-    "format:check": "prettier --check src scripts rollup.config.js"
+    "format": "prettier --write src test scripts rollup.config.js vitest.config.mjs",
+    "format:check": "prettier --check src test scripts rollup.config.js vitest.config.mjs"
   },
   "repository": {
     "type": "git",
@@ -75,13 +76,17 @@
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.1",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
     "@types/react": "^18.3.21",
     "framer-motion": "^12.11.3",
+    "jsdom": "^31.0.0",
     "prettier": "^3.9.9",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "rollup": "^2.79.2",
     "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^5.1.0"
   }
 }

@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -23,62 +22,56 @@ const barVariants: Variants = {
 	},
 };
 
-const Behance = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const Behance = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
+				style={{ overflow: 'visible' }}
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-					style={{ overflow: 'visible' }}
-				>
-					<motion.path
-						d="M6.947 4.084a8.065 8.065 0 0 1 1.928 0.198a4.29 4.29 0 0 1 1.49 0.638c0.418 0.303 0.748 0.711 0.958 1.182c0.241 0.579 0.357 1.203 0.341 1.83a3.506 3.506 0 0 1-0.506 1.961a3.726 3.726 0 0 1-1.503 1.287a3.588 3.588 0 0 1 2.027 1.437c0.464 0.747 0.697 1.615 0.67 2.494a4.593 4.593 0 0 1-0.423 2.032a3.945 3.945 0 0 1-1.163 1.413a5.114 5.114 0 0 1-1.683 0.807a7.135 7.135 0 0 1-1.928 0.259H0V4.084h6.947ZM6.712 16.984c0.308 0.004 0.616-0.029 0.916-0.099a2.18 2.18 0 0 0 0.766-0.332c0.228-0.158 0.411-0.371 0.534-0.619c0.142-0.317 0.208-0.663 0.191-1.009a2.08 2.08 0 0 0-0.642-1.715a2.618 2.618 0 0 0-1.696-0.505h-3.54v4.279h3.471ZM6.534 10.369a2.254 2.254 0 0 0 1.423-0.433c0.399-0.355 0.607-0.88 0.56-1.413a1.916 1.916 0 0 0-0.178-0.891a1.298 1.298 0 0 0-0.495-0.533a1.851 1.851 0 0 0-0.711-0.274a3.966 3.966 0 0 0-0.835-0.073H3.241v3.631h3.293v-0.014Z"
-						fill="currentColor"
-						stroke="none"
-						variants={letterVariants}
-						custom={0}
-						style={{ originX: '50%', originY: '50%' }}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M16.969 16.927a2.561 2.561 0 0 0 1.901 0.677a2.501 2.501 0 0 0 1.531-0.475c0.362-0.235 0.636-0.584 0.779-0.99h2.585a5.091 5.091 0 0 1-1.9 2.896a5.292 5.292 0 0 1-3.091 0.88a5.839 5.839 0 0 1-2.284-0.433a4.871 4.871 0 0 1-1.723-1.211a5.657 5.657 0 0 1-1.08-1.874a7.057 7.057 0 0 1-0.383-2.393c-0.005-0.8 0.129-1.595 0.396-2.349a5.313 5.313 0 0 1 5.088-3.604a4.87 4.87 0 0 1 2.376 0.563c0.661 0.362 1.231 0.87 1.668 1.485a6.2 6.2 0 0 1 0.943 2.133c0.194 0.821 0.263 1.666 0.205 2.508h-7.699c-0.063 0.79 0.184 1.574 0.688 2.187ZM20.347 11.017a2.13 2.13 0 0 0-1.654-0.619a2.336 2.336 0 0 0-1.163 0.259a2.474 2.474 0 0 0-0.738 0.62a2.359 2.359 0 0 0-0.396 0.792c-0.074 0.239-0.12 0.485-0.137 0.734h4.769a3.239 3.239 0 0 0-0.679-1.785l-0.002-0.001Z"
-						fill="currentColor"
-						stroke="none"
-						variants={letterVariants}
-						custom={1}
-						style={{ originX: '50%', originY: '50%' }}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M21.62 5.122h-5.976v1.527h5.976V5.122Z"
-						fill="currentColor"
-						stroke="none"
-						variants={barVariants}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M6.947 4.084a8.065 8.065 0 0 1 1.928 0.198a4.29 4.29 0 0 1 1.49 0.638c0.418 0.303 0.748 0.711 0.958 1.182c0.241 0.579 0.357 1.203 0.341 1.83a3.506 3.506 0 0 1-0.506 1.961a3.726 3.726 0 0 1-1.503 1.287a3.588 3.588 0 0 1 2.027 1.437c0.464 0.747 0.697 1.615 0.67 2.494a4.593 4.593 0 0 1-0.423 2.032a3.945 3.945 0 0 1-1.163 1.413a5.114 5.114 0 0 1-1.683 0.807a7.135 7.135 0 0 1-1.928 0.259H0V4.084h6.947ZM6.712 16.984c0.308 0.004 0.616-0.029 0.916-0.099a2.18 2.18 0 0 0 0.766-0.332c0.228-0.158 0.411-0.371 0.534-0.619c0.142-0.317 0.208-0.663 0.191-1.009a2.08 2.08 0 0 0-0.642-1.715a2.618 2.618 0 0 0-1.696-0.505h-3.54v4.279h3.471ZM6.534 10.369a2.254 2.254 0 0 0 1.423-0.433c0.399-0.355 0.607-0.88 0.56-1.413a1.916 1.916 0 0 0-0.178-0.891a1.298 1.298 0 0 0-0.495-0.533a1.851 1.851 0 0 0-0.711-0.274a3.966 3.966 0 0 0-0.835-0.073H3.241v3.631h3.293v-0.014Z"
+					fill="currentColor"
+					stroke="none"
+					variants={letterVariants}
+					custom={0}
+					style={{ originX: '50%', originY: '50%' }}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M16.969 16.927a2.561 2.561 0 0 0 1.901 0.677a2.501 2.501 0 0 0 1.531-0.475c0.362-0.235 0.636-0.584 0.779-0.99h2.585a5.091 5.091 0 0 1-1.9 2.896a5.292 5.292 0 0 1-3.091 0.88a5.839 5.839 0 0 1-2.284-0.433a4.871 4.871 0 0 1-1.723-1.211a5.657 5.657 0 0 1-1.08-1.874a7.057 7.057 0 0 1-0.383-2.393c-0.005-0.8 0.129-1.595 0.396-2.349a5.313 5.313 0 0 1 5.088-3.604a4.87 4.87 0 0 1 2.376 0.563c0.661 0.362 1.231 0.87 1.668 1.485a6.2 6.2 0 0 1 0.943 2.133c0.194 0.821 0.263 1.666 0.205 2.508h-7.699c-0.063 0.79 0.184 1.574 0.688 2.187ZM20.347 11.017a2.13 2.13 0 0 0-1.654-0.619a2.336 2.336 0 0 0-1.163 0.259a2.474 2.474 0 0 0-0.738 0.62a2.359 2.359 0 0 0-0.396 0.792c-0.074 0.239-0.12 0.485-0.137 0.734h4.769a3.239 3.239 0 0 0-0.679-1.785l-0.002-0.001Z"
+					fill="currentColor"
+					stroke="none"
+					variants={letterVariants}
+					custom={1}
+					style={{ originX: '50%', originY: '50%' }}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M21.62 5.122h-5.976v1.527h5.976V5.122Z"
+					fill="currentColor"
+					stroke="none"
+					variants={barVariants}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 Behance.displayName = 'Behance';
 

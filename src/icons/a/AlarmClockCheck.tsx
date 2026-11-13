@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -38,72 +37,66 @@ const secondaryPathVariants: Variants = {
 	},
 };
 
-const AlarmClockCheck = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, { cycleMs: 700 });
+const AlarmClockCheck = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, { cycleMs: 700 });
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
+				style={{ overflow: 'visible' }}
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-					style={{ overflow: 'visible' }}
-				>
-					<motion.circle
-						cx="12"
-						cy="13"
-						r="8"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M5 3 2 6"
-						variants={secondaryPathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="m22 6-3-3"
-						variants={secondaryPathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M6.38 18.7 4 21"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M17.64 18.67 20 21"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="m9 13 2 2 4-4"
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.circle
+					cx="12"
+					cy="13"
+					r="8"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M5 3 2 6"
+					variants={secondaryPathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="m22 6-3-3"
+					variants={secondaryPathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M6.38 18.7 4 21"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M17.64 18.67 20 21"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="m9 13 2 2 4-4"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 AlarmClockCheck.displayName = 'AlarmClockCheck';
 

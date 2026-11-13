@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -24,63 +23,57 @@ const detailVariants: Variants = {
 	}),
 };
 
-const ShoppingCartPlus = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const ShoppingCartPlus = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
+				<motion.g
+					variants={bodyVariants}
+					style={{ originX: '50%', originY: '50%' }}
+					initial="normal"
+					animate={controls}
 				>
-					<motion.g
-						variants={bodyVariants}
-						style={{ originX: '50%', originY: '50%' }}
-						initial="normal"
-						animate={controls}
-					>
-						<path d="M16 5h6" />
-						<path d="M19 2v6" />
-						<path d="m2.05 2.05 1.099-.028a1 1 0 011.008.815l2.69 14.347A1 1 0 007.83 18H18" />
-						<path d="M4.564 5H12" />
-						<path d="M6.25 14h12.712a2 2 0 001.991-1.57l.172-1.041" />
-					</motion.g>
-					<motion.circle
-						cx="18"
-						cy="20"
-						r="2"
-						variants={detailVariants}
-						custom={0}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.circle
-						cx="8"
-						cy="20"
-						r="2"
-						variants={detailVariants}
-						custom={1}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+					<path d="M16 5h6" />
+					<path d="M19 2v6" />
+					<path d="m2.05 2.05 1.099-.028a1 1 0 011.008.815l2.69 14.347A1 1 0 007.83 18H18" />
+					<path d="M4.564 5H12" />
+					<path d="M6.25 14h12.712a2 2 0 001.991-1.57l.172-1.041" />
+				</motion.g>
+				<motion.circle
+					cx="18"
+					cy="20"
+					r="2"
+					variants={detailVariants}
+					custom={0}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.circle
+					cx="8"
+					cy="20"
+					r="2"
+					variants={detailVariants}
+					custom={1}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 ShoppingCartPlus.displayName = 'ShoppingCartPlus';
 

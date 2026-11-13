@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -24,60 +23,54 @@ const markVariants: Variants = {
 	}),
 };
 
-const StrokeLineJoinBevel = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const StrokeLineJoinBevel = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.path
-						d="M3 3h8.002a2.4 2.4 0 011.704.706l7.588 7.588A2.4 2.4 0 0121 12.998V21"
-						variants={outlineVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M5 13H3"
-						variants={markVariants}
-						custom={0}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M9 13h1a1 1 0 011 1v1"
-						variants={markVariants}
-						custom={1}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M11 21v-2.002"
-						variants={markVariants}
-						custom={2}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M3 3h8.002a2.4 2.4 0 011.704.706l7.588 7.588A2.4 2.4 0 0121 12.998V21"
+					variants={outlineVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M5 13H3"
+					variants={markVariants}
+					custom={0}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M9 13h1a1 1 0 011 1v1"
+					variants={markVariants}
+					custom={1}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M11 21v-2.002"
+					variants={markVariants}
+					custom={2}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 StrokeLineJoinBevel.displayName = 'StrokeLineJoinBevel';
 

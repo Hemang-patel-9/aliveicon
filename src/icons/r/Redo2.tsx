@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon, type AnimationDefinition } from '../../lib/use-animated-icon';
 
@@ -16,48 +15,44 @@ const animateTarget: AnimationDefinition = (i) => ({
 	},
 });
 
-const Redo2 = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, {
-			rest: 'visible',
-			animate: animateTarget,
-		});
+const pathVariants = { visible: { pathLength: 1, opacity: 1 } };
 
-		const paths = ['M15 14l5-5-5-5', 'M20 9H9.5A5.5 5.5 0 0 0 4 14.5 5.5 5.5 0 0 0 9.5 20H13'];
+const Redo2 = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, {
+		rest: 'visible',
+		animate: animateTarget,
+	});
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	const paths = ['M15 14l5-5-5-5', 'M20 9H9.5A5.5 5.5 0 0 0 4 14.5 5.5 5.5 0 0 0 9.5 20H13'];
+
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				width="100%"
+				height="100%"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				>
-					{paths.map((d, i) => (
-						<motion.path
-							key={i}
-							d={d}
-							initial="visible"
-							animate={controls}
-							custom={i}
-							variants={{ visible: { pathLength: 1, opacity: 1 } }}
-						/>
-					))}
-				</svg>
-			</div>
-		);
-	}
-);
+				{paths.map((d, i) => (
+					<motion.path
+						key={i}
+						d={d}
+						initial="visible"
+						animate={controls}
+						custom={i}
+						variants={pathVariants}
+					/>
+				))}
+			</svg>
+		</div>
+	);
+});
 
 Redo2.displayName = 'Redo2';
 export { Redo2 };

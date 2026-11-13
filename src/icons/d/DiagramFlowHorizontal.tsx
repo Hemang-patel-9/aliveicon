@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -16,80 +15,74 @@ const drawVariants: Variants = {
 	}),
 };
 
-const DiagramFlowHorizontal = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const DiagramFlowHorizontal = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.path
-						d="M8 12h.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 003.5 3.5h.5"
-						variants={drawVariants}
-						custom={0}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M8.5 12A3.5 3.5 0 0012 8.5 3.5 3.5 0 0115.5 5h.5"
-						variants={drawVariants}
-						custom={1}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.rect
-						x="16"
-						y="16"
-						width="6"
-						height="6"
-						rx="1"
-						variants={drawVariants}
-						custom={2}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.rect
-						x="16"
-						y="2"
-						width="6"
-						height="6"
-						rx="1"
-						variants={drawVariants}
-						custom={3}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.rect
-						x="2"
-						y="9"
-						width="6"
-						height="6"
-						rx="1"
-						variants={drawVariants}
-						custom={4}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M8 12h.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 003.5 3.5h.5"
+					variants={drawVariants}
+					custom={0}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M8.5 12A3.5 3.5 0 0012 8.5 3.5 3.5 0 0115.5 5h.5"
+					variants={drawVariants}
+					custom={1}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.rect
+					x="16"
+					y="16"
+					width="6"
+					height="6"
+					rx="1"
+					variants={drawVariants}
+					custom={2}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.rect
+					x="16"
+					y="2"
+					width="6"
+					height="6"
+					rx="1"
+					variants={drawVariants}
+					custom={3}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.rect
+					x="2"
+					y="9"
+					width="6"
+					height="6"
+					rx="1"
+					variants={drawVariants}
+					custom={4}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 DiagramFlowHorizontal.displayName = 'DiagramFlowHorizontal';
 

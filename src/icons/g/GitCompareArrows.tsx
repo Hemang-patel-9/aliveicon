@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -32,79 +31,73 @@ const arrowVariants: Variants = {
 	}),
 };
 
-const GitCompareArrows = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const GitCompareArrows = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.circle
-						cx="5"
-						cy="6"
-						r="3"
-						variants={popVariants}
-						custom={0.35}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M12 6h5a2 2 0 0 1 2 2v7"
-						variants={drawVariants}
-						custom={0}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="m15 9-3-3 3-3"
-						variants={arrowVariants}
-						custom={{ x: -2, delay: 0.3 }}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.circle
-						cx="19"
-						cy="18"
-						r="3"
-						variants={popVariants}
-						custom={0.45}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M12 18H7a2 2 0 0 1-2-2V9"
-						variants={drawVariants}
-						custom={0.1}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="m9 15 3 3-3 3"
-						variants={arrowVariants}
-						custom={{ x: 2, delay: 0.3 }}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.circle
+					cx="5"
+					cy="6"
+					r="3"
+					variants={popVariants}
+					custom={0.35}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M12 6h5a2 2 0 0 1 2 2v7"
+					variants={drawVariants}
+					custom={0}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="m15 9-3-3 3-3"
+					variants={arrowVariants}
+					custom={{ x: -2, delay: 0.3 }}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.circle
+					cx="19"
+					cy="18"
+					r="3"
+					variants={popVariants}
+					custom={0.45}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M12 18H7a2 2 0 0 1-2-2V9"
+					variants={drawVariants}
+					custom={0.1}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="m9 15 3 3-3 3"
+					variants={arrowVariants}
+					custom={{ x: 2, delay: 0.3 }}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 GitCompareArrows.displayName = 'GitCompareArrows';
 

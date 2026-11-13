@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon, type AnimationDefinition } from '../../lib/use-animated-icon';
 
@@ -16,72 +15,58 @@ const animateTarget: AnimationDefinition = (i) => ({
 	},
 });
 
-const UserRoundX = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, {
-			rest: 'visible',
-			animate: animateTarget,
-		});
+const pathVariants = { visible: { pathLength: 1, opacity: 1 } };
 
-		const paths = ['M2 21a8 8 0 0 1 11.873-7', 'm17 17 5 5', 'm22 17-5 5'];
+const UserRoundX = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, {
+		rest: 'visible',
+		animate: animateTarget,
+	});
 
-		const circles = [{ cx: 10, cy: 8, r: 5 }];
+	const paths = ['M2 21a8 8 0 0 1 11.873-7', 'm17 17 5 5', 'm22 17-5 5'];
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	const circles = [{ cx: 10, cy: 8, r: 5 }];
+
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				width="100%"
+				height="100%"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				>
-					{circles.map((c, i) => (
-						<motion.circle
-							key={`circle-${i}`}
-							cx={c.cx}
-							cy={c.cy}
-							r={c.r}
-							initial="visible"
-							animate={controls}
-							custom={i}
-							variants={{
-								visible: {
-									pathLength: 1,
-									opacity: 1,
-								},
-							}}
-						/>
-					))}
-					{paths.map((d, i) => (
-						<motion.path
-							key={`path-${i}`}
-							d={d}
-							initial="visible"
-							animate={controls}
-							custom={i + circles.length}
-							variants={{
-								visible: {
-									pathLength: 1,
-									opacity: 1,
-								},
-							}}
-						/>
-					))}
-				</svg>
-			</div>
-		);
-	}
-);
+				{circles.map((c, i) => (
+					<motion.circle
+						key={`circle-${i}`}
+						cx={c.cx}
+						cy={c.cy}
+						r={c.r}
+						initial="visible"
+						animate={controls}
+						custom={i}
+						variants={pathVariants}
+					/>
+				))}
+				{paths.map((d, i) => (
+					<motion.path
+						key={`path-${i}`}
+						d={d}
+						initial="visible"
+						animate={controls}
+						custom={i + circles.length}
+						variants={pathVariants}
+					/>
+				))}
+			</svg>
+		</div>
+	);
+});
 
 UserRoundX.displayName = 'UserRoundX';
 export { UserRoundX };

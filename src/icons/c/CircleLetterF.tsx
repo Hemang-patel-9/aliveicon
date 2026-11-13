@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -15,48 +14,42 @@ const glyphVariants: Variants = {
 	}),
 };
 
-const CircleLetterF = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const CircleLetterF = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.path
-						d="M9 16V8.5a.5.5 0 0 1 .5-.5H15"
-						custom={0}
-						variants={glyphVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M9 12h4"
-						custom={1}
-						variants={glyphVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<circle cx="12" cy="12" r="10" />
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M9 16V8.5a.5.5 0 0 1 .5-.5H15"
+					custom={0}
+					variants={glyphVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M9 12h4"
+					custom={1}
+					variants={glyphVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<circle cx="12" cy="12" r="10" />
+			</svg>
+		</div>
+	);
+});
 
 CircleLetterF.displayName = 'CircleLetterF';
 

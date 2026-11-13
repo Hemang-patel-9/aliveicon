@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -78,78 +77,72 @@ const handleVariants: Variants = {
 	},
 };
 
-const Brush = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, { animate: 'painting' });
+const Brush = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, { animate: 'painting' });
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<motion.svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
+				variants={brushBodyVariants}
+				initial="normal"
+				animate={controls}
+				style={{ transformOrigin: '12px 12px' }}
 			>
-				<motion.svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-					variants={brushBodyVariants}
+				<motion.ellipse
+					cx="14"
+					cy="13"
+					rx="1"
+					ry="0.5"
+					fill="currentColor"
+					stroke="none"
+					opacity="0.6"
+					variants={paintBlobVariants}
 					initial="normal"
 					animate={controls}
-					style={{ transformOrigin: '12px 12px' }}
-				>
-					<motion.ellipse
-						cx="14"
-						cy="13"
-						rx="1"
-						ry="0.5"
-						fill="currentColor"
-						stroke="none"
-						opacity="0.6"
-						variants={paintBlobVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.circle
-						cx="15.5"
-						cy="11.5"
-						r="0.3"
-						fill="currentColor"
-						stroke="none"
-						opacity="0.4"
-						variants={paintBlobVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="m11 10 3 3"
-						variants={bristlesVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z"
-						variants={brushTipVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031"
-						variants={handleVariants}
-						initial="normal"
-						animate={controls}
-					/>
-				</motion.svg>
-			</div>
-		);
-	}
-);
+				/>
+				<motion.circle
+					cx="15.5"
+					cy="11.5"
+					r="0.3"
+					fill="currentColor"
+					stroke="none"
+					opacity="0.4"
+					variants={paintBlobVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="m11 10 3 3"
+					variants={bristlesVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z"
+					variants={brushTipVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031"
+					variants={handleVariants}
+					initial="normal"
+					animate={controls}
+				/>
+			</motion.svg>
+		</div>
+	);
+});
 
 Brush.displayName = 'Brush';
 

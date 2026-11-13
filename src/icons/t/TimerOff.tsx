@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -16,62 +15,56 @@ const drawVariants: Variants = {
 	}),
 };
 
-const TimerOff = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const TimerOff = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<path d="M10 2h4" />
-					<motion.path
-						d="M4.6 11a8 8 0 0 0 1.7 8.7 8 8 0 0 0 8.7 1.7"
-						variants={drawVariants}
-						custom={[0, 0, 0.5]}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M7.4 7.4a8 8 0 0 1 10.3 1 8 8 0 0 1 .9 10.2"
-						variants={drawVariants}
-						custom={[0.1, 0, 0.5]}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="m2 2 20 20"
-						variants={drawVariants}
-						custom={[0.45, 0, 0.35]}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M12 12v-2"
-						variants={drawVariants}
-						custom={[0.3, 0, 0.25]}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<path d="M10 2h4" />
+				<motion.path
+					d="M4.6 11a8 8 0 0 0 1.7 8.7 8 8 0 0 0 8.7 1.7"
+					variants={drawVariants}
+					custom={[0, 0, 0.5]}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M7.4 7.4a8 8 0 0 1 10.3 1 8 8 0 0 1 .9 10.2"
+					variants={drawVariants}
+					custom={[0.1, 0, 0.5]}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="m2 2 20 20"
+					variants={drawVariants}
+					custom={[0.45, 0, 0.35]}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M12 12v-2"
+					variants={drawVariants}
+					custom={[0.3, 0, 0.25]}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 TimerOff.displayName = 'TimerOff';
 

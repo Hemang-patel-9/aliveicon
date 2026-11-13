@@ -19,7 +19,7 @@
 - 🎬 **Animated out of the box**: strokes draw, bounce, spin or wiggle using Framer Motion.
 - 🖱️ **Trigger it your way**: hover, click, mount, loop while hovered, or drive it from a parent through a `ref`.
 - 🎨 **Inherits your color**: icons use `currentColor`, so they match the surrounding text.
-- 📏 **One `size` prop** sets the width and height in pixels.
+- 📏 **`size`, `color` and `strokeWidth` props**, the same ones `lucide-react` has.
 - 🌳 **Tree-shakeable**: each icon is its own module, so your bundle only contains the icons you import.
 - 🔠 **TypeScript**: full prop types, plus `AnimatedIconProps` and `AnimatedIconHandle` for your own code.
 - ⚛️ **React 18/19 and Next.js App Router**: every module ships with `'use client'`, so you can import icons from Server Components.
@@ -63,8 +63,8 @@ export default function App() {
       {/* Keeps looping while hovered, stops when the pointer leaves */}
       <BellRing size={32} loopOnHover />
 
-      {/* Plays when clicked */}
-      <Rocket size={32} animateOnClick />
+      {/* Plays when clicked, not on hover */}
+      <Rocket size={32} animateOnClick hoverable={false} />
     </div>
   );
 }
@@ -78,10 +78,12 @@ Every icon has the same API. All props are optional, and any other props (`onCli
 
 | Prop | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `size` | `number` | `28` | Width and height in pixels. |
+| `size` | `number \| string` | `28` | Width and height. A number is pixels; a string can be any CSS length, such as `"1.5em"`. |
+| `color` | `string` | — | Icon color. Without it the icon uses the surrounding text color. |
+| `strokeWidth` | `number \| string` | `2` | Stroke width of the lines. |
 | `hoverable` | `boolean` | `true` | Play when the pointer enters the icon. Ignored while a `ref` is attached (see below). |
 | `loopOnHover` | `boolean` | `false` | Keep replaying while hovered; stops when the pointer leaves. |
-| `animateOnClick` | `boolean` | `false` | Play when the icon is clicked. |
+| `animateOnClick` | `boolean` | `false` | Play when the icon is clicked. Hover still plays too; add `hoverable={false}` for click only. |
 | `autoAnimateOnLoad` | `boolean` | `false` | Play once when the component mounts. |
 | `className` | `string` | — | Classes for the wrapper. Merged with [`tailwind-merge`](https://github.com/dcastil/tailwind-merge), so conflicting Tailwind classes resolve cleanly. |
 | `style` | `React.CSSProperties` | — | Inline styles for the wrapper. |
@@ -125,6 +127,8 @@ While a `ref` is attached the icon ignores its own hover, so the parent is in ch
 Icons are drawn with `stroke="currentColor"`, so they take the **text color** of their container:
 
 ```tsx
+<Activity color="#e11d48" />
+
 <Activity style={{ color: '#e11d48' }} />
 
 <div style={{ color: 'tomato' }}>
@@ -133,6 +137,17 @@ Icons are drawn with `stroke="currentColor"`, so they take the **text color** of
 
 <Activity className="text-emerald-500" />
 ```
+
+The wrapper is `inline-block`, with or without Tailwind. A Tailwind display class in `className` (`hidden`, `flex`, `md:hidden`, …) takes over; for anything else, set `style={{ display: … }}`.
+
+---
+
+## 🔁 Coming from lucide-react
+
+Icon names are the same, including Lucide's older names, and `size`, `color` and `strokeWidth` work the same way. Two things differ:
+
+- Each icon is wrapped in a `<div>`. `className`, `style` and other attributes go to that wrapper, not to the `<svg>`, and an icon can't sit directly inside a `<p>`.
+- `absoluteStrokeWidth` is not supported.
 
 ---
 
@@ -143,6 +158,8 @@ The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decora
 ```tsx
 <Bell role="img" aria-label="Notifications" />
 ```
+
+Icons respect `prefers-reduced-motion`: when it is on, they stay still.
 
 ---
 

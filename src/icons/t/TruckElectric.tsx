@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -33,62 +32,56 @@ const wheelVariants: Variants = {
 	},
 };
 
-const TruckElectric = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const TruckElectric = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.g variants={driveVariants} initial="normal" animate={controls}>
-						<path d="M14 19V7a2 2 0 0 0-2-2H9" />
-						<path d="M15 19H9" />
-						<path d="M19 19h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62L18.3 9.38a1 1 0 0 0-.78-.38H14" />
-						<path d="M2 13v5a1 1 0 0 0 1 1h2" />
-					</motion.g>
-					<motion.path
-						d="M4 3 2.15 5.15a.495.495 0 0 0 .35.86h2.15a.47.47 0 0 1 .35.86L3 9.02"
-						variants={drawVariants}
-						custom={[0.1, 0, 0.45]}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.circle
-						cx="17"
-						cy="19"
-						r="2"
-						variants={wheelVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.circle
-						cx="7"
-						cy="19"
-						r="2"
-						variants={wheelVariants}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.g variants={driveVariants} initial="normal" animate={controls}>
+					<path d="M14 19V7a2 2 0 0 0-2-2H9" />
+					<path d="M15 19H9" />
+					<path d="M19 19h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62L18.3 9.38a1 1 0 0 0-.78-.38H14" />
+					<path d="M2 13v5a1 1 0 0 0 1 1h2" />
+				</motion.g>
+				<motion.path
+					d="M4 3 2.15 5.15a.495.495 0 0 0 .35.86h2.15a.47.47 0 0 1 .35.86L3 9.02"
+					variants={drawVariants}
+					custom={[0.1, 0, 0.45]}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.circle
+					cx="17"
+					cy="19"
+					r="2"
+					variants={wheelVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.circle
+					cx="7"
+					cy="19"
+					r="2"
+					variants={wheelVariants}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 TruckElectric.displayName = 'TruckElectric';
 

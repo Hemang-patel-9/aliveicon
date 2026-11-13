@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -23,50 +22,44 @@ const drawVariants: Variants = {
 	}),
 };
 
-const Image = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const Image = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-					<motion.circle
-						cx="9"
-						cy="9"
-						r="2"
-						variants={popVariants}
-						initial="normal"
-						animate={controls}
-						custom={0}
-					/>
-					<motion.path
-						d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"
-						variants={drawVariants}
-						initial="normal"
-						animate={controls}
-						custom={0}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+				<motion.circle
+					cx="9"
+					cy="9"
+					r="2"
+					variants={popVariants}
+					initial="normal"
+					animate={controls}
+					custom={0}
+				/>
+				<motion.path
+					d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"
+					variants={drawVariants}
+					initial="normal"
+					animate={controls}
+					custom={0}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 Image.displayName = 'Image';
 

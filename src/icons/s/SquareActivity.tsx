@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -41,54 +40,43 @@ const pathVariants = {
 	},
 };
 
-const SquareActivity = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const SquareActivity = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('rounded-md', className)}
-				style={{
-					width: size,
-					height: size,
-					display: 'inline-block',
-					...style,
-				}}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.rect
-						width="18"
-						height="18"
-						x="3"
-						y="3"
-						rx="2"
-						variants={squareVariants}
-						animate={controls}
-						initial="normal"
-					/>
-					<motion.path
-						d="M17 12h-2l-2 5-2-10-2 5H7"
-						variants={pathVariants}
-						animate={controls}
-						initial="normal"
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.rect
+					width="18"
+					height="18"
+					x="3"
+					y="3"
+					rx="2"
+					variants={squareVariants}
+					animate={controls}
+					initial="normal"
+				/>
+				<motion.path
+					d="M17 12h-2l-2 5-2-10-2 5H7"
+					variants={pathVariants}
+					animate={controls}
+					initial="normal"
+				/>
+			</svg>
+		</div>
+	);
+});
 
 SquareActivity.displayName = 'SquareActivity';
 

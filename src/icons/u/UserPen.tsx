@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon, type AnimationDefinition } from '../../lib/use-animated-icon';
 
@@ -16,75 +15,61 @@ const animateTarget: AnimationDefinition = (i) => ({
 	},
 });
 
-const UserPen = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, {
-			rest: 'visible',
-			animate: animateTarget,
-		});
+const pathVariants = { visible: { pathLength: 1, opacity: 1 } };
 
-		const paths = [
-			'M11.5 15H7a4 4 0 0 0-4 4v2',
-			'M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z',
-		];
+const UserPen = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, {
+		rest: 'visible',
+		animate: animateTarget,
+	});
 
-		const circles = [{ cx: 10, cy: 7, r: 4 }];
+	const paths = [
+		'M11.5 15H7a4 4 0 0 0-4 4v2',
+		'M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z',
+	];
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	const circles = [{ cx: 10, cy: 7, r: 4 }];
+
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				width="100%"
+				height="100%"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					width="100%"
-					height="100%"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				>
-					{circles.map((c, i) => (
-						<motion.circle
-							key={`circle-${i}`}
-							cx={c.cx}
-							cy={c.cy}
-							r={c.r}
-							initial="visible"
-							animate={controls}
-							custom={i}
-							variants={{
-								visible: {
-									pathLength: 1,
-									opacity: 1,
-								},
-							}}
-						/>
-					))}
-					{paths.map((d, i) => (
-						<motion.path
-							key={`path-${i}`}
-							d={d}
-							initial="visible"
-							animate={controls}
-							custom={i + circles.length}
-							variants={{
-								visible: {
-									pathLength: 1,
-									opacity: 1,
-								},
-							}}
-						/>
-					))}
-				</svg>
-			</div>
-		);
-	}
-);
+				{circles.map((c, i) => (
+					<motion.circle
+						key={`circle-${i}`}
+						cx={c.cx}
+						cy={c.cy}
+						r={c.r}
+						initial="visible"
+						animate={controls}
+						custom={i}
+						variants={pathVariants}
+					/>
+				))}
+				{paths.map((d, i) => (
+					<motion.path
+						key={`path-${i}`}
+						d={d}
+						initial="visible"
+						animate={controls}
+						custom={i + circles.length}
+						variants={pathVariants}
+					/>
+				))}
+			</svg>
+		</div>
+	);
+});
 
 UserPen.displayName = 'UserPen';
 export { UserPen };

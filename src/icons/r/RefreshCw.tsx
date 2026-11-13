@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -23,64 +22,58 @@ const pathVariants: Variants = {
 	}),
 };
 
-const RefreshCw = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const RefreshCw = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<motion.svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
+				variants={spinVariants}
+				initial="normal"
+				animate={controls}
 			>
-				<motion.svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-					variants={spinVariants}
+				<motion.path
+					d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"
+					custom={0}
+					variants={pathVariants}
 					initial="normal"
 					animate={controls}
-				>
-					<motion.path
-						d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"
-						custom={0}
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M21 3v5h-5"
-						custom={1}
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"
-						custom={2}
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M8 16H3v5"
-						custom={3}
-						variants={pathVariants}
-						initial="normal"
-						animate={controls}
-					/>
-				</motion.svg>
-			</div>
-		);
-	}
-);
+				/>
+				<motion.path
+					d="M21 3v5h-5"
+					custom={1}
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"
+					custom={2}
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M8 16H3v5"
+					custom={3}
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+			</motion.svg>
+		</div>
+	);
+});
 
 RefreshCw.displayName = 'RefreshCw';
 

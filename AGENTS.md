@@ -19,14 +19,16 @@ plays on hover, click, mount, loop, or through a ref.
 | `src/lib/cn.ts`                 | `clsx` + `tailwind-merge`. Icons import it; they never define their own.                |
 | `src/aliases.ts`                | Deprecated misspellings (removed at 2.0.0) and every lucide-react alias, like `Home`.    |
 | `src/index.ts`                  | **Generated.** Never edit by hand; run `npm run generate`.                              |
-| `scripts/`                      | Index generator, icon linter, smoke test.                                               |
+| `scripts/`                      | Index generator, icon linter, smoke test, unit test runner.                             |
+| `test/`                         | Unit tests for the shared hook (Vitest).                                                |
 | `apps/web`                      | Documentation site.                                                                     |
 
 ## Commands
 
 ```sh
 npm run generate   # rebuild src/index.ts from the files on disk
-npm run check      # index is current + lint:icons + Prettier + tsc --noEmit
+npm run check      # index is current + lint:icons + Prettier + tsc + unit tests
+npm run test:unit  # unit tests for the shared hook
 npm run build      # Rollup, one module per icon into dist/esm, dist/cjs, dist/types (slow, ~3 min)
 npm test           # server-renders every export from both builds; needs a fresh build
 npm run format     # Prettier: tabs, single quotes, semicolons, width 100
@@ -40,10 +42,13 @@ Run `npm run check` before you finish any change. Run `npm run build && npm test
 `scripts/lint-icons.mjs` enforces these. A change that fails `npm run check` is not done.
 
 - First line is `'use client';`. Imports come only from `framer-motion`, `react` and `../../lib/*`.
-- Use `forwardRef<AnimatedIconHandle, AnimatedIconProps>` and `useAnimatedIcon(ref, props, options?)`.
-  Spread `iconProps` onto the wrapper `<div>` and pass `controls` to every `motion.*` element.
-- The `<svg>` has `aria-hidden="true"`, `viewBox="0 0 24 24"`, `stroke="currentColor"`, `strokeWidth="2"`
-  and round caps and joins. `XTwitter` is the only `viewBox` exception.
+- Use `forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => …)` and pass `props` straight to
+  `useAnimatedIcon(ref, props, options?)`. Render `<div {...iconProps}>`, put `strokeWidth={strokeWidth}`
+  on the `<svg>` and pass `controls` to every `motion.*` element. The hook owns `className`, `style`,
+  `size`, `color` and the triggers, so icons don't import `cn` or read those props.
+- Every icon has the same props. Don't add a props interface to an icon.
+- The `<svg>` has `aria-hidden="true"`, `viewBox="0 0 24 24"`, `stroke="currentColor"`,
+  `strokeWidth={strokeWidth}` and round caps and joins. `XTwitter` is the only `viewBox` exception.
 - Variants are named `normal` (rest) and `animate`. Any other rest name needs `{ rest: '<name>' }`.
 - An `animate` variant with `repeat: Infinity` needs `{ cycleMs }` so a single play ends.
 - Set `<Name>.displayName = '<Name>'`. No `console.*`.
@@ -61,15 +66,15 @@ New icon checklist: add the file, run `npm run generate`, then `npm run check`.
 - Keep the explicit `include` in `rollup.config.js`. The rpt2 default no longer matches under
   picomatch >= 2.3.2 and the build would silently skip TypeScript.
 - `dist/esm/package.json` (`"type": "module"`) is emitted by the build so Node loads ESM files as ESM.
-- Most wrappers get `display` from the Tailwind class `inline-block`, which does nothing without Tailwind.
-  Moving it to an inline style is a visible layout change that has not been decided. Do not change it.
+- The wrapper gets `display: inline-block` as an inline style unless `className` holds a Tailwind display
+  class (`hidden`, `flex`, `md:hidden`, …); then the class decides. Do not change it.
 
 ## Ask first
 
 Stop and ask the maintainer before you:
 
 - change the shared hook's behavior or the public props and types;
-- add a new prop or trigger, or add `prefers-reduced-motion` handling;
+- add a new prop or trigger, or change `prefers-reduced-motion` handling;
 - add brand or trademarked icons;
 - change the wrapper element or its display;
 - add a runtime dependency (the package ships with only `clsx` and `tailwind-merge`);

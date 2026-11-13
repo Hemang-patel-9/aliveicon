@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -15,68 +14,62 @@ const drawVariants: Variants = {
 	}),
 };
 
-const BuildingComplex = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const BuildingComplex = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.path
-						d="M10 12h4"
-						variants={drawVariants}
-						initial="normal"
-						animate={controls}
-						custom={0}
-					/>
-					<motion.path
-						d="M10 8h4"
-						variants={drawVariants}
-						initial="normal"
-						animate={controls}
-						custom={1}
-					/>
-					<motion.path
-						d="M14 21v-3a2 2 0 0 0-4 0v3"
-						variants={drawVariants}
-						initial="normal"
-						animate={controls}
-						custom={2}
-					/>
-					<motion.path
-						d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"
-						variants={drawVariants}
-						initial="normal"
-						animate={controls}
-						custom={3}
-					/>
-					<motion.path
-						d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"
-						variants={drawVariants}
-						initial="normal"
-						animate={controls}
-						custom={4}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M10 12h4"
+					variants={drawVariants}
+					initial="normal"
+					animate={controls}
+					custom={0}
+				/>
+				<motion.path
+					d="M10 8h4"
+					variants={drawVariants}
+					initial="normal"
+					animate={controls}
+					custom={1}
+				/>
+				<motion.path
+					d="M14 21v-3a2 2 0 0 0-4 0v3"
+					variants={drawVariants}
+					initial="normal"
+					animate={controls}
+					custom={2}
+				/>
+				<motion.path
+					d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"
+					variants={drawVariants}
+					initial="normal"
+					animate={controls}
+					custom={3}
+				/>
+				<motion.path
+					d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"
+					variants={drawVariants}
+					initial="normal"
+					animate={controls}
+					custom={4}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 BuildingComplex.displayName = 'BuildingComplex';
 

@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -16,96 +15,90 @@ const drawVariants: Variants = {
 	}),
 };
 
-const Logs = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const Logs = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.path
-						d="M3 5h1"
-						variants={drawVariants}
-						custom={0}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M3 12h1"
-						variants={drawVariants}
-						custom={1}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M3 19h1"
-						variants={drawVariants}
-						custom={2}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M8 5h1"
-						variants={drawVariants}
-						custom={3}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M8 12h1"
-						variants={drawVariants}
-						custom={4}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M8 19h1"
-						variants={drawVariants}
-						custom={5}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M13 5h8"
-						variants={drawVariants}
-						custom={6}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M13 12h8"
-						variants={drawVariants}
-						custom={6}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M13 19h8"
-						variants={drawVariants}
-						custom={6}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M3 5h1"
+					variants={drawVariants}
+					custom={0}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M3 12h1"
+					variants={drawVariants}
+					custom={1}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M3 19h1"
+					variants={drawVariants}
+					custom={2}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M8 5h1"
+					variants={drawVariants}
+					custom={3}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M8 12h1"
+					variants={drawVariants}
+					custom={4}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M8 19h1"
+					variants={drawVariants}
+					custom={5}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M13 5h8"
+					variants={drawVariants}
+					custom={6}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M13 12h8"
+					variants={drawVariants}
+					custom={6}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M13 19h8"
+					variants={drawVariants}
+					custom={6}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 Logs.displayName = 'Logs';
 

@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -114,97 +113,91 @@ const bodyVariants = {
 	},
 };
 
-export const BoomBox = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props, { animate: 'playing' });
+export const BoomBox = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, { animate: 'playing' });
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<motion.svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
+				variants={boomBoxVariants}
+				initial="normal"
+				animate={controls}
 			>
-				<motion.svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-					variants={boomBoxVariants}
+				<motion.path
+					d="M4 9V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"
+					variants={{
+						normal: { opacity: 1 },
+						playing: { opacity: 1 },
+					}}
 					initial="normal"
 					animate={controls}
-				>
-					<motion.path
-						d="M4 9V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"
-						variants={{
-							normal: { opacity: 1 },
-							playing: { opacity: 1 },
-						}}
-						initial="normal"
-						animate={controls}
-					/>
+				/>
 
-					<motion.path
-						d="M8 8v1"
-						variants={slider1Variants}
-						initial="normal"
-						animate={controls}
-						style={{ transformOrigin: '8px 8.5px' }}
-					/>
-					<motion.path
-						d="M12 8v1"
-						variants={slider2Variants}
-						initial="normal"
-						animate={controls}
-						style={{ transformOrigin: '12px 8.5px' }}
-					/>
-					<motion.path
-						d="M16 8v1"
-						variants={slider3Variants}
-						initial="normal"
-						animate={controls}
-						style={{ transformOrigin: '16px 8.5px' }}
-					/>
+				<motion.path
+					d="M8 8v1"
+					variants={slider1Variants}
+					initial="normal"
+					animate={controls}
+					style={{ transformOrigin: '8px 8.5px' }}
+				/>
+				<motion.path
+					d="M12 8v1"
+					variants={slider2Variants}
+					initial="normal"
+					animate={controls}
+					style={{ transformOrigin: '12px 8.5px' }}
+				/>
+				<motion.path
+					d="M16 8v1"
+					variants={slider3Variants}
+					initial="normal"
+					animate={controls}
+					style={{ transformOrigin: '16px 8.5px' }}
+				/>
 
-					<motion.rect
-						width="20"
-						height="12"
-						x="2"
-						y="9"
-						rx="2"
-						variants={bodyVariants}
-						initial="normal"
-						animate={controls}
-					/>
+				<motion.rect
+					width="20"
+					height="12"
+					x="2"
+					y="9"
+					rx="2"
+					variants={bodyVariants}
+					initial="normal"
+					animate={controls}
+				/>
 
-					<motion.circle
-						cx="8"
-						cy="15"
-						r="2"
-						variants={speakerVariants}
-						initial="normal"
-						animate={controls}
-						style={{ transformOrigin: '8px 15px' }}
-					/>
+				<motion.circle
+					cx="8"
+					cy="15"
+					r="2"
+					variants={speakerVariants}
+					initial="normal"
+					animate={controls}
+					style={{ transformOrigin: '8px 15px' }}
+				/>
 
-					<motion.circle
-						cx="16"
-						cy="15"
-						r="2"
-						variants={speakerVariants}
-						initial="normal"
-						animate={controls}
-						style={{ transformOrigin: '16px 15px' }}
-					/>
-				</motion.svg>
-			</div>
-		);
-	}
-);
+				<motion.circle
+					cx="16"
+					cy="15"
+					r="2"
+					variants={speakerVariants}
+					initial="normal"
+					animate={controls}
+					style={{ transformOrigin: '16px 15px' }}
+				/>
+			</motion.svg>
+		</div>
+	);
+});
 
 BoomBox.displayName = 'BoomBox';

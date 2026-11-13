@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
-import { cn } from '../../lib/cn';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
@@ -16,75 +15,69 @@ const drawVariants: Variants = {
 	}),
 };
 
-const Microscope = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-	({ className, size = 28, style, ...props }, ref) => {
-		const { controls, iconProps } = useAnimatedIcon(ref, props);
+const Microscope = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		return (
-			<div
-				className={cn('inline-block', className)}
-				style={{ width: size, height: size, ...style }}
-				{...iconProps}
+	return (
+		<div {...iconProps}>
+			<svg
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth={strokeWidth}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				width="100%"
+				height="100%"
 			>
-				<svg
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					width="100%"
-					height="100%"
-				>
-					<motion.path
-						d="M6 18h8"
-						variants={drawVariants}
-						custom={0}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M3 22h18"
-						variants={drawVariants}
-						custom={1}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M14 22a7 7 0 1 0 0-14h-1"
-						variants={drawVariants}
-						custom={2}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M9 14h2"
-						variants={drawVariants}
-						custom={3}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"
-						variants={drawVariants}
-						custom={4}
-						initial="normal"
-						animate={controls}
-					/>
-					<motion.path
-						d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"
-						variants={drawVariants}
-						custom={5}
-						initial="normal"
-						animate={controls}
-					/>
-				</svg>
-			</div>
-		);
-	}
-);
+				<motion.path
+					d="M6 18h8"
+					variants={drawVariants}
+					custom={0}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M3 22h18"
+					variants={drawVariants}
+					custom={1}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M14 22a7 7 0 1 0 0-14h-1"
+					variants={drawVariants}
+					custom={2}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M9 14h2"
+					variants={drawVariants}
+					custom={3}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"
+					variants={drawVariants}
+					custom={4}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"
+					variants={drawVariants}
+					custom={5}
+					initial="normal"
+					animate={controls}
+				/>
+			</svg>
+		</div>
+	);
+});
 
 Microscope.displayName = 'Microscope';
 
