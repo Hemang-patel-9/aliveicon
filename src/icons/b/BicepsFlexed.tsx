@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
@@ -11,7 +11,7 @@ export const BicepsFlexed = forwardRef<AnimatedIconHandle, AnimatedIconProps>((p
 		animate: 'flex',
 	});
 
-	const pathVariants = {
+	const pathVariants: Variants = {
 		relax: { pathLength: 1, opacity: 1, rotate: 0 },
 		flex: {
 			pathLength: [1, 1.2, 1],

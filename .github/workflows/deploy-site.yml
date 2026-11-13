@@ -1,0 +1,45 @@
+name: Deploy site
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ vars.SITE_URL != '' && startsWith(github.ref, 'refs/tags/v') }}
+    runs-on: ubuntu-latest
+    environment: site
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            apps/web/package-lock.json
+      - run: npm ci
+      - run: npm ci
+        working-directory: apps/web
+      - run: npm run build:dist
+        working-directory: apps/web
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          SITE_BASE_PATH: ''
+      - uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4.156.0'
+          workingDirectory: apps/web
+          command: deploy

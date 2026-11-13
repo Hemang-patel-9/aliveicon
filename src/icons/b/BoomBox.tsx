@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type TargetAndTransition, type Transition, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const boomBoxVariants = {
+const boomBoxVariants: Variants = {
 	normal: {
 		x: 0,
 		y: 0,
@@ -24,7 +24,7 @@ const boomBoxVariants = {
 	},
 };
 
-const speakerVariants = {
+const speakerVariants: Variants = {
 	normal: {
 		scale: 1,
 		opacity: 1,
@@ -41,58 +41,59 @@ const speakerVariants = {
 	},
 };
 
-const sliderVariants = {
-	normal: {
-		scaleY: 1,
-		y: 0,
-		transition: { duration: 0.2 },
-	},
-	playing: {
-		scaleY: [1, 1.3, 0.8, 1.2, 1],
-		y: [0, -0.5, 0.3, -0.2, 0],
-		transition: {
-			duration: 0.5,
-			repeat: 3,
-			ease: 'easeInOut',
-			staggerChildren: 0.1,
-		},
-	},
+const sliderRest: TargetAndTransition = {
+	scaleY: 1,
+	y: 0,
+	transition: { duration: 0.2 },
 };
 
-const slider1Variants = {
-	normal: sliderVariants.normal,
+const sliderTransition: Transition = {
+	duration: 0.5,
+	repeat: 3,
+	ease: 'easeInOut',
+	staggerChildren: 0.1,
+};
+
+const sliderPlaying: TargetAndTransition = {
+	scaleY: [1, 1.3, 0.8, 1.2, 1],
+	y: [0, -0.5, 0.3, -0.2, 0],
+	transition: sliderTransition,
+};
+
+const slider1Variants: Variants = {
+	normal: sliderRest,
 	playing: {
-		...sliderVariants.playing,
+		...sliderPlaying,
 		transition: {
-			...sliderVariants.playing.transition,
+			...sliderTransition,
 			delay: 0,
 		},
 	},
 };
 
-const slider2Variants = {
-	normal: sliderVariants.normal,
+const slider2Variants: Variants = {
+	normal: sliderRest,
 	playing: {
-		...sliderVariants.playing,
+		...sliderPlaying,
 		transition: {
-			...sliderVariants.playing.transition,
+			...sliderTransition,
 			delay: 0.1,
 		},
 	},
 };
 
-const slider3Variants = {
-	normal: sliderVariants.normal,
+const slider3Variants: Variants = {
+	normal: sliderRest,
 	playing: {
-		...sliderVariants.playing,
+		...sliderPlaying,
 		transition: {
-			...sliderVariants.playing.transition,
+			...sliderTransition,
 			delay: 0.2,
 		},
 	},
 };
 
-const bodyVariants = {
+const bodyVariants: Variants = {
 	normal: {
 		filter: 'brightness(1)',
 		transition: { duration: 0.3 },

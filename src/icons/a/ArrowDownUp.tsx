@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const downArrowVariants = {
+const downArrowVariants: Variants = {
 	normal: { y: 0 },
 	animate: {
 		y: [0, 3, 0],
@@ -16,7 +16,7 @@ const downArrowVariants = {
 	},
 };
 
-const upArrowVariants = {
+const upArrowVariants: Variants = {
 	normal: { y: 0 },
 	animate: {
 		y: [0, -3, 0],

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, type Variants } from 'framer-motion';
+import { motion, type Transition, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
@@ -8,7 +8,7 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 const partVariants: Variants = {
 	normal: { opacity: 1, scale: 1, y: 0, pathLength: 1 },
 	animate: (i: number) => {
-		const transition = { duration: 0.6, ease: 'easeInOut', delay: i * 0.05 };
+		const transition: Transition = { duration: 0.6, ease: 'easeInOut', delay: i * 0.05 };
 		if (i < 6) return { opacity: [0, 1], scale: [0.6, 1], transition };
 		if (i === 6) return { pathLength: [0, 1], opacity: [0, 1], transition };
 		if (i === 7) return { y: [-10, 0], opacity: [0, 1], transition };

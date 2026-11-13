@@ -1,16 +1,16 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const pathVariants = {
-	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.2 } },
+const logoVariants: Variants = {
+	normal: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
 	animate: {
-		pathLength: [0, 1],
 		opacity: [0, 1],
-		transition: { duration: 1, ease: 'easeInOut' },
+		scale: [0.8, 1.06, 1],
+		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
 
@@ -22,7 +22,7 @@ export const XTwitter = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props
 			<svg
 				aria-hidden="true"
 				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 50 50"
+				viewBox="0 0 24 24"
 				fill="none"
 				stroke="currentColor"
 				strokeWidth={strokeWidth}
@@ -32,10 +32,11 @@ export const XTwitter = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props
 				height="100%"
 			>
 				<motion.path
-					d="M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z"
+					d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"
 					fill="currentColor"
-					stroke="currentColor"
-					variants={pathVariants}
+					stroke="none"
+					variants={logoVariants}
+					style={{ originX: '50%', originY: '50%' }}
 					initial="normal"
 					animate={controls}
 				/>

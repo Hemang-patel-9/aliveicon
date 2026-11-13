@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, type Variants } from 'framer-motion';
+import { motion, type TargetAndTransition, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
@@ -41,14 +41,14 @@ const bowBottomVariants: Variants = {
 	},
 };
 
-const flight = {
+const flight: TargetAndTransition = {
 	x: [0, -1.5, -1.5, 20, 20],
 	y: [0, 1.5, 1.5, -20, -20],
 	opacity: [1, 1, 1, 0, 0],
 	transition: { ...timing, ease: 'easeIn' },
 };
 
-const restAfterFlight = {
+const restAfterFlight: TargetAndTransition = {
 	x: 0,
 	y: 0,
 	opacity: 1,

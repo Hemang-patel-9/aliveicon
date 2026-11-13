@@ -274,6 +274,7 @@ import { WandSparkles } from './icons/w/WandSparkles';
 import { WebhookOff } from './icons/w/WebhookOff';
 import { Wechat } from './icons/w/Wechat';
 import { Whatsapp } from './icons/w/Whatsapp';
+import { YouTube } from './icons/y/YouTube';
 
 /** @deprecated use Accessibility */
 export const AccessibilityActivity = Accessibility;
@@ -588,3 +589,4 @@ export const WhatsApp = Whatsapp;
 export const XCircle = CircleX;
 export const XOctagon = OctagonX;
 export const XSquare = SquareX;
+export const Youtube = YouTube;

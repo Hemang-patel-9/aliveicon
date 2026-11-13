@@ -5,7 +5,7 @@ const repoUrl = 'https://github.com/Hemang-patel-9/aliveicon';
 export const siteConfig = {
 	site: {
 		name: 'aliveicon',
-		tagline: '500+ animated SVG icons for React that draw themselves on hover, click, or load.',
+		tagline: 'Animated SVG icons for React that draw themselves on hover, click, or load.',
 		description:
 			'Animated SVG icons for React. Every icon animates on hover, click, mount, loop, or through a ref.',
 		url: 'https://hemang-patel-9.github.io',

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
@@ -9,7 +9,7 @@ export const CircleChevronRight = forwardRef<AnimatedIconHandle, AnimatedIconPro
 	(props, ref) => {
 		const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, { rest: 'initial' });
 
-		const motionVariants = {
+		const motionVariants: Variants = {
 			initial: { x: 0 },
 			animate: {
 				x: [0, 4, 0],

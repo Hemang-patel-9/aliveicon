@@ -6,14 +6,15 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
-## [1.15.0] - 2026-11-13
-
 ### Added
 
 - `color` prop on every icon, as in `lucide-react`. Without it the icon still takes the surrounding
   text color.
 - `strokeWidth` prop on every icon. The default is `2`.
 - `size` also takes a string: a number in a string (`"32"`) or any CSS length (`"1.5em"`).
+- 5 icons from Lucide 1.72: `Asterism`, `ExclamationMark`, `QuestionMark`, `RouteArrowRight` and
+  `TextPen`.
+- `Youtube` as an alias of `YouTube`, the spelling `lucide-react` used.
 
 ### Changed
 
@@ -25,6 +26,11 @@ All notable changes to this project are documented here. The format follows
   tap somewhere else.
 - An `animateOnClick` animation finishes when the pointer leaves the icon. It used to be cut short.
 - `prefers-reduced-motion` is followed while the page is open, not only read when the icon mounts.
+- `XTwitter` is drawn on the same 24×24 grid as every other icon, from the
+  [Simple Icons](https://simpleicons.org) `x` logo (CC0). It used a 50×50 path before. It now fades and
+  scales in instead of tracing its outline.
+- The build output targets ES2020, so the syntax in `dist` no longer changes with the TypeScript
+  version used to build it.
 
 ### Fixed
 
@@ -40,6 +46,8 @@ All notable changes to this project are documented here. The format follows
 - Undocumented props on five icons: `isBounce` (`AArrowDown`, `AArrowUp`), `animationTrigger` and
   `delay` (`Annoyed`, `Antenna`), `swingAngle` and `duration` (`Bell`). Every icon has the same props
   now. In place of `animationTrigger` use `hoverable`, `animateOnClick`, `autoAnimateOnLoad` or a `ref`.
+- Source maps. They were empty and made up 4,238 of the package's files.
+- `react-dom` from `peerDependencies`. Nothing in the package imports it.
 
 ## [1.14.0] - 2026-11-10
 

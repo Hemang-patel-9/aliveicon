@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
@@ -9,7 +9,7 @@ export const ChartNoAxesCombined = forwardRef<AnimatedIconHandle, AnimatedIconPr
 	(props, ref) => {
 		const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, { rest: 'initial' });
 
-		const barVariants = {
+		const barVariants: Variants = {
 			initial: (y1: number) => ({ y1, y2: 20 }),
 			animate: (y1: number) => ({
 				y1: [20, y1],
@@ -18,7 +18,7 @@ export const ChartNoAxesCombined = forwardRef<AnimatedIconHandle, AnimatedIconPr
 			}),
 		};
 
-		const pathVariants = {
+		const pathVariants: Variants = {
 			initial: { pathLength: 1 },
 			animate: {
 				pathLength: [0, 1],

@@ -44,6 +44,28 @@ for (const file of [...listFiles('dist/esm'), ...listFiles('dist/cjs')]) {
 	}
 }
 
+for (const file of listFiles('dist')) {
+	if (file.endsWith('.map')) failures.push(`${file}: source maps are not shipped`);
+}
+
+for (const file of ['index.d.ts', 'aliases.d.ts', 'lib/types.d.ts']) {
+	if (!fs.existsSync(path.join('dist/types', file))) failures.push(`dist/types/${file}: missing`);
+}
+
+for (const letter of fs.readdirSync('src/icons')) {
+	for (const file of fs.readdirSync(path.join('src/icons', letter))) {
+		const name = path.basename(file, '.tsx');
+		for (const [dir, ext] of [
+			['dist/types', '.d.ts'],
+			['dist/esm', '.js'],
+			['dist/cjs', '.js'],
+		]) {
+			const out = path.join(dir, 'icons', letter, name + ext);
+			if (!fs.existsSync(out)) failures.push(`${out}: missing`);
+		}
+	}
+}
+
 if (failures.length) {
 	console.error(failures.join('\n'));
 	process.exit(1);

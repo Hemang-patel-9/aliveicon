@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const squareVariants = {
+const squareVariants: Variants = {
 	normal: {
 		scale: 1,
 		opacity: 1,
@@ -18,7 +18,7 @@ const squareVariants = {
 	},
 };
 
-const pathVariants = {
+const pathVariants: Variants = {
 	normal: {
 		opacity: 1,
 		pathLength: 1,

@@ -14,7 +14,8 @@ belong to their respective owners. Their inclusion does not imply endorsement.
 
 ## Brand icon sources
 
-- `Dribbble`, `Facebook`, `Github`, `Gitlab`, `Instagram`, `Linkedin`, `Slack` and `Twitch` use
+- `Chrome`, `Dribbble`, `Facebook`, `Github`, `Gitlab`, `Instagram`, `Linkedin`, `Slack`, `Twitch` and
+  `YouTube` use
   Lucide's shapes from before Lucide removed its brand icons
   ([lucide-icons/lucide#3639](https://github.com/lucide-icons/lucide/pull/3639)), under the ISC
   License below.
@@ -22,8 +23,8 @@ belong to their respective owners. Their inclusion does not imply endorsement.
   (MIT License, below).
 - `Behance`, `Bluesky`, `Discord`, `GithubActions`, `Gitbook`, `GithubSponsors`, `LineMessenger`,
   `Mastodon`, `Medium`, `Messenger`, `Pinterest`, `Quora`, `Reddit`, `SignalMessenger`, `Snapchat`,
-  `Spotify`, `Telegram`, `Threads`, `Tiktok`, `Tumblr`, `Viber`, `Vimeo`, `Wechat` and `Whatsapp`
-  use shapes from [Simple Icons](https://simpleicons.org) (CC0 1.0 Universal).
+  `Spotify`, `Telegram`, `Threads`, `Tiktok`, `Tumblr`, `Viber`, `Vimeo`, `Wechat`, `Whatsapp` and
+  `XTwitter` use shapes from [Simple Icons](https://simpleicons.org) (CC0 1.0 Universal).
 - `Git` uses the Git Logo by Jason Long, licensed under the
   [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/),
   as published by [git-scm.com](https://git-scm.com/downloads/logos) and Simple Icons.

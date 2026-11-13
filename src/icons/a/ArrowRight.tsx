@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const arrowHeadVariants = {
+const arrowHeadVariants: Variants = {
 	normal: { d: 'm12 5 7 7-7 7', translateX: 0 },
 	animate: {
 		d: 'm12 5 7 7-7 7',
@@ -17,7 +17,7 @@ const arrowHeadVariants = {
 	},
 };
 
-const arrowLineVariants = {
+const arrowLineVariants: Variants = {
 	normal: { d: 'M5 12h14' },
 	animate: {
 		d: ['M5 12h14', 'M5 12h10.6', 'M5 12h14'],

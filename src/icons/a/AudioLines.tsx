@@ -1,16 +1,16 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type TargetAndTransition } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
 const variants = {
-	normal: (d: string) => ({
+	normal: (d: string): TargetAndTransition => ({
 		d,
 		transition: { duration: 0.3 },
 	}),
-	animate: (dFrames: string[], duration: number) => ({
+	animate: (dFrames: string[], duration: number): TargetAndTransition => ({
 		d: dFrames,
 		transition: {
 			duration,

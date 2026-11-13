@@ -6,11 +6,11 @@
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/v/aliveicon.svg?color=blue" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/aliveicon"><img src="https://img.shields.io/npm/dm/aliveicon.svg?color=blue" alt="npm downloads" /></a>
   <a href="https://github.com/Hemang-patel-9/aliveicon/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/aliveicon.svg?color=green" alt="license" /></a>
-  <img src="https://img.shields.io/badge/icons-2107-orange" alt="icon count" />
+  <img src="https://img.shields.io/badge/icons-2112-orange" alt="icon count" />
   <img src="https://img.shields.io/badge/types-included-blue" alt="typescript" />
 </p>
 
-`aliveicon` is a set of **2107 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
+`aliveicon` is a set of **2112 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
 
 ---
 
@@ -44,8 +44,22 @@ bun add aliveicon framer-motion
 | Package | Version |
 | ------- | ------- |
 | `react` | `>=18.0.0` |
-| `react-dom` | `>=18.0.0` |
 | `framer-motion` | `>=10.0.0` |
+
+`aliveicon` itself depends on `clsx` and `tailwind-merge`. Tailwind is not required.
+
+### Next.js
+
+Every module starts with `'use client'`, so icons can be imported straight into Server Components. Importing from `'aliveicon'` is tree-shaken in production builds. To keep development builds fast as well, let Next.js rewrite the barrel import:
+
+```js
+// next.config.js
+module.exports = {
+  experimental: {
+    optimizePackageImports: ['aliveicon'],
+  },
+};
+```
 
 ---
 
@@ -159,13 +173,24 @@ The SVG inside each icon has `aria-hidden="true"`, so screen readers skip decora
 <Bell role="img" aria-label="Notifications" />
 ```
 
-Icons respect `prefers-reduced-motion`: when it is on, they stay still.
+Icons respect `prefers-reduced-motion`: when it is on, they stay still. Turning the setting on or off applies straight away, without a reload.
+
+On touch screens a tap plays the animation once, including with `loopOnHover`.
+
+---
+
+## ⚠️ Known limitations
+
+These would be breaking changes, so they are planned for 2.0.0:
+
+- The wrapper is a `<div>`, so an icon inside a `<p>` (even through a `<span>`) is invalid HTML and React warns about it. Keep icons out of paragraphs, for example by using a `<div>` for that line of text.
+- A `ref` gives you `startAnimation` / `stopAnimation`, not the DOM element, and attaching one turns off the icon's own hover.
 
 ---
 
 ## 📚 Available icons
 
-`aliveicon` ships **2107 icons**, and more are being added. Import any icon by its PascalCase name:
+`aliveicon` ships **2112 icons**, and more are being added. Import any icon by its PascalCase name:
 
 ```tsx
 import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
@@ -173,11 +198,11 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 
 | Group | Count | Examples |
 | ----- | ----- | -------- |
-| **A** | 118 | `Activity`, `Airplay`, `AlarmClock`, `Anchor`, `Anvil`, `ArrowRight`, `ArrowUpRight`, `Atom`, `Award` |
+| **A** | 119 | `Activity`, `Airplay`, `AlarmClock`, `Anchor`, `Anvil`, `ArrowRight`, `ArrowUpRight`, `Atom`, `Award` |
 | **B** | 165 | `Battery`, `Bell`, `Bluetooth`, `Book`, `Bot`, `Brain`, `Broom`, `Bug`, `Building` |
 | **C** | 322 | `Calendar`, `Camera`, `Car`, `ChartLine`, `Check`, `Circle`, `Clock`, `Cloud`, `Cog`, `Copy` |
 | **D** | 63 | `Database`, `Dice1`, `Diamond`, `Disc`, `DoorOpen`, `Download`, `Droplet`, `Dumbbell` |
-| **E** | 32 | `Earth`, `Egg`, `Eject`, `Ellipsis`, `Eraser`, `Euro`, `Expand`, `Eye` |
+| **E** | 33 | `Earth`, `Egg`, `Eject`, `Ellipsis`, `Eraser`, `Euro`, `Expand`, `Eye` |
 | **F** | 140 | `Factory`, `Fan`, `Feather`, `File`, `Film`, `Fish`, `Flag`, `Flame`, `Flower`, `Folder`, `Forklift`, `Funnel` |
 | **G** | 73 | `Gamepad`, `Gauge`, `Gem`, `Ghost`, `Gift`, `GitBranch`, `Github`, `Globe`, `Grid3x3`, `Guitar` |
 | **H** | 62 | `Hammer`, `Hand`, `Hash`, `Headphones`, `Heart`, `Hourglass`, `House` |
@@ -189,10 +214,10 @@ import { CircleCheck, ChartLine, Wifi } from 'aliveicon';
 | **N** | 19 | `Navigation`, `Network`, `Newspaper`, `Notebook`, `NotebookDot`, `Nut` |
 | **O** | 11 | `Octagon`, `Omega`, `Opacity`, `Option`, `Orbit`, `Origami` |
 | **P** | 117 | `Package`, `Paintbrush`, `Palette`, `PanelLeft`, `Paperclip`, `Pause`, `PawPrint`, `Pen`, `Phone`, `Plane`, `Play`, `Plus`, `Power`, `Printer`, `Puzzle` |
-| **Q** | 3 | `Quote`, `QrCode` |
-| **R** | 77 | `Rabbit`, `Radar`, `Radio`, `Receipt`, `RefreshCw`, `Rocket`, `RotateCcw` |
+| **Q** | 4 | `Quote`, `QrCode`, `QuestionMark` |
+| **R** | 78 | `Rabbit`, `Radar`, `Radio`, `Receipt`, `RefreshCw`, `Rocket`, `RotateCcw` |
 | **S** | 324 | `Save`, `Search`, `Send`, `Settings`, `Share`, `Shield`, `ShoppingCart`, `Sparkles`, `Star`, `Sun` |
-| **T** | 117 | `Table`, `Tag`, `Target`, `Telescope`, `Tent`, `Terminal`, `Thermometer`, `ThumbsUp`, `Ticket`, `Timer`, `Trash`, `Trophy`, `Truck`, `Type` |
+| **T** | 118 | `Table`, `Tag`, `Target`, `Telescope`, `Tent`, `Terminal`, `Thermometer`, `ThumbsUp`, `Ticket`, `Timer`, `Trash`, `Trophy`, `Truck`, `Type` |
 | **U** | 51 | `Umbrella`, `Undo`, `Unplug`, `Upload`, `User`, `UserGroup`, `Users`, `Utensils` |
 | **V** | 27 | `Van`, `Variable`, `Vault`, `Video`, `Virus`, `Volume`, `Vote` |
 | **W** | 47 | `Wallet`, `Wand`, `Watch`, `Waves`, `Webcam`, `Whatsapp`, `Whistle`, `Wifi`, `Wind`, `Wrench` |

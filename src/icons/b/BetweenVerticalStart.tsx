@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
@@ -21,7 +21,7 @@ export const BetweenVerticalStart = forwardRef<AnimatedIconHandle, AnimatedIconP
 	(props, ref) => {
 		const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-		const pathVariants = {
+		const pathVariants: Variants = {
 			normal: { pathLength: 1, opacity: 1 },
 			animate: {
 				pathLength: [0, 1],
@@ -30,7 +30,7 @@ export const BetweenVerticalStart = forwardRef<AnimatedIconHandle, AnimatedIconP
 			},
 		};
 
-		const arrowVariants = {
+		const arrowVariants: Variants = {
 			normal: { y: 0, opacity: 1 },
 			animate: {
 				y: [0, 2, 0, 2, 0],

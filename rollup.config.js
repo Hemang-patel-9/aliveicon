@@ -1,4 +1,4 @@
-const resolve = require('@rollup/plugin-node-resolve').default;
+const fs = require('node:fs');
 const typescript = require('rollup-plugin-typescript2');
 const packageJson = require('./package.json');
 
@@ -9,6 +9,13 @@ const deps = [
 const external = (id) => deps.some((dep) => id === dep || id.startsWith(`${dep}/`));
 
 const banner = "'use client';";
+
+const cleanDist = {
+	name: 'clean-dist',
+	buildStart() {
+		fs.rmSync('dist', { recursive: true, force: true });
+	},
+};
 
 const esmPackageJson = {
 	name: 'esm-package-json',
@@ -28,7 +35,6 @@ module.exports = {
 			format: 'esm',
 			preserveModules: true,
 			preserveModulesRoot: 'src',
-			sourcemap: true,
 			banner,
 		},
 		{
@@ -36,12 +42,12 @@ module.exports = {
 			format: 'cjs',
 			preserveModules: true,
 			preserveModulesRoot: 'src',
-			sourcemap: true,
 			exports: 'named',
 			banner,
 		},
 	],
 	plugins: [
+		cleanDist,
 		typescript({
 			tsconfig: './tsconfig.json',
 			include: ['**/*.ts', '**/*.tsx'],
@@ -56,7 +62,6 @@ module.exports = {
 				},
 			},
 		}),
-		resolve({ extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
 		esmPackageJson,
 	],
 	onwarn(warning, warn) {

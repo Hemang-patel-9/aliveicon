@@ -53,7 +53,7 @@ install scripts and has two runtime dependencies (`clsx`, `tailwind-merge`).
 - Vulnerabilities in `react`, `framer-motion` or other peer dependencies. Report those upstream.
 - Vulnerabilities in the docs site (`apps/web`) that don't affect the published package.
 - Findings that need an already compromised build environment or a malicious maintainer.
-- Missing `prefers-reduced-motion` handling or other accessibility issues. Please file a normal issue.
+- Accessibility issues, including how icons follow `prefers-reduced-motion`. Please file a normal issue.
 - Reports from automated scanners with no demonstrated impact.
 
 ## How releases are protected
@@ -63,7 +63,8 @@ install scripts and has two runtime dependencies (`clsx`, `tailwind-merge`).
 - A publish is staged and only goes live after the maintainer approves it.
 - The package ships only `dist/` and `THIRD_PARTY_NOTICES.md`.
 - `npm test` checks every export from both the ESM and CJS builds before a release.
-- Dependabot watches npm and GitHub Actions dependencies.
+- Dependabot opens weekly security and version updates for the package's and the docs site's npm
+  dependencies and for GitHub Actions, which are pinned to commit SHAs.
 
 ## Security review guidelines
 

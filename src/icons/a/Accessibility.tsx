@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const circleVariants = {
+const circleVariants: Variants = {
 	normal: {
 		scale: 1,
 		opacity: 1,
@@ -22,7 +22,7 @@ const circleVariants = {
 	},
 };
 
-const pathVariants = {
+const pathVariants: Variants = {
 	normal: {
 		opacity: 1,
 		pathLength: 1,

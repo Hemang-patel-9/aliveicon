@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
@@ -8,7 +8,7 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 export const ChartNoAxesGantt = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
 	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, { rest: 'initial' });
 
-	const lineVariants = {
+	const lineVariants: Variants = {
 		initial: { pathLength: 1 },
 		animate: {
 			pathLength: [0, 1],

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
@@ -8,7 +8,7 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 export const BellOff = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
 	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-	const swingVariants = {
+	const swingVariants: Variants = {
 		normal: { rotate: 0 },
 		animate: {
 			rotate: [0, 15, -10, 12, -8, 6, 0],

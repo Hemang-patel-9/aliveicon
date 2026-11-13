@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const arrowVariants = {
+const arrowVariants: Variants = {
 	initial: { y: 0, scale: 1 },
 	animate: {
 		y: [0, -4, 0],
@@ -17,7 +17,7 @@ const arrowVariants = {
 	},
 };
 
-const dashVariants = {
+const dashVariants: Variants = {
 	initial: { y: 0, scale: 1 },
 	animate: {
 		y: [0, -2, 0],

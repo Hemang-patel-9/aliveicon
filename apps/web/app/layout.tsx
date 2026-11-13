@@ -7,9 +7,11 @@ import { siteConfig } from '@/site.config';
 import './globals.css';
 
 const { site, theme } = siteConfig;
+const siteUrl = process.env.SITE_URL ?? site.url;
+const basePath = process.env.SITE_BASE_PATH ?? site.basePath;
 
 export const metadata: Metadata = {
-	metadataBase: new URL(`${site.url}${site.basePath}/`),
+	metadataBase: new URL(`${siteUrl}${basePath}/`),
 	title: { default: `${site.name}: animated icons for React`, template: `%s | ${site.name}` },
 	description: site.description,
 	applicationName: site.name,

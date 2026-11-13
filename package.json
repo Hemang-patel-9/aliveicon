@@ -1,7 +1,7 @@
 {
   "name": "aliveicon",
   "version": "1.14.0",
-  "description": "1400+ animated React icons built on Lucide shapes and Framer Motion. Play on hover, click, mount, loop or via ref. Tree-shakeable, fully typed, Next.js ready.",
+  "description": "2100+ animated React icons built on Lucide shapes and Framer Motion. Play on hover, click, mount, loop or via ref. Tree-shakeable, fully typed, Next.js ready.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -26,9 +26,11 @@
     "typecheck": "tsc -p tsconfig.check.json",
     "test": "node scripts/smoke-test.mjs",
     "test:unit": "node scripts/unit-test.mjs",
+    "check:package": "publint && attw --pack . --profile node16 --ignore-rules false-cjs",
     "dev": "node scripts/web.mjs dev",
     "web": "node scripts/web.mjs",
-    "check": "node scripts/generate-index.mjs --check && npm run lint:icons && npm run format:check && npm run typecheck && npm run test:unit",
+    "check:docs": "node scripts/check-docs.mjs",
+    "check": "node scripts/generate-index.mjs --check && npm run lint:icons && npm run check:docs && npm run format:check && npm run typecheck && npm run test:unit",
     "prepublishOnly": "npm run check && npm run build && npm test",
     "format": "prettier --write src test scripts rollup.config.js vitest.config.mjs",
     "format:check": "prettier --check src test scripts rollup.config.js vitest.config.mjs"
@@ -71,22 +73,22 @@
   },
   "peerDependencies": {
     "framer-motion": ">=10.0.0",
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react": ">=18.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@arethetypeswrong/cli": "^0.18.5",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
-    "@types/react": "^18.3.21",
-    "framer-motion": "^12.11.3",
+    "@types/react": "^19.3.0",
+    "framer-motion": "^14.9.0",
     "jsdom": "^31.0.0",
     "prettier": "^3.9.9",
+    "publint": "^0.3.25",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "rollup": "^2.79.2",
-    "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.8.3",
+    "rollup": "^4.66.0",
+    "rollup-plugin-typescript2": "^0.37.0",
+    "typescript": "~5.9.3",
     "vitest": "^5.1.0"
   }
 }

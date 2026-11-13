@@ -5,8 +5,7 @@ Next.js app that lives next to the library and is never part of the published pa
 
 ## Run it locally
 
-You need Node 22.18 or newer. The library itself only needs Node 18, but this app runs a few
-TypeScript scripts directly.
+You need Node 22.18 or newer. This app runs a few TypeScript scripts directly.
 
 ```bash
 git clone https://github.com/Hemang-patel-9/aliveicon.git
@@ -76,6 +75,21 @@ tests/                unit and end-to-end tests
 
 ## Publishing
 
-The site is built from the packed package (`npm run build:dist`) and is meant to be deployed only
-when a release tag is pushed, so it always matches what is on npm. A deploy workflow has not been
-added yet.
+The site is built from the packed package (`npm run build:dist`) and deployed only when a release
+tag is pushed, so it always matches what is on npm. It is hosted on Cloudflare as a Worker with
+static assets: [wrangler.jsonc](wrangler.jsonc) serves `out/`, and [public/\_headers](public/_headers)
+adds the security and cache headers.
+
+[.github/workflows/deploy-site.yml](../../.github/workflows/deploy-site.yml) runs on `v*` tags and
+does nothing until these are set in the repository settings:
+
+| Where                        | Name                    | Value                                                                  |
+| ---------------------------- | ----------------------- | ---------------------------------------------------------------------- |
+| Actions variables            | `SITE_URL`              | The site's origin without a trailing slash, e.g. `https://example.com` |
+| Environment `site` → secrets | `CLOUDFLARE_API_TOKEN`  | An account API token from the "Edit Cloudflare Workers" template       |
+| Environment `site` → secrets | `CLOUDFLARE_ACCOUNT_ID` | The Cloudflare account ID                                              |
+
+The deploy builds with `SITE_BASE_PATH=''`, so the site is served from the root of the domain.
+After the first deploy, attach the domain to the `aliveicon` Worker under **Settings → Domains &
+Routes** in the Cloudflare dashboard. Locally, `SITE_URL` and `SITE_BASE_PATH` work the same way for
+`npm run build` and `npm start`.

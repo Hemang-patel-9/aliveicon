@@ -17,9 +17,9 @@ plays on hover, click, mount, loop, or through a ref.
 | `src/lib/use-animated-icon.ts`  | Shared trigger hook: hover, loopOnHover, animateOnClick, autoAnimateOnLoad, ref handle. |
 | `src/lib/types.ts`              | Public types: `AnimatedIconProps`, `AnimatedIconHandle`, `AnimatedIconTriggers`.        |
 | `src/lib/cn.ts`                 | `clsx` + `tailwind-merge`. Icons import it; they never define their own.                |
-| `src/aliases.ts`                | Deprecated misspellings (removed at 2.0.0) and every lucide-react alias, like `Home`.    |
+| `src/aliases.ts`                | Deprecated misspellings (removed at 2.0.0) and every lucide-react alias, like `Home`.   |
 | `src/index.ts`                  | **Generated.** Never edit by hand; run `npm run generate`.                              |
-| `scripts/`                      | Index generator, icon linter, smoke test, unit test runner.                             |
+| `scripts/`                      | Index generator, icon linter, docs check, smoke test, unit test runner.                 |
 | `test/`                         | Unit tests for the shared hook (Vitest).                                                |
 | `apps/web`                      | Documentation site.                                                                     |
 
@@ -27,12 +27,16 @@ plays on hover, click, mount, loop, or through a ref.
 
 ```sh
 npm run generate   # rebuild src/index.ts from the files on disk
-npm run check      # index is current + lint:icons + Prettier + tsc + unit tests
+npm run check      # index is current + lint:icons + docs counts + Prettier + tsc + unit tests
 npm run test:unit  # unit tests for the shared hook
-npm run build      # Rollup, one module per icon into dist/esm, dist/cjs, dist/types (slow, ~3 min)
-npm test           # server-renders every export from both builds; needs a fresh build
+npm run build      # Rollup, one module per icon into dist/esm, dist/cjs, dist/types (slow)
+npm test           # renders every export from both builds, checks 'use client', .d.ts, no .map
+npm run check:package  # publint + are-the-types-wrong on the built package
 npm run format     # Prettier: tabs, single quotes, semicolons, width 100
 ```
+
+`check:docs` fails when the README badge, totals or per-letter table, or the `package.json`
+description, don't match the icon files. Update them in the same change that adds icons.
 
 Run `npm run check` before you finish any change. Run `npm run build && npm test` when you touch
 `rollup.config.js`, `package.json`, the hook, or anything exported.
@@ -48,7 +52,7 @@ Run `npm run check` before you finish any change. Run `npm run build && npm test
   `size`, `color` and the triggers, so icons don't import `cn` or read those props.
 - Every icon has the same props. Don't add a props interface to an icon.
 - The `<svg>` has `aria-hidden="true"`, `viewBox="0 0 24 24"`, `stroke="currentColor"`,
-  `strokeWidth={strokeWidth}` and round caps and joins. `XTwitter` is the only `viewBox` exception.
+  `strokeWidth={strokeWidth}` and round caps and joins, with no exceptions.
 - Variants are named `normal` (rest) and `animate`. Any other rest name needs `{ rest: '<name>' }`.
 - An `animate` variant with `repeat: Infinity` needs `{ cycleMs }` so a single play ends.
 - Set `<Name>.displayName = '<Name>'`. No `console.*`.
@@ -93,9 +97,10 @@ priority; report a broken rule at that priority.
 
 ### How to review
 
-- CI already runs `npm run check`, `npm run build`, `npm test` and `npm pack --dry-run`. Don't report what
-  those catch (Prettier formatting, a stale `src/index.ts`, `lint-icons` failures) unless the PR changes or
-  skips them.
+- CI already runs `npm run check`, `npm run build`, `npm test`, `npm run check:package` and
+  `npm pack --dry-run`, and repeats the tests with React 18 and framer-motion 10. Don't report what those
+  catch (Prettier formatting, a stale `src/index.ts`, `lint-icons` failures, README counts) unless the PR
+  changes or skips them.
 - Ignore CRLF/LF differences, `dist/`, lockfile churn that matches a `package.json` change, and style
   preferences.
 - Name the file and line and the rule that was broken. Explain the impact in one or two sentences.

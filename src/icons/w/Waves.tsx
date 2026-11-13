@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const waveVariants = {
+const waveVariants: Variants = {
 	normal: { pathLength: 1, opacity: 1, transition: { duration: 0.2 } },
 	animate: (i: number) => ({
 		pathLength: [0, 1],

@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const lineVariants = {
+const lineVariants: Variants = {
 	normal: {
 		opacity: 1,
 		pathLength: 1,
@@ -23,7 +23,7 @@ const lineVariants = {
 	},
 };
 
-const topRectVariants = {
+const topRectVariants: Variants = {
 	normal: {
 		opacity: 1,
 		pathLength: 1,
@@ -42,7 +42,7 @@ const topRectVariants = {
 	},
 };
 
-const bottomRectVariants = {
+const bottomRectVariants: Variants = {
 	normal: {
 		opacity: 1,
 		pathLength: 1,

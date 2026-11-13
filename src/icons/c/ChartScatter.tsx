@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
@@ -8,7 +8,7 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 export const ChartScatter = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
 	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, { rest: 'initial' });
 
-	const pathVariants = {
+	const pathVariants: Variants = {
 		initial: { pathLength: 1 },
 		animate: {
 			pathLength: [0, 1],
@@ -16,7 +16,7 @@ export const ChartScatter = forwardRef<AnimatedIconHandle, AnimatedIconProps>((p
 		},
 	};
 
-	const dotVariants = {
+	const dotVariants: Variants = {
 		initial: { scale: 1, opacity: 1 },
 		animate: {
 			scale: [0, 1.2, 1],
