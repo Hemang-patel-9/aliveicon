@@ -32,28 +32,28 @@ const WrapText = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) 
 				height="100%"
 			>
 				<motion.path
-					d="M16 16l-2 2 2 2"
+					d="m16 16-3 3 3 3"
 					custom={0}
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M3 12h15a3 3 0 1 1 0 6h-4"
+					d="M3 12h14.5a1 1 0 0 1 0 7H13"
 					custom={1}
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M3 18h7"
+					d="M3 19h6"
 					custom={2}
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M3 6h18"
+					d="M3 5h18"
 					custom={3}
 					variants={pathVariants}
 					initial="normal"

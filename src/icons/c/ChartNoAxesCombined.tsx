@@ -10,10 +10,10 @@ export const ChartNoAxesCombined = forwardRef<AnimatedIconHandle, AnimatedIconPr
 		const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props, { rest: 'initial' });
 
 		const barVariants: Variants = {
-			initial: (y1: number) => ({ y1, y2: 20 }),
+			initial: (y1: number) => ({ y1, y2: 21 }),
 			animate: (y1: number) => ({
-				y1: [20, y1],
-				y2: 20,
+				y1: [21, y1],
+				y2: 21,
 				transition: { duration: 0.5 },
 			}),
 		};
@@ -43,6 +43,8 @@ export const ChartNoAxesCombined = forwardRef<AnimatedIconHandle, AnimatedIconPr
 					<motion.line
 						x1="12"
 						x2="12"
+						y1="16"
+						y2="21"
 						custom={16}
 						variants={barVariants}
 						initial="initial"
@@ -51,7 +53,9 @@ export const ChartNoAxesCombined = forwardRef<AnimatedIconHandle, AnimatedIconPr
 					<motion.line
 						x1="16"
 						x2="16"
-						custom={14}
+						y1="14.639"
+						y2="21"
+						custom={14.639}
 						variants={barVariants}
 						initial="initial"
 						animate={controls}
@@ -59,7 +63,9 @@ export const ChartNoAxesCombined = forwardRef<AnimatedIconHandle, AnimatedIconPr
 					<motion.line
 						x1="20"
 						x2="20"
-						custom={10}
+						y1="10.656"
+						y2="21"
+						custom={10.656}
 						variants={barVariants}
 						initial="initial"
 						animate={controls}
@@ -67,7 +73,9 @@ export const ChartNoAxesCombined = forwardRef<AnimatedIconHandle, AnimatedIconPr
 					<motion.line
 						x1="4"
 						x2="4"
-						custom={18}
+						y1="18.463"
+						y2="21"
+						custom={18.463}
 						variants={barVariants}
 						initial="initial"
 						animate={controls}
@@ -75,14 +83,15 @@ export const ChartNoAxesCombined = forwardRef<AnimatedIconHandle, AnimatedIconPr
 					<motion.line
 						x1="8"
 						x2="8"
-						custom={14}
+						y1="14.656"
+						y2="21"
+						custom={14.656}
 						variants={barVariants}
 						initial="initial"
 						animate={controls}
 					/>
-
 					<motion.path
-						d="M22 3L13.354 11.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"
+						d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"
 						variants={pathVariants}
 						initial="initial"
 						animate={controls}

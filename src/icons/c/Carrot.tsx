@@ -32,31 +32,19 @@ export const Carrot = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, 
 				height="100%"
 			>
 				<motion.path
-					d="M2.27 21.7s9.87-3.5 12.73-6.36a4.5 4.5 0 0 0-6.36-6.37C5.77 11.84 2.27 21.7 2.27 21.7z"
+					d="M15 16a1 1 0 0 0-7-7q-4 4-5.987 12.385a.5.5 0 0 0 .602.602Q11 20 15 16l-3-3"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M8.64 14l-2.05-2.04"
+					d="m8 15-2.58-2.58"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M15.34 15l-2.46-2.46"
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-				/>
-				<motion.path
-					d="M22 9s-1.33-2-3.5-2C16.86 7 15 9 15 9s1.33 2 3.5 2S22 9 22 9z"
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-				/>
-				<motion.path
-					d="M15 2s-2 1.33-2 3.5S15 9 15 9s2-1.84 2-3.5C17 3.33 15 2 15 2z"
+					d="M15 9q4 4 7 0-3-4-7 0 4-4 0-7-4 3 0 7"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}

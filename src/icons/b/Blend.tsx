@@ -40,7 +40,7 @@ export const Blend = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, r
 				height="100%"
 			>
 				<motion.circle
-					cx="9"
+					cx="15"
 					cy="9"
 					r="7"
 					variants={pathVariants}
@@ -48,7 +48,7 @@ export const Blend = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, r
 					initial="normal"
 				/>
 				<motion.circle
-					cx="15"
+					cx="9"
 					cy="15"
 					r="7"
 					variants={pathVariants}

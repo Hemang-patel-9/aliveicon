@@ -45,21 +45,21 @@ export const AlignRight = forwardRef<AnimatedIconHandle, AnimatedIconProps>((pro
 				height="100%"
 			>
 				<motion.path
-					d="M3 6H21"
+					d="M21 5H3"
 					variants={pathVariants}
 					custom={0}
 					animate={controls}
 					initial="normal"
 				/>
 				<motion.path
-					d="M9 12H21"
+					d="M21 12H9"
 					variants={pathVariants}
 					custom={1}
 					animate={controls}
 					initial="normal"
 				/>
 				<motion.path
-					d="M7 18H21"
+					d="M21 19H7"
 					variants={pathVariants}
 					custom={2}
 					animate={controls}

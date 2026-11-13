@@ -32,25 +32,32 @@ const JapaneseYen = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, re
 				height="100%"
 			>
 				<motion.path
-					d="M12 9.5V21m0-11.5L6 3m6 6.5L18 3"
+					d="m6 4 6 8 6-8"
 					variants={drawVariants}
-					initial="normal"
-					animate={controls}
 					custom={0}
-				/>
-				<motion.path
-					d="M6 15h12"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="M12 12v8"
+					variants={drawVariants}
+					custom={0}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M8 13h8"
+					variants={drawVariants}
 					custom={1}
-				/>
-				<motion.path
-					d="M6 11h12"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="M8 17h8"
+					variants={drawVariants}
 					custom={2}
+					initial="normal"
+					animate={controls}
 				/>
 			</svg>
 		</div>

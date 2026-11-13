@@ -41,12 +41,12 @@ export const CalendarX2 = forwardRef<AnimatedIconHandle, AnimatedIconProps>((pro
 				height="100%"
 			>
 				{[
-					'M8 2v4',
-					'M16 2v4',
-					'M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8',
-					'M3 10h18',
-					'M17 22l5-5',
-					'M17 17l5 5',
+					'M8 2v3',
+					'M16 2v3',
+					'M21 12V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8',
+					'M3 9h18',
+					'm17 21 5-5',
+					'm17 16 5 5',
 				].map((d, i) => (
 					<motion.path key={i} d={d} variants={pathVariants} initial="normal" animate={controls} />
 				))}

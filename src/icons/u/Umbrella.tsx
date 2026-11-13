@@ -23,7 +23,11 @@ const Umbrella = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) 
 		animate: animateTarget,
 	});
 
-	const paths = ['M22 12a10.06 10.06 1 0 0-20 0Z', 'M12 12v8a2 2 0 0 0 4 0', 'M12 2v1'];
+	const paths = [
+		'M20.992 13a1 1 0 0 0 .97-1.274 10.284 10.284 0 0 0-19.923 0A1 1 0 0 0 3 13z',
+		'M12 13v7a2 2 0 0 0 4 0',
+		'M12 2v2',
+	];
 
 	return (
 		<div {...iconProps}>

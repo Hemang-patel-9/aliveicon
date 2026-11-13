@@ -48,26 +48,23 @@ const BadgeHelp = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref)
 				<motion.path
 					d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
 					variants={pathVariants}
+					custom={0}
 					initial="normal"
 					animate={controls}
-					custom={0}
 				/>
 				<motion.path
-					d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+					d="M9 9.5a3 2.5 0 016 0c0 2-2 2-3 3.5"
 					variants={pathVariants}
-					initial="normal"
-					animate={controls}
 					custom={0.15}
-				/>
-				<motion.line
-					x1="12"
-					x2="12.01"
-					y1="17"
-					y2="17"
-					variants={pathVariants}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="M12 17h.01"
+					variants={pathVariants}
 					custom={0.3}
+					initial="normal"
+					animate={controls}
 				/>
 			</svg>
 		</div>

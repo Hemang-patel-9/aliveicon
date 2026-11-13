@@ -48,7 +48,7 @@ export const CircleCheck = forwardRef<AnimatedIconHandle, AnimatedIconProps>((pr
 					animate={controls}
 				/>
 				<motion.path
-					d="M9 12l2 2 4-4"
+					d="m16 9-5.5 5.5L8 12"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}

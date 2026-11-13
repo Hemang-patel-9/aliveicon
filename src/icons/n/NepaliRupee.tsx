@@ -32,39 +32,25 @@ const NepaliRupee = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, re
 				height="100%"
 			>
 				<motion.path
-					d="M18 16.173 A4.74 4.74 0 0 0 13.496 8.005"
+					d="m14 20-8-8h4c5.333 0 5.333-8 0-8"
 					variants={drawVariants}
-					initial="normal"
-					animate={controls}
 					custom={0}
-				/>
-				<motion.path
-					d="M4 3 L20 3"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="M14 8c4.078 0 5.038 4.678 2.88 6.88"
+					variants={drawVariants}
 					custom={1}
-				/>
-				<motion.path
-					d="M5 13 L13.5 21"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="M6 4h12"
+					variants={drawVariants}
 					custom={2}
-				/>
-				<motion.path
-					d="M5 13 L9 13"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
-					custom={3}
-				/>
-				<motion.path
-					d="M8 13 C15.5 13 14.667 3 8 3"
-					variants={drawVariants}
-					initial="normal"
-					animate={controls}
-					custom={4}
 				/>
 			</svg>
 		</div>

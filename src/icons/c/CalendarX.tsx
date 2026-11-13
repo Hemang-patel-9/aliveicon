@@ -48,21 +48,21 @@ export const CalendarX = forwardRef<AnimatedIconHandle, AnimatedIconProps>((prop
 				width="100%"
 				height="100%"
 			>
-				<motion.path d="M8 2v4" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M16 2v4" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M8 2v3" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M16 2v3" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.rect
 					width="18"
 					height="18"
 					x="3"
-					y="4"
+					y="3"
 					rx="2"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M3 10h18" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M14 14l-4 4" variants={xVariants} initial="normal" animate={controls} />
-				<motion.path d="M10 14l4 4" variants={xVariants} initial="normal" animate={controls} />
+				<motion.path d="M3 9h18" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="m14 13-4 4" variants={xVariants} initial="normal" animate={controls} />
+				<motion.path d="m10 13 4 4" variants={xVariants} initial="normal" animate={controls} />
 			</svg>
 		</div>
 	);

@@ -56,8 +56,18 @@ export const ClipboardX = forwardRef<AnimatedIconHandle, AnimatedIconProps>((pro
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M15 11L9 17" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M9 11L15 17" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path
+					d="m14.5 11.5-5 5"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="m9.5 11.5 5 5"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
 			</svg>
 		</div>
 	);

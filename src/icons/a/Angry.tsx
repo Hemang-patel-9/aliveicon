@@ -59,11 +59,11 @@ const Angry = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => 
 				animate={controls}
 			>
 				<motion.circle cx="12" cy="12" r="10" variants={faceVariants} />
-				<motion.path d="M16 16s-1.5-2-4-2-4 2-4 2" variants={mouthVariants} />
-				<motion.path d="M7.5 8 10 9" variants={eyebrowVariants} />
-				<motion.path d="m14 9 2.5-1" variants={eyebrowVariants} />
-				<motion.path d="M9 10h.01" variants={eyeVariants} />
-				<motion.path d="M15 10h.01" variants={eyeVariants} />
+				<motion.path d="M9 17a5 5 0 016.001 0" variants={mouthVariants} />
+				<motion.path d="M7 10a5 5 0 013 1" variants={eyebrowVariants} />
+				<motion.path d="M17 10a5 5 0 00-3 1" variants={eyebrowVariants} />
+				<motion.path d="M9 12v-1.584" variants={eyeVariants} />
+				<motion.path d="M15 12v-1.584" variants={eyeVariants} />
 			</motion.svg>
 		</div>
 	);

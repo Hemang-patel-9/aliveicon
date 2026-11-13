@@ -45,7 +45,7 @@ export const AlignLeft = forwardRef<AnimatedIconHandle, AnimatedIconProps>((prop
 				height="100%"
 			>
 				<motion.path
-					d="M21 6H3"
+					d="M21 5H3"
 					variants={pathVariants}
 					custom={0}
 					animate={controls}
@@ -59,7 +59,7 @@ export const AlignLeft = forwardRef<AnimatedIconHandle, AnimatedIconProps>((prop
 					initial="normal"
 				/>
 				<motion.path
-					d="M17 18H3"
+					d="M17 19H3"
 					variants={pathVariants}
 					custom={2}
 					animate={controls}

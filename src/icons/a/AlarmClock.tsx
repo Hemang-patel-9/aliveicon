@@ -55,41 +55,38 @@ const AlarmClock = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref
 				height="100%"
 				style={{ overflow: 'visible' }}
 			>
-				<motion.path
+				<motion.circle
+					cx="12"
+					cy="13"
+					r="8"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
-					d="M18 20.5L19.5 22"
 				/>
+				<motion.path d="M12 9v4l2 2" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.path
+					d="M6.38 18.7 4 21"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
-					d="M6 20.5L4.5 22"
 				/>
 				<motion.path
+					d="M17.64 18.67 20 21"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
-					d="M21 13C21 17.968 16.968 22 12 22C7.032 22 3 17.968 3 13C3 8.032 7.032 4 12 4C16.968 4 21 8.032 21 13Z"
 				/>
 				<motion.path
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-					d="M15.339 15.862L12.549 14.197C12.063 13.909 11.667 13.216 11.667 12.649V8.95898"
-				/>
-				<motion.path
+					d="M5 3 2 6"
 					variants={secondaryPathVariants}
 					initial="normal"
 					animate={controls}
-					d="M18 2L21.747 5.31064"
 				/>
 				<motion.path
+					d="m22 6-3-3"
 					variants={secondaryPathVariants}
 					initial="normal"
 					animate={controls}
-					d="M6 2L2.25304 5.31064"
 				/>
 			</svg>
 		</div>

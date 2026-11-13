@@ -32,15 +32,14 @@ export const Castle = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, 
 				height="100%"
 			>
 				{[
-					'M22 20v-9H2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2Z',
-					'M18 11V4H6v7',
-					'M15 22v-4a3 3 0 0 0-3-3a3 3 0 0 0-3 3v4',
-					'M22 11V9',
-					'M2 11V9',
-					'M6 4V2',
-					'M18 4V2',
-					'M10 4V2',
-					'M14 4V2',
+					'M22 9v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9',
+					'M22 11H2',
+					'M18 3v8',
+					'M6 3v8',
+					'M18 5H6',
+					'M15 21v-3a3 3 0 0 0-6 0v3',
+					'M10 5V3',
+					'M14 5V3',
 				].map((d, i) => (
 					<motion.path key={i} d={d} variants={pathVariants} initial="normal" animate={controls} />
 				))}

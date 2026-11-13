@@ -34,13 +34,17 @@ const circleVariants: Variants = {
 export const Waypoints = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
 	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
-	const paths = [{ d: 'm10.2 6.3-3.9 3.9' }, { d: 'M7 12h10' }, { d: 'm13.8 17.7 3.9-3.9' }];
+	const paths = [
+		{ d: 'm10.586 5.414-5.172 5.172' },
+		{ d: 'M6 12h12' },
+		{ d: 'm13.414 18.586 5.172-5.172' },
+	];
 
 	const circles = [
-		{ cx: 12, cy: 4.5 },
-		{ cx: 4.5, cy: 12 },
-		{ cx: 19.5, cy: 12 },
-		{ cx: 12, cy: 19.5 },
+		{ cx: 12, cy: 4 },
+		{ cx: 4, cy: 12 },
+		{ cx: 20, cy: 12 },
+		{ cx: 12, cy: 20 },
 	];
 
 	return (
@@ -72,7 +76,7 @@ export const Waypoints = forwardRef<AnimatedIconHandle, AnimatedIconProps>((prop
 						key={`circle-${i}`}
 						cx={c.cx}
 						cy={c.cy}
-						r={2.5}
+						r={2}
 						initial="normal"
 						variants={circleVariants}
 						animate={controls}

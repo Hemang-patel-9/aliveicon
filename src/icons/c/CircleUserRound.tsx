@@ -39,14 +39,14 @@ export const CircleUserRound = forwardRef<AnimatedIconHandle, AnimatedIconProps>
 				height="100%"
 			>
 				<motion.path
-					d="M18 20a6 6 0 0 0-12 0"
+					d="M17.925 20.056a6 6 0 0 0-11.851.001"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.circle
 					cx="12"
-					cy="10"
+					cy="11"
 					r="4"
 					variants={pathVariants}
 					initial="normal"

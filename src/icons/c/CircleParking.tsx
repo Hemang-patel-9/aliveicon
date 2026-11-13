@@ -49,7 +49,7 @@ export const CircleParking = forwardRef<AnimatedIconHandle, AnimatedIconProps>((
 					animate={controls}
 				/>
 				<motion.path
-					d="M9 17V7h4a3 3 0 0 1 0 6H9"
+					d="M9 12h4a2 2 0 0 0 0-4H9.5a.5.5 0 0 0-.5.5V16"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}

@@ -38,15 +38,15 @@ export const BookOpenCheck = forwardRef<AnimatedIconHandle, AnimatedIconProps>((
 				width="100%"
 				height="100%"
 			>
-				<motion.path d="M12 21V7" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M12 5v16" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.path
-					d="M16 12l2 2 4-4"
+					d="m16 12 2 2 4-4"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M22 6V4a1 1 0 0 0-1-1h-5a4 4 0 0 0-4 4 4 4 0 0 0-4-4H3a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h6a3 3 0 0 1 3 3 3 3 0 0 1 3-3h6a1 1 0 0 0 1-1v-1.3"
+					d="M22 6V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2h4.001A2 2 0 0022 17v-1.344"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}

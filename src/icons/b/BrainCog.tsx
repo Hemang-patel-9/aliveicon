@@ -39,63 +39,56 @@ const BrainCog = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) 
 				width="100%"
 				height="100%"
 			>
-				<motion.g
-					variants={turn45Variants}
-					initial="normal"
-					animate={controls}
-					style={{ originX: '50%', originY: '50%' }}
-				>
-					<path d="m10.852 14.772-.383.923" />
-					<path d="m10.852 9.228-.383-.923" />
-					<path d="m13.148 14.772.382.924" />
-					<path d="m13.531 8.305-.383.923" />
-					<path d="m14.772 10.852.923-.383" />
-					<path d="m14.772 13.148.923.383" />
-					<path d="m9.228 10.852-.923-.383" />
-					<path d="m9.228 13.148-.923.383" />
-					<circle cx="12" cy="12" r="3" />
-				</motion.g>
+				<path d="m10.852 14.772-.383.923" />
+				<path d="m10.852 9.228-.383-.923" />
+				<path d="m13.148 14.772.382.924" />
+				<path d="m13.53 8.305-.382.923" />
+				<path d="m14.772 10.852.923-.383" />
+				<path d="m14.772 13.148.923.383" />
+				<path d="m9.228 10.852-.923-.383" />
+				<path d="m9.228 13.148-.923.383" />
+				<circle cx="12" cy="12" r="3" />
 				<motion.path
-					d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 0 0-5.63-1.446 3 3 0 0 0-.368 1.571 4 4 0 0 0-2.525 5.771"
+					d="M6.293 6.294a3 3 0 01-.287-1.098l-.004-.07a3 3 0 015.968-.543c.05.02.057.01.059 0a3 3 0 015.968.542l-.004.071a3 3 0 01-.287 1.098"
 					variants={drawVariants}
-					initial="normal"
-					animate={controls}
 					custom={0}
-				/>
-				<motion.path
-					d="M17.998 5.125a4 4 0 0 1 2.525 5.771"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="M17.997 5.125a4 4 0 012.526 5.77"
+					variants={drawVariants}
 					custom={1}
-				/>
-				<motion.path
-					d="M19.505 10.294a4 4 0 0 1-1.5 7.706"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="M18 18a4 4 0 002-7.464"
+					variants={drawVariants}
 					custom={2}
-				/>
-				<motion.path
-					d="M4.032 17.483A4 4 0 0 0 11.464 20c.18-.311.892-.311 1.072 0a4 4 0 0 0 7.432-2.516"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="M4.033 17.483A4 4 0 0011.46 20c.184-.31.896-.31 1.076 0a4 4 0 007.43-2.517"
+					variants={drawVariants}
 					custom={3}
-				/>
-				<motion.path
-					d="M4.5 10.291A4 4 0 0 0 6 18"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
-					custom={4}
 				/>
 				<motion.path
-					d="M6.002 5.125a3 3 0 0 0 .4 1.375"
+					d="M6 18a4 4 0 01-2-7.464"
 					variants={drawVariants}
+					custom={4}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="M6.002 5.125a4 4 0 00-2.525 5.77"
+					variants={drawVariants}
 					custom={4}
+					initial="normal"
+					animate={controls}
 				/>
 			</svg>
 		</div>

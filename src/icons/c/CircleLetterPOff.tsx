@@ -32,31 +32,24 @@ const CircleLetterPOff = forwardRef<AnimatedIconHandle, AnimatedIconProps>((prop
 				height="100%"
 			>
 				<motion.path
-					d="M12.656 7H13a3 3 0 0 1 2.984 3.307"
+					d="M9 14.657V16"
+					custom={0}
+					variants={glyphVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M12 12h1a2 2 0 000-4H9.5a.5.5 0 00-.5.5V9"
 					custom={1}
 					variants={glyphVariants}
 					initial="normal"
 					animate={controls}
 				/>
+				<path d="M15.652 21.31A10 10 0 012.691 8.348" />
+				<path d="M4.929 4.929a10 10 0 0116.729 4.483 10 10 0 01-2.588 9.658" />
 				<motion.path
-					d="M13 13H9"
-					custom={2}
-					variants={glyphVariants}
-					initial="normal"
-					animate={controls}
-				/>
-				<path d="M19.071 19.071A1 1 0 0 1 4.93 4.93" />
-				<motion.path
-					d="m2 2 20 20"
+					d="M22 22 2 2"
 					custom={3}
-					variants={glyphVariants}
-					initial="normal"
-					animate={controls}
-				/>
-				<path d="M8.357 2.687a10 10 0 0 1 12.956 12.956" />
-				<motion.path
-					d="M9 17V9"
-					custom={0}
 					variants={glyphVariants}
 					initial="normal"
 					animate={controls}

@@ -39,29 +39,13 @@ export const BookmarkPlus = forwardRef<AnimatedIconHandle, AnimatedIconProps>((p
 				height="100%"
 			>
 				<motion.path
-					d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"
+					d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.line
-					x1="12"
-					x2="12"
-					y1="7"
-					y2="13"
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-				/>
-				<motion.line
-					x1="15"
-					x2="9"
-					y1="10"
-					y2="10"
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-				/>
+				<motion.path d="M12 7v6" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M15 10H9" variants={pathVariants} initial="normal" animate={controls} />
 			</svg>
 		</div>
 	);

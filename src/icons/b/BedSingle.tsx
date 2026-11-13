@@ -32,18 +32,18 @@ export const BedSingle = forwardRef<AnimatedIconHandle, AnimatedIconProps>((prop
 				height="100%"
 			>
 				<motion.path
-					d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"
+					d="M3 20v-8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"
+					d="M5 10V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M2 18h20" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M3 18h18" variants={pathVariants} initial="normal" animate={controls} />
 			</svg>
 		</div>
 	);

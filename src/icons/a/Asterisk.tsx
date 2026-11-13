@@ -46,21 +46,21 @@ const Asterisk = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) 
 				strokeLinejoin="round"
 			>
 				<motion.path
-					d="M12 6v12"
+					d="M12 5v14"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 					custom={0}
 				/>
 				<motion.path
-					d="M17.196 9 6.804 15"
+					d="m18.065 8.496-12.125 7"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 					custom={0.2}
 				/>
 				<motion.path
-					d="m6.804 9 10.392 6"
+					d="m5.94 8.504 12.125 7"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}

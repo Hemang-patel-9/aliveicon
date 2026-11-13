@@ -32,14 +32,14 @@ const RussianRuble = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, r
 				height="100%"
 			>
 				<motion.path
-					d="M6 11h8a4 4 0 0 0 0-8H9v18"
+					d="M7 20V5a1 1 0 011-1h6a4 4 0 010 8H4"
 					variants={drawVariants}
 					initial="normal"
 					animate={controls}
 					custom={0}
 				/>
 				<motion.path
-					d="M6 15h8"
+					d="M4 16h6"
 					variants={drawVariants}
 					initial="normal"
 					animate={controls}

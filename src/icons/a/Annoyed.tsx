@@ -64,9 +64,9 @@ const Annoyed = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) =
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M8 15h8" variants={mouthVariants} initial="normal" animate={controls} />
-				<motion.path d="M8 9h2" variants={leftEyeVariants} initial="normal" animate={controls} />
-				<motion.path d="M14 9h2" variants={rightEyeVariants} initial="normal" animate={controls} />
+				<motion.path d="M8 16h8" variants={mouthVariants} initial="normal" animate={controls} />
+				<motion.path d="M8 10h2" variants={leftEyeVariants} initial="normal" animate={controls} />
+				<motion.path d="M14 10h2" variants={rightEyeVariants} initial="normal" animate={controls} />
 			</svg>
 		</div>
 	);

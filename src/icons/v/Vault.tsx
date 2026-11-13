@@ -24,7 +24,7 @@ const Vault = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => 
 	});
 
 	const animatedPaths = [
-		'M3 3h18v18H3z',
+		'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z',
 		'M7.9 7.9l2.7 2.7',
 		'M13.4 10.6l2.7-2.7',
 		'M7.9 16.1l2.7-2.7',

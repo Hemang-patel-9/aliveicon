@@ -30,9 +30,9 @@ export const ChartNoAxesGantt = forwardRef<AnimatedIconHandle, AnimatedIconProps
 				strokeLinecap="round"
 				strokeLinejoin="round"
 			>
-				<motion.path d="M8 6h10" variants={lineVariants} initial="initial" animate={controls} />
-				<motion.path d="M6 12h9" variants={lineVariants} initial="initial" animate={controls} />
-				<motion.path d="M11 18h7" variants={lineVariants} initial="initial" animate={controls} />
+				<motion.path d="M6 5h12" variants={lineVariants} initial="initial" animate={controls} />
+				<motion.path d="M4 12h10" variants={lineVariants} initial="initial" animate={controls} />
+				<motion.path d="M12 19h8" variants={lineVariants} initial="initial" animate={controls} />
 			</svg>
 		</div>
 	);

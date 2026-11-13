@@ -42,7 +42,7 @@ export const CalendarRange = forwardRef<AnimatedIconHandle, AnimatedIconProps>((
 			>
 				<motion.rect
 					x="3"
-					y="4"
+					y="3"
 					width="18"
 					height="18"
 					rx="2"
@@ -50,13 +50,13 @@ export const CalendarRange = forwardRef<AnimatedIconHandle, AnimatedIconProps>((
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M16 2v4" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M3 10h18" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M8 2v4" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M17 14h-6" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M13 18H7" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M7 14h.01" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M17 18h.01" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M16 2v3" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M3 9h18" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M8 2v3" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M17 13h-6" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M13 17H7" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M7 13h.01" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M17 17h.01" variants={pathVariants} initial="normal" animate={controls} />
 			</svg>
 		</div>
 	);

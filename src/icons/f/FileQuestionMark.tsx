@@ -50,7 +50,7 @@ const FileQuestionMark = forwardRef<AnimatedIconHandle, AnimatedIconProps>((prop
 					animate={controls}
 				/>
 				<motion.path
-					d="M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3"
+					d="M9 9.5a3 2.5 0 016 0c0 2-2 2-3 3.5"
 					variants={drawVariants}
 					custom={[0, 0, 0.45]}
 					initial="normal"

@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.15.0] - 2026-11-14
+
 ### Added
 
 - `color` prop on every icon, as in `lucide-react`. Without it the icon still takes the surrounding
@@ -29,6 +31,10 @@ All notable changes to this project are documented here. The format follows
 - `XTwitter` is drawn on the same 24×24 grid as every other icon, from the
   [Simple Icons](https://simpleicons.org) `x` logo (CC0). It used a 50×50 path before. It now fades and
   scales in instead of tracing its outline.
+- 129 icons are redrawn to match Lucide 1.72, keeping their animations. Among them the `Calendar…`,
+  `Receipt…`, `Bookmark…`, `ArrowBig…`, `Align…` and `ChartNoAxes…` families, `Anchor`, `AlarmClock`,
+  `Zap`, `ZapOff`, `Umbrella`, `Waves`, `Route`, `ChefHat`, `Castle`, `Bitcoin`, `DollarSign`,
+  `IndianRupee`, `JapaneseYen` and the question-mark icons.
 - The build output targets ES2020, so the syntax in `dist` no longer changes with the TypeScript
   version used to build it.
 

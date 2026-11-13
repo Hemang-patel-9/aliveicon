@@ -27,7 +27,12 @@ const lineVariants: Variants = {
 	},
 };
 
-const paths = ['M3.5 13h6', 'm2 16 4.5-9 4.5 9', 'M18 7v9', 'm14 12 4 4 4-4'];
+const paths = [
+	'M3.304 13h6.392',
+	'm2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16',
+	'M18 7v9',
+	'm14 12 4 4 4-4',
+];
 
 const AArrowDown = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
 	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);

@@ -46,9 +46,9 @@ export const ArrowBigRightDash = forwardRef<AnimatedIconHandle, AnimatedIconProp
 				width="100%"
 				height="100%"
 			>
-				<motion.path d="M5 9v6" variants={dashVariants} initial="initial" animate={controls} />
+				<motion.path d="M4 9v6" variants={dashVariants} initial="initial" animate={controls} />
 				<motion.path
-					d="M9 9h3V5l7 7-7 7v-4H9V9z"
+					d="M11 9a1 1 0 0 0 1-1V4.707a.707.707 0 0 1 1.207-.5l6.94 6.94a1.207 1.207 0 0 1 0 1.707l-6.94 6.94a.707.707 0 0 1-1.207-.5V16a1 1 0 0 0-1-1H9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"
 					variants={arrowVariants}
 					initial="initial"
 					animate={controls}

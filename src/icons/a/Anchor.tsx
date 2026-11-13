@@ -40,17 +40,18 @@ export const Anchor = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, 
 				strokeLinecap="round"
 				strokeLinejoin="round"
 			>
-				<motion.path d="M12 22V8" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M12 6v16" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.path
-					d="M5 12H2a10 10 0 0 0 20 0h-3"
+					d="m19 13 2-1a9 9 0 0 1-18 0l2 1"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
+				<motion.path d="M9 11h6" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.circle
 					cx="12"
-					cy="5"
-					r="3"
+					cy="4"
+					r="2"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}

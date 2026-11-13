@@ -32,28 +32,28 @@ const GeorgianLari = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, r
 				height="100%"
 			>
 				<motion.path
-					d="M11.5 21a7.5 7.5 0 1 1 7.35-9"
+					d="M19 13a7 7 0 10-7 7"
 					variants={drawVariants}
 					custom={0}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M13 12V3"
+					d="M14 10V3"
 					variants={drawVariants}
 					custom={0.24}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M4 21h16"
+					d="M5 20h14"
 					variants={drawVariants}
 					custom={0.36}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M9 12V3"
+					d="M10 10V3"
 					variants={drawVariants}
 					custom={0.12}
 					initial="normal"

@@ -41,8 +41,8 @@ export const AlignJustify = forwardRef<AnimatedIconHandle, AnimatedIconProps>((p
 				strokeLinejoin="round"
 			>
 				<motion.path d="M3 12h18" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M3 18h18" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M3 6h18" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M3 19h18" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M3 5h18" variants={pathVariants} initial="normal" animate={controls} />
 			</svg>
 		</div>
 	);

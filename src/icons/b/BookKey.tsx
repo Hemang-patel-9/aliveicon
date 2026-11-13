@@ -51,28 +51,23 @@ export const BookKey = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props,
 				width="100%"
 				height="100%"
 			>
-				<motion.path d="M19 3l1 1" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M17 2v6" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M17 4h2" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.path
-					d="M20 2l-4.5 4.5"
+					d="M20 15.2V21a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M20 7.898V21a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-				/>
-				<motion.path
-					d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2h7.844"
+					d="M13 2H6.5A2.5 2.5 0 0 0 4 4.5v15"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.circle
-					cx="14"
-					cy="8"
+					cx="17"
+					cy="10"
 					r="2"
 					variants={circleVariants}
 					initial="normal"

@@ -41,21 +41,21 @@ export const CalendarOff = forwardRef<AnimatedIconHandle, AnimatedIconProps>((pr
 				height="100%"
 			>
 				<motion.path
-					d="M4.2 4.2A2 2 0 0 0 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 1.82-1.18"
+					d="M3.586 3.586A2 2 0 003 5v14a2 2 0 002 2h14a2 2 0 001.414-.586"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M21 15.5V6a2 2 0 0 0-2-2H9.5"
+					d="M8.656 3H19a2 2 0 012 2v10.344"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M16 2v4" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M3 10h7" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M21 10h-5.5" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M2 2l20 20" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M16 2v3" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M3 9h6" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M21 9h-5.5" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="m2 2 20 20" variants={pathVariants} initial="normal" animate={controls} />
 			</svg>
 		</div>
 	);

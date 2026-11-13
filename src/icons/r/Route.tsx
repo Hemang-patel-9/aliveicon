@@ -41,28 +41,28 @@ const Route = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => 
 			>
 				<motion.circle
 					cx="6"
-					cy="19"
-					r="3"
-					variants={popVariants}
-					initial="normal"
-					animate={controls}
-					custom={0}
-				/>
-				<motion.path
-					d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"
-					variants={drawVariants}
-					initial="normal"
-					animate={controls}
-					custom={0}
-				/>
-				<motion.circle
-					cx="18"
 					cy="5"
 					r="3"
 					variants={popVariants}
+					custom={0}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="M9 5h8.5a1 1 0 010 7h-11a1 1 0 000 7H15"
+					variants={drawVariants}
+					custom={0}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.circle
+					cx="18"
+					cy="19"
+					r="3"
+					variants={popVariants}
 					custom={5}
+					initial="normal"
+					animate={controls}
 				/>
 			</svg>
 		</div>

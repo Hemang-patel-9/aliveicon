@@ -31,22 +31,19 @@ const DollarSign = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref
 				width="100%"
 				height="100%"
 			>
-				<motion.line
-					x1="12"
-					x2="12"
-					y1="2"
-					y2="22"
+				<motion.path
+					d="M12 3v18"
 					variants={drawVariants}
+					custom={0}
 					initial="normal"
 					animate={controls}
-					custom={0}
 				/>
 				<motion.path
-					d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+					d="M17 5H9.5a1 1 0 000 7h5a1 1 0 010 7H6"
 					variants={drawVariants}
+					custom={1}
 					initial="normal"
 					animate={controls}
-					custom={1}
 				/>
 			</svg>
 		</div>

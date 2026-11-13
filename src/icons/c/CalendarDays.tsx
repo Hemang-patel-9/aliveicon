@@ -40,20 +40,20 @@ export const CalendarDays = forwardRef<AnimatedIconHandle, AnimatedIconProps>((p
 				width="100%"
 				height="100%"
 			>
-				<motion.path d="M8 2v4" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M16 2v4" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M8 2v3" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M16 2v3" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.rect
 					width="18"
 					height="18"
 					x="3"
-					y="4"
+					y="3"
 					rx="2"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M3 10h18" variants={pathVariants} initial="normal" animate={controls} />
-				{['M8 14h.01', 'M12 14h.01', 'M16 14h.01', 'M8 18h.01', 'M12 18h.01', 'M16 18h.01'].map(
+				<motion.path d="M3 9h18" variants={pathVariants} initial="normal" animate={controls} />
+				{['M8 13h.01', 'M12 13h.01', 'M16 13h.01', 'M8 17h.01', 'M12 17h.01', 'M16 17h.01'].map(
 					(d, i) => (
 						<motion.path
 							key={i}

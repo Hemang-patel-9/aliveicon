@@ -32,39 +32,25 @@ const IndianRupee = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, re
 				height="100%"
 			>
 				<motion.path
-					d="M6 3h12"
+					d="M6 4h12"
 					variants={drawVariants}
+					custom={0}
 					initial="normal"
 					animate={controls}
-					custom={0}
 				/>
 				<motion.path
 					d="M6 8h12"
 					variants={drawVariants}
-					initial="normal"
-					animate={controls}
 					custom={1}
-				/>
-				<motion.path
-					d="m6 13 8.5 8"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
+				/>
+				<motion.path
+					d="m14 20-8-8h4c5.333 0 5.333-8 0-8"
+					variants={drawVariants}
 					custom={2}
-				/>
-				<motion.path
-					d="M6 13h3"
-					variants={drawVariants}
 					initial="normal"
 					animate={controls}
-					custom={3}
-				/>
-				<motion.path
-					d="M9 13c6.667 0 6.667-10 0-10"
-					variants={drawVariants}
-					initial="normal"
-					animate={controls}
-					custom={4}
 				/>
 			</svg>
 		</div>

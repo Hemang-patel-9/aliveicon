@@ -42,50 +42,50 @@ export const Bitcoin = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props,
 				<motion.path
 					d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894"
 					variants={pathVariants}
-					animate={controls}
 					initial="normal"
+					animate={controls}
 				/>
 				<motion.path
-					d="M11.767 19.089L5.86 18.047"
+					d="M11.767 19.089 5.86 18.047"
 					variants={pathVariants}
-					animate={controls}
 					initial="normal"
+					animate={controls}
 				/>
 				<motion.path
-					d="M5.86 18.047l-.347 1.97"
+					d="M11.768 19.089l-.347 1.97"
 					variants={pathVariants}
-					animate={controls}
 					initial="normal"
+					animate={controls}
 				/>
 				<motion.path
-					d="M12.432 11.205c4.924.869 6.14-6.025 1.215-6.893"
+					d="M12.984 12.195c4.924.869 6.14-6.025 1.215-6.893"
 					variants={pathVariants}
-					animate={controls}
 					initial="normal"
+					animate={controls}
 				/>
 				<motion.path
-					d="M12.432 11.205l-3.94-.694"
+					d="M12.984 12.195l-3.94-.694"
 					variants={pathVariants}
-					animate={controls}
 					initial="normal"
+					animate={controls}
 				/>
 				<motion.path
-					d="M13.647 4.311L8.29 4.26"
+					d="M14.199 5.301 8.29 4.26"
 					variants={pathVariants}
-					animate={controls}
 					initial="normal"
+					animate={controls}
 				/>
 				<motion.path
-					d="M14.195 5.353l.348-1.97"
+					d="M14.198 5.302l.348-1.97"
 					variants={pathVariants}
-					animate={controls}
 					initial="normal"
+					animate={controls}
 				/>
 				<motion.path
 					d="M7.48 20.364l3.126-17.727"
 					variants={pathVariants}
-					animate={controls}
 					initial="normal"
+					animate={controls}
 				/>
 			</svg>
 		</div>

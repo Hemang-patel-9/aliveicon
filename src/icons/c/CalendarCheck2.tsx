@@ -40,17 +40,43 @@ export const CalendarCheck2 = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 				width="100%"
 				height="100%"
 			>
-				<motion.path d="M8 2v4" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M16 2v4" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M8 2v3" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M16 2v3" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M 19 3 L 5 3" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.path
-					d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"
+					d="M 5 3 A2 2 0 0 0 3 5"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M3 10h18" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M 3 5 L 3 19" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.path
-					d="m16 20 2 2 4-4"
+					d="M 3 19 A2 2 0 0 0 5 21"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M5 21 L12.5 21"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M 21 13 L 21 5"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M 21 5 A2 2 0 0 0 19 3"
+					variants={pathVariants}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path d="M3 9h18" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path
+					d="m16 19 2 2 4-4"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}

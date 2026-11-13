@@ -54,7 +54,7 @@ export const BetweenVerticalStart = forwardRef<AnimatedIconHandle, AnimatedIconP
 					height="100%"
 				>
 					<motion.path
-						d={rectPath(3, 3, 7, 13, 1)}
+						d={rectPath(3, 8, 7, 13, 1)}
 						variants={pathVariants}
 						initial="normal"
 						animate={controls}
@@ -66,7 +66,7 @@ export const BetweenVerticalStart = forwardRef<AnimatedIconHandle, AnimatedIconP
 						animate={controls}
 					/>
 					<motion.path
-						d={rectPath(14, 3, 7, 13, 1)}
+						d={rectPath(14, 8, 7, 13, 1)}
 						variants={pathVariants}
 						initial="normal"
 						animate={controls}

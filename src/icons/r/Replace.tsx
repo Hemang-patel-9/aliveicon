@@ -34,28 +34,28 @@ const Replace = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) =
 				height="100%"
 			>
 				<motion.path
-					d="M14 4a2 2 0 0 1 2-2"
+					d="M14 4a1 1 0 0 1 1-1"
 					custom={0}
 					variants={partVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M16 10a2 2 0 0 1-2-2"
+					d="M15 10a1 1 0 0 1-1-1"
 					custom={1}
 					variants={partVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M20 2a2 2 0 0 1 2 2"
+					d="M21 4a1 1 0 0 0-1-1"
 					custom={2}
 					variants={partVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M22 8a2 2 0 0 1-2 2"
+					d="M21 9a1 1 0 0 1-1 1"
 					custom={3}
 					variants={partVariants}
 					initial="normal"
@@ -69,18 +69,18 @@ const Replace = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) =
 					animate={controls}
 				/>
 				<motion.path
-					d="M6 10V5a3 3 0 0 1 3-3h1"
+					d="M6 10V5a2 2 0 0 1 2-2h2"
 					custom={5}
 					variants={partVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.rect
-					x="2"
+					x="3"
 					y="14"
-					width="8"
-					height="8"
-					rx="2"
+					width="7"
+					height="7"
+					rx="1"
 					custom={6}
 					variants={partVariants}
 					initial="normal"

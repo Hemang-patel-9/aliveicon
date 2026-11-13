@@ -52,28 +52,28 @@ const RefreshCcwDot = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, 
 				animate={controls}
 			>
 				<motion.path
-					d="M3 2v6h6"
+					d="M3 3v5h5"
 					custom={0}
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M21 12A9 9 0 0 0 6 5.3L3 8"
+					d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
 					custom={1}
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M21 22v-6h-6"
+					d="M16 16h5v5"
 					custom={2}
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M3 12a9 9 0 0 0 15 6.7l3-2.7"
+					d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"
 					custom={3}
 					variants={pathVariants}
 					initial="normal"

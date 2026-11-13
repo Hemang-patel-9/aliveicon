@@ -40,21 +40,21 @@ export const CalendarCheck = forwardRef<AnimatedIconHandle, AnimatedIconProps>((
 				width="100%"
 				height="100%"
 			>
-				<motion.path d="M8 2v4" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M16 2v4" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M8 2v3" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M16 2v3" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.rect
 					width="18"
 					height="18"
 					x="3"
-					y="4"
+					y="3"
 					rx="2"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M3 10h18" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M3 9h18" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.path
-					d="m9 16 2 2 4-4"
+					d="m9 15 2 2 4-4"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}

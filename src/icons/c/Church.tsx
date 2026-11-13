@@ -42,19 +42,19 @@ export const Church = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, 
 				<motion.path d="M10 9h4" variants={pathVariants} animate={controls} initial="normal" />
 				<motion.path d="M12 7v5" variants={pathVariants} animate={controls} initial="normal" />
 				<motion.path
-					d="M14 22v-4a2 2 0 0 0-4 0v4"
+					d="M14 21v-3a2 2 0 0 0-4 0v3"
 					variants={pathVariants}
 					animate={controls}
 					initial="normal"
 				/>
 				<motion.path
-					d="M18 22V5.618a1 1 0 0 0-.553-.894l-4.553-2.277a2 2 0 0 0-1.788 0L6.553 4.724A1 1 0 0 0 6 5.618V22"
+					d="M6 21V7a1 1 0 0 1 .376-.782l5-3.999a1 1 0 0 1 1.249.001l5 4A1 1 0 0 1 18 7v14"
 					variants={pathVariants}
 					animate={controls}
 					initial="normal"
 				/>
 				<motion.path
-					d="m18 7 3.447 1.724a1 1 0 0 1 .553.894V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.618a1 1 0 0 1 .553-.894L6 7"
+					d="m18 9 3.52 2.147a1 1 0 0 1 .48.854V19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6.999a1 1 0 0 1 .48-.854L6 9"
 					variants={pathVariants}
 					animate={controls}
 					initial="normal"

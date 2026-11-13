@@ -34,7 +34,7 @@ export const WashingMachine = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 				{[
 					'M3 6h3',
 					'M17 6h.01',
-					'M3 2h18a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z',
+					'M5 2h14a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z',
 				].map((d, i) => (
 					<motion.path key={i} d={d} variants={pathVariants} initial="normal" animate={controls} />
 				))}

@@ -41,12 +41,12 @@ const BatteryExclamationPoint = forwardRef<AnimatedIconHandle, AnimatedIconProps
 				height="100%"
 			>
 				<motion.path
-					d="M10 17h.01"
+					d="M10 16h.01"
 					variants={warningVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M10 7v6" variants={warningVariants} initial="normal" animate={controls} />
+				<motion.path d="M10 8v4" variants={warningVariants} initial="normal" animate={controls} />
 				<motion.path
 					d="M14 6h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"
 					variants={outlineVariants}

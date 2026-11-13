@@ -32,7 +32,7 @@ const CircleLetterJ = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, 
 				height="100%"
 			>
 				<motion.path
-					d="M15 8v5a3 3 0 1 1-6 0"
+					d="M14 8v5.5a1 1 0 01-5 0V13"
 					variants={glyphVariants}
 					initial="normal"
 					animate={controls}

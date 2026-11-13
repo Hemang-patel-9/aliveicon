@@ -41,21 +41,21 @@ export const CalendarArrowDown = forwardRef<AnimatedIconHandle, AnimatedIconProp
 				height="100%"
 			>
 				<motion.path
-					d="M14 18l4 4 4-4"
+					d="m14 17 4 4 4-4"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M16 2v4" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M18 14v8" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M16 2v3" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M18 13v8" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.path
-					d="M21 11.354V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7.343"
+					d="M21 10.354V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h7.343"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M3 10h18" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M8 2v4" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M3 9h18" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M8 2v3" variants={pathVariants} initial="normal" animate={controls} />
 			</svg>
 		</div>
 	);

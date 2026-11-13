@@ -36,8 +36,8 @@ export const AlignCenter = forwardRef<AnimatedIconHandle, AnimatedIconProps>((pr
 				height="100%"
 			>
 				<motion.path d="M17 12H7" variants={pathMotion} initial="normal" animate={controls} />
-				<path d="M19 18H5" />
-				<path d="M21 6H3" />
+				<path d="M19 19H5" />
+				<path d="M21 5H3" />
 			</svg>
 		</div>
 	);

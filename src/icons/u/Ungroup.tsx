@@ -33,11 +33,11 @@ const Ungroup = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) =
 				height="100%"
 			>
 				<motion.rect
-					x="5"
-					y="4"
-					width="8"
-					height="6"
-					rx="1"
+					x="3"
+					y="3"
+					width="10"
+					height="7"
+					rx="2"
 					custom={-3}
 					variants={boxVariants}
 					initial="normal"
@@ -46,9 +46,9 @@ const Ungroup = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) =
 				<motion.rect
 					x="11"
 					y="14"
-					width="8"
-					height="6"
-					rx="1"
+					width="10"
+					height="7"
+					rx="2"
 					custom={3}
 					variants={boxVariants}
 					initial="normal"

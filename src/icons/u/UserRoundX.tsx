@@ -23,7 +23,7 @@ const UserRoundX = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref
 		animate: animateTarget,
 	});
 
-	const paths = ['M2 21a8 8 0 0 1 11.873-7', 'm17 17 5 5', 'm22 17-5 5'];
+	const paths = ['M2 21a8 8 0 0 1 11.531-7.18', 'm16.5 16.5 5 5', 'm21.5 16.5-5 5'];
 
 	const circles = [{ cx: 10, cy: 8, r: 5 }];
 

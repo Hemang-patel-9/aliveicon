@@ -32,23 +32,23 @@ export const CaseLower = forwardRef<AnimatedIconHandle, AnimatedIconProps>((prop
 				height="100%"
 			>
 				<motion.circle
-					cx="7"
-					cy="12"
-					r="3"
+					cx="6.5"
+					cy="12.5"
+					r="3.5"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M10 9v6" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M10 9v7" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.circle
-					cx="17"
-					cy="12"
-					r="3"
+					cx="17.5"
+					cy="12.5"
+					r="3.5"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M14 7v8" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M14 6v10" variants={pathVariants} initial="normal" animate={controls} />
 			</svg>
 		</div>
 	);

@@ -58,21 +58,20 @@ const Album = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => 
 				height="100%"
 			>
 				<motion.rect
-					width="18"
-					height="18"
 					x="3"
 					y="3"
+					width="18"
+					height="18"
 					rx="2"
-					ry="2"
 					variants={squareVariants}
-					animate={controls}
 					initial="normal"
+					animate={controls}
 				/>
-				<motion.polyline
-					points="11 3 11 11 14 8 17 11 17 3"
+				<motion.path
+					d="M11 3v7.751a.25.25 0 00.407.195l2.28-1.834a.5.5 0 01.627 0l2.28 1.834a.25.25 0 00.406-.195V3"
 					variants={pathVariants}
-					animate={controls}
 					initial="normal"
+					animate={controls}
 				/>
 			</svg>
 		</div>

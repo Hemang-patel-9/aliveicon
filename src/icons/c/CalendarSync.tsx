@@ -45,25 +45,25 @@ const CalendarSync = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, r
 				width="100%"
 				height="100%"
 			>
-				<motion.path d="M16 2v4" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M16 2v3" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.path
-					d="M21 8.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4.3"
+					d="M21 8.517V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h3.517"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
-				<motion.path d="M3 10h4" variants={pathVariants} initial="normal" animate={controls} />
-				<motion.path d="M8 2v4" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M3 9h4" variants={pathVariants} initial="normal" animate={controls} />
+				<motion.path d="M8 2v3" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.g variants={rotateVariants} initial="normal" animate={controls}>
 					<motion.path d="M11 10v4h4" variants={pathVariants} initial="normal" animate={controls} />
 					<motion.path
-						d="m11 14 1.535-1.605a5 5 0 0 1 8 1.5"
+						d="m11 14 1.535-1.605a5 5 0 018 1.5"
 						variants={pathVariants}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="m21 18-1.535 1.605a5 5 0 0 1-8-1.5"
+						d="m21 18-1.535 1.605a5 5 0 01-8-1.5"
 						variants={pathVariants}
 						initial="normal"
 						animate={controls}

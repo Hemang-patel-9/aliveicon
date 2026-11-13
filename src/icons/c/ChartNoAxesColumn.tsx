@@ -8,12 +8,12 @@ import { useAnimatedIcon } from '../../lib/use-animated-icon';
 const barVariants: Variants = {
 	normal: (custom: number) => ({
 		y1: custom,
-		y2: 20,
+		y2: 21,
 		transition: { duration: 0.3 },
 	}),
 	animate: (custom: number) => ({
-		y1: [20, custom],
-		y2: 20,
+		y1: [21, custom],
+		y2: 21,
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	}),
 };
@@ -36,9 +36,11 @@ export const ChartNoAxesColumn = forwardRef<AnimatedIconHandle, AnimatedIconProp
 				height="100%"
 			>
 				<motion.line
-					x1="18"
-					x2="18"
-					custom={10}
+					x1="19"
+					x2="19"
+					y1="9"
+					y2="21"
+					custom={9}
 					variants={barVariants}
 					initial="normal"
 					animate={controls}
@@ -46,15 +48,19 @@ export const ChartNoAxesColumn = forwardRef<AnimatedIconHandle, AnimatedIconProp
 				<motion.line
 					x1="12"
 					x2="12"
-					custom={4}
+					y1="3"
+					y2="21"
+					custom={3}
 					variants={barVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.line
-					x1="6"
-					x2="6"
-					custom={14}
+					x1="5"
+					x2="5"
+					y1="15"
+					y2="21"
+					custom={15}
 					variants={barVariants}
 					initial="normal"
 					animate={controls}

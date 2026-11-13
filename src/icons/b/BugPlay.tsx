@@ -36,7 +36,7 @@ const BugPlay = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) =
 				height="100%"
 			>
 				<motion.path
-					d="M12.765 21.522a.5.5 0 0 1-.765-.424v-8.196a.5.5 0 0 1 .765-.424l5.878 3.674a1 1 0 0 1 0 1.696z"
+					d="M10 19.655A6 6 0 0 1 6 14v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 3.97"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
@@ -48,26 +48,26 @@ const BugPlay = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) =
 					animate={controls}
 				/>
 				<motion.path
-					d="M18 11a4 4 0 0 0-4-4h-4a4 4 0 0 0-4 4v3a6.1 6.1 0 0 0 2 4.5"
+					d="M14 15.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997a1 1 0 0 1-1.517-.86z"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M20.97 5c0 2.1-1.6 3.8-3.5 4"
+					d="M21 5a4 4 0 0 1-3.55 3.97"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M3 21c0-2.1 1.7-3.9 3.8-4"
+					d="M3 21a4 4 0 0 1 3.81-4"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path d="M6 13H2" variants={pathVariants} initial="normal" animate={controls} />
 				<motion.path
-					d="M6.53 9C4.6 8.8 3 7.1 3 5"
+					d="M3 5a4 4 0 0 0 3.55 3.97"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
@@ -79,7 +79,7 @@ const BugPlay = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) =
 					animate={controls}
 				/>
 				<motion.path
-					d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"
+					d="M9 7.13V6a3 3 0 1 1 6 0v1.13"
 					variants={pathVariants}
 					initial="normal"
 					animate={controls}
