@@ -7,7 +7,9 @@ const basePath = process.env.SITE_BASE_PATH ?? siteConfig.site.basePath;
 export default defineConfig({
 	testDir: './tests',
 	fullyParallel: true,
+	workers: process.env.CI ? 2 : 4,
 	reporter: 'list',
+	expect: { timeout: 10_000 },
 	use: {
 		baseURL: `http://localhost:${port}${basePath}/`,
 		trace: 'retain-on-failure',

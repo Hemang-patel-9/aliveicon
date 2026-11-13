@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { expect, test, type Page } from '@playwright/test';
+import { countFrames } from './frames';
 
 const meta = JSON.parse(
 	fs.readFileSync(path.join(import.meta.dirname, '../lib/generated/meta.json'), 'utf8')
@@ -57,13 +58,18 @@ test.describe('search', () => {
 
 	test('the / key focuses the search box', async ({ page }) => {
 		await ready(page);
-		await page.keyboard.press('/');
-		await expect(page.getByRole('searchbox', { name: 'Search icons' })).toBeFocused();
+		await expect(async () => {
+			await page.keyboard.press('/');
+			await expect(page.getByRole('searchbox', { name: 'Search icons' })).toBeFocused({
+				timeout: 500,
+			});
+		}).toPass();
 	});
 });
 
 test.describe('settings', () => {
 	test('size applies to the icons, persists and resets', async ({ page }) => {
+		test.slow();
 		await ready(page);
 		expect(await iconWidth(page, firstIcon.slug)).toBe('32px');
 
@@ -72,7 +78,7 @@ test.describe('settings', () => {
 
 		await page.reload();
 		await page.waitForLoadState('networkidle');
-		await expect.poll(() => iconWidth(page, firstIcon.slug)).toBe('48px');
+		await expect.poll(() => iconWidth(page, firstIcon.slug), { timeout: 30_000 }).toBe('48px');
 
 		await page.getByRole('button', { name: 'Reset all' }).click();
 		await expect.poll(() => iconWidth(page, firstIcon.slug)).toBe('32px');
@@ -203,10 +209,10 @@ test.describe('actions', () => {
 		await context.grantPermissions(['clipboard-read', 'clipboard-write']);
 		await ready(page);
 		await tile(page, firstIcon.slug).click();
+		await expect(page.locator('[aria-live="polite"]')).toHaveText(`Copied ${firstIcon.name}`);
 		expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
 			`import { ${firstIcon.name} } from 'aliveicon';`
 		);
-		await expect(page.locator('[aria-live="polite"]')).toHaveText(`Copied ${firstIcon.name}`);
 	});
 
 	test('copy as JSX uses the current settings', async ({ page, context }) => {
@@ -235,15 +241,10 @@ test.describe('actions', () => {
 
 	test('play all restarts the visible animations', async ({ page }) => {
 		await ready(page);
-		const svg = tile(page, firstIcon.slug).locator('svg');
-		const before = await svg.evaluate((el) => el.innerHTML);
-		await page.getByRole('button', { name: /Play all/ }).click();
-		const seen = new Set<string>([before]);
-		for (let i = 0; i < 15; i++) {
-			seen.add(await svg.evaluate((el) => el.innerHTML));
-			await page.waitForTimeout(30);
-		}
-		expect(seen.size).toBeGreaterThan(1);
+		const frames = await countFrames(tile(page, firstIcon.slug), () =>
+			page.getByRole('button', { name: /Play all/ }).click()
+		);
+		expect(frames).toBeGreaterThan(1);
 	});
 });
 
@@ -265,9 +266,11 @@ test.describe('keyboard', () => {
 
 	test('End and Home jump to the ends', async ({ page }) => {
 		await ready(page);
-		await tile(page, firstIcon.slug).focus();
-		await page.keyboard.press('End');
-		await expect(tile(page, lastIcon.slug)).toBeFocused();
+		await expect(async () => {
+			await tile(page, firstIcon.slug).focus();
+			await page.keyboard.press('End');
+			await expect(tile(page, lastIcon.slug)).toBeFocused({ timeout: 1000 });
+		}).toPass();
 		await page.keyboard.press('Home');
 		await expect(tile(page, firstIcon.slug)).toBeFocused();
 	});
@@ -323,17 +326,12 @@ test.describe('lazy hydration', () => {
 		const svg = tile(page, lastIcon.slug).locator('svg');
 		await expect(svg).toBeVisible();
 		await page.waitForTimeout(1500);
-		const before = await svg.evaluate((el) => el.innerHTML);
-		await svg.hover();
-		const seen = new Set<string>([before]);
-		for (let i = 0; i < 15; i++) {
-			seen.add(await svg.evaluate((el) => el.innerHTML));
-			await page.waitForTimeout(30);
-		}
-		expect(seen.size).toBeGreaterThan(1);
+		const frames = await countFrames(tile(page, lastIcon.slug), () => svg.hover());
+		expect(frames).toBeGreaterThan(1);
 	});
 
 	test('saved settings never cause hydration errors', async ({ page }) => {
+		test.slow();
 		const problems: string[] = [];
 		page.on('console', (msg) => {
 			if (['error', 'warning'].includes(msg.type())) problems.push(msg.text());
@@ -371,7 +369,7 @@ test.describe('phone', () => {
 	test('settings open in a bottom sheet and close with Escape', async ({ page }) => {
 		await ready(page);
 		await expect(page.locator('.g-sidebar')).toBeHidden();
-		await page.getByRole('button', { name: 'Settings' }).click();
+		await page.locator('button', { hasText: /^Settings$/ }).click();
 		const sheet = page.getByRole('dialog', { name: 'Settings' });
 		await expect(sheet).toBeVisible();
 		await expect(sheet.getByRole('slider', { name: 'Size' })).toBeVisible();

@@ -82,3 +82,5 @@ jobs:
       - run: node scripts/use-dist.mjs --skip-build
       - run: npm run check
       - run: node scripts/run.mjs package next build
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
