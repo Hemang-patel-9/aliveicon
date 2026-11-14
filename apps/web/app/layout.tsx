@@ -2,30 +2,41 @@ import type { Metadata, Viewport } from 'next';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { fontClassNames } from '@/lib/fonts';
+import { siteRoot } from '@/lib/site-url';
 import { buildThemeCss, buildThemeScript } from '@/lib/theme';
 import { siteConfig } from '@/site.config';
 import './globals.css';
 
 const { site, theme } = siteConfig;
-const siteUrl = process.env.SITE_URL ?? site.url;
-const basePath = process.env.SITE_BASE_PATH ?? site.basePath;
 
 export const metadata: Metadata = {
-	metadataBase: new URL(`${siteUrl}${basePath}/`),
+	metadataBase: new URL(siteRoot),
 	title: { default: `${site.name}: animated icons for React`, template: `%s | ${site.name}` },
 	description: site.description,
 	applicationName: site.name,
+	alternates: { canonical: './' },
 	openGraph: {
 		title: site.name,
 		description: site.tagline,
 		siteName: site.name,
+		url: './',
 		type: 'website',
+		locale: 'en_US',
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: site.name,
+		description: site.tagline,
 	},
 };
 
 export const viewport: Viewport = {
 	width: 'device-width',
 	initialScale: 1,
+	themeColor: [
+		{ media: '(prefers-color-scheme: light)', color: theme.colors.light.canvas },
+		{ media: '(prefers-color-scheme: dark)', color: theme.colors.dark.canvas },
+	],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

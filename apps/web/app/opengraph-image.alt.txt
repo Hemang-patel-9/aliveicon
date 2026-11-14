@@ -1,0 +1,1 @@
+aliveicon: animated SVG icons for React, shown as a grid of twelve icons next to the package name
