@@ -1,6 +1,6 @@
 import { chromium } from '@playwright/test';
 
-const url = process.argv[2] ?? 'http://localhost:3000/aliveicon/';
+const url = process.argv[2] ?? 'http://localhost:3000/';
 const runs = Number(process.argv[3] ?? 3);
 
 const browser = await chromium.launch();

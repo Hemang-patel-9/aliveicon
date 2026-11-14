@@ -8,8 +8,8 @@ export const siteConfig = {
 		tagline: 'Animated SVG icons for React that draw themselves on hover, click, or load.',
 		description:
 			'Animated SVG icons for React. Every icon animates on hover, click, mount, loop, or through a ref.',
-		url: 'https://hemang-patel-9.github.io',
-		basePath: '/aliveicon',
+		url: 'https://aliveicon.dev',
+		basePath: '',
 		repoUrl,
 		npmUrl: 'https://www.npmjs.com/package/aliveicon',
 		lucideUrl: 'https://lucide.dev',

@@ -66,7 +66,7 @@
   "bugs": {
     "url": "https://github.com/Hemang-patel-9/aliveicon/issues"
   },
-  "homepage": "https://github.com/Hemang-patel-9/aliveicon#readme",
+  "homepage": "https://aliveicon.dev",
   "dependencies": {
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.3.0"

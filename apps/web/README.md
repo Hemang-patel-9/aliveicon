@@ -43,8 +43,8 @@ the local tarball until you run `npm ci` again.
 ```bash
 npm run check      # config, types, lint and formatting
 npm test           # Playwright tests, run after a build
-npm start          # serve the built site from out/ at http://localhost:3000/aliveicon/
-node scripts/lighthouse.mjs http://localhost:3000/aliveicon/ mobile   # needs npm start
+npm start          # serve the built site from out/ at http://localhost:3000/
+node scripts/lighthouse.mjs http://localhost:3000/ mobile   # needs npm start
 ```
 
 Before the first `npm test`, install the test browser once with `npx playwright install chromium`.
@@ -83,13 +83,14 @@ adds the security and cache headers.
 [.github/workflows/deploy-site.yml](../../.github/workflows/deploy-site.yml) runs on `v*` tags and
 does nothing until these are set in the repository settings:
 
-| Where                        | Name                    | Value                                                                  |
-| ---------------------------- | ----------------------- | ---------------------------------------------------------------------- |
-| Actions variables            | `SITE_URL`              | The site's origin without a trailing slash, e.g. `https://example.com` |
-| Environment `site` → secrets | `CLOUDFLARE_API_TOKEN`  | An account API token from the "Edit Cloudflare Workers" template       |
-| Environment `site` → secrets | `CLOUDFLARE_ACCOUNT_ID` | The Cloudflare account ID                                              |
+| Where                        | Name                    | Value                                                            |
+| ---------------------------- | ----------------------- | ---------------------------------------------------------------- |
+| Actions variables            | `SITE_URL`              | `https://aliveicon.dev` (no trailing slash)                      |
+| Environment `site` → secrets | `CLOUDFLARE_API_TOKEN`  | An account API token from the "Edit Cloudflare Workers" template |
+| Environment `site` → secrets | `CLOUDFLARE_ACCOUNT_ID` | The Cloudflare account ID                                        |
 
-The deploy builds with `SITE_BASE_PATH=''`, so the site is served from the root of the domain.
-After the first deploy, attach the domain to the `aliveicon` Worker under **Settings → Domains &
-Routes** in the Cloudflare dashboard. Locally, `SITE_URL` and `SITE_BASE_PATH` work the same way for
-`npm run build` and `npm start`.
+The site lives at [aliveicon.dev](https://aliveicon.dev), served from the root of the domain.
+`aliveicon.dev` has to be a zone in the same Cloudflare account, and the API token's zone
+resources must include it. `routes` in [wrangler.jsonc](wrangler.jsonc) then attaches the domain to
+the `aliveicon` Worker on every deploy and creates its DNS record. Locally, `SITE_URL` and
+`SITE_BASE_PATH` override [site.config.ts](site.config.ts) for `npm run build` and `npm start`.

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { chromium } from '@playwright/test';
 
-const url = process.argv[2] ?? 'http://localhost:3000/aliveicon/';
+const url = process.argv[2] ?? 'http://localhost:3000/';
 const rate = Number(process.argv[3] ?? 4);
 const out = process.argv[4] ?? 'trace.json';
 

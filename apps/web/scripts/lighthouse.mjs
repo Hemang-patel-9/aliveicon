@@ -3,7 +3,7 @@ import { launch } from 'chrome-launcher';
 import lighthouse from 'lighthouse';
 import desktopConfig from 'lighthouse/core/config/desktop-config.js';
 
-const url = process.argv[2] ?? 'http://localhost:3000/aliveicon/';
+const url = process.argv[2] ?? 'http://localhost:3000/';
 const preset = process.argv[3] === 'desktop' ? 'desktop' : 'mobile';
 
 const chrome = await launch({

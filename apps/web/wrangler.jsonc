@@ -1,6 +1,7 @@
 {
 	"name": "aliveicon",
 	"compatibility_date": "2026-11-13",
+	"routes": [{ "pattern": "aliveicon.dev", "custom_domain": true }],
 	"assets": {
 		"directory": "./out",
 		"not_found_handling": "404-page",

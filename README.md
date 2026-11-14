@@ -12,6 +12,8 @@
 
 `aliveicon` is a set of **2112 animated SVG icons** for React. Each icon is a component that animates its strokes with [Framer Motion](https://motion.dev). Drop one in and it comes alive on hover, on click, or as soon as it mounts.
 
+Browse and try every icon at **[aliveicon.dev](https://aliveicon.dev)**.
+
 ---
 
 ## ✨ Features
