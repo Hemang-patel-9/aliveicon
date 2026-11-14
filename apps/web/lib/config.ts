@@ -152,9 +152,13 @@ export interface FeaturesConfig {
 export interface PerformanceConfig {
 	hydrateChunkSize: number;
 	eagerChunks: number;
+	inlineChunks: number;
 	hydrateMargin: number;
 	hydrateGapMs: number;
 	preloadDelayMs: number;
+	initialTiles: number;
+	revealChunks: number;
+	revealMargin: number;
 }
 
 export interface SiteConfig {
@@ -334,10 +338,24 @@ export function validateConfig(config: SiteConfig): string[] {
 	if (!Number.isInteger(performance.eagerChunks) || performance.eagerChunks < 0) {
 		errors.push('performance.eagerChunks must be a non-negative integer');
 	}
+	if (
+		!Number.isInteger(performance.inlineChunks) ||
+		performance.inlineChunks < 0 ||
+		performance.inlineChunks > performance.eagerChunks
+	) {
+		errors.push('performance.inlineChunks must be an integer from 0 to eagerChunks');
+	}
 	if (performance.hydrateMargin < 0) errors.push('performance.hydrateMargin must not be negative');
 	if (performance.preloadDelayMs < 0)
 		errors.push('performance.preloadDelayMs must not be negative');
 	if (performance.hydrateGapMs < 0) errors.push('performance.hydrateGapMs must not be negative');
+	if (!Number.isInteger(performance.initialTiles) || performance.initialTiles < 1) {
+		errors.push('performance.initialTiles must be a positive integer');
+	}
+	if (!Number.isInteger(performance.revealChunks) || performance.revealChunks < 1) {
+		errors.push('performance.revealChunks must be a positive integer');
+	}
+	if (performance.revealMargin < 0) errors.push('performance.revealMargin must not be negative');
 
 	if (drawer.previewSizes.length === 0) errors.push('drawer.previewSizes is empty');
 	if (drawer.previewSizes.some((s) => s <= 0)) errors.push('drawer.previewSizes must be positive');

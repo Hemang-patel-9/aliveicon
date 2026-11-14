@@ -9,6 +9,7 @@ const meta = JSON.parse(
 ) as { count: number };
 
 test('renders every icon with no console errors', async ({ page }) => {
+	test.slow();
 	const errors: string[] = [];
 	page.on('console', (msg) => {
 		if (msg.type() === 'error' || msg.type() === 'warning') errors.push(msg.text());
@@ -17,9 +18,29 @@ test('renders every icon with no console errors', async ({ page }) => {
 
 	await page.goto('./');
 	await expect(page.getByText(`${meta.count} icons`)).toBeVisible();
-	await expect(page.locator('main li')).toHaveCount(meta.count);
 	await page.waitForLoadState('networkidle');
+	expect(await page.locator('main li').count()).toBeLessThan(meta.count);
+
+	const atBottom = () =>
+		page.evaluate(() => innerHeight + scrollY >= document.body.scrollHeight - 2);
+	for (let step = 0; step < 400 && !(await atBottom()); step++) {
+		await page.mouse.wheel(0, 1200);
+		await page.waitForTimeout(30);
+	}
+	expect(await atBottom()).toBe(true);
+	await expect(page.locator('main li')).toHaveCount(meta.count, { timeout: 20_000 });
 	expect(errors).toEqual([]);
+});
+
+test('jumping past unrendered sections fills them and keeps the layout', async ({ page }) => {
+	await page.goto('./');
+	await page.waitForLoadState('networkidle');
+	const last = page.locator('main section[data-section]').last();
+	const before = await last.evaluate((el) => el.getBoundingClientRect().top + scrollY);
+	await last.scrollIntoViewIfNeeded();
+	await expect(last.locator('[data-tile]').first()).toBeVisible();
+	const after = await last.evaluate((el) => el.getBoundingClientRect().top + scrollY);
+	expect(Math.abs(after - before)).toBeLessThan(4);
 });
 
 test('an icon animates on hover after hydration', async ({ page }) => {

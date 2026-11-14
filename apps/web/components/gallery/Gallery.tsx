@@ -1,7 +1,6 @@
 'use client';
 
 import {
-	Suspense,
 	useCallback,
 	useDeferredValue,
 	useEffect,
@@ -13,6 +12,7 @@ import {
 import { SettingsPanel } from '@/components/settings/SettingsPanel';
 import { SettingsSheet } from '@/components/settings/SettingsSheet';
 import { copyText, useCopyMessage } from '@/lib/copy-store';
+import { setGridMetrics } from '@/lib/grid-metrics';
 import { CLIENT_PREFIX, SERVER_PREFIX } from '@/lib/hydration-gate';
 import { icons, iconsWithAliases, type Icon } from '@/lib/icons';
 import { playSlugs } from '@/lib/play-store';
@@ -31,7 +31,7 @@ import { useLazyHydration } from './useLazyHydration';
 
 const { layout } = siteConfig.theme;
 const { features, site } = siteConfig;
-const { hydrateChunkSize } = siteConfig.performance;
+const { hydrateChunkSize, initialTiles } = siteConfig.performance;
 
 const COPY_LABELS = { import: 'import line', jsx: 'JSX', name: 'name' } as const;
 
@@ -39,6 +39,8 @@ interface Group {
 	letter: string | null;
 	items: Icon[];
 }
+
+const groupKey = (group: Group) => group.letter ?? 'all';
 
 function groupByLetter(items: Icon[]): Group[] {
 	const groups: Group[] = [];
@@ -76,7 +78,7 @@ export function Gallery() {
 		slugsRef.current = results.map((icon) => icon.slug);
 		let start = 0;
 		navGroupsRef.current = groups.map((group) => {
-			const entry = { start, length: group.items.length };
+			const entry = { key: groupKey(group), start, length: group.items.length };
 			start += group.items.length;
 			return entry;
 		});
@@ -92,6 +94,40 @@ export function Gallery() {
 			offsets.push(before);
 		}
 		return offsets;
+	}, [groups]);
+
+	const initialFlags = useMemo(() => {
+		const flags: boolean[] = [];
+		let start = 0;
+		for (const group of groups) {
+			flags.push(start < initialTiles);
+			start += group.items.length;
+		}
+		return flags;
+	}, [groups]);
+
+	const sectionsRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const root = sectionsRef.current;
+		if (!root) return;
+		const measure = () => {
+			const item = root.querySelector<HTMLElement>('.g-grid > .g-item');
+			const list = item?.parentElement;
+			if (!item || !list) return;
+			const style = getComputedStyle(list);
+			setGridMetrics({
+				cols: Math.max(1, style.gridTemplateColumns.split(' ').length),
+				rowHeight: item.getBoundingClientRect().height,
+				gap: parseFloat(style.rowGap) || 0,
+			});
+		};
+		measure();
+		const observer = new ResizeObserver(measure);
+		observer.observe(root);
+		const item = root.querySelector('.g-grid > .g-item');
+		if (item) observer.observe(item);
+		return () => observer.disconnect();
 	}, [groups]);
 
 	const onKeyDown = useGridNav({ slugs: slugsRef, groups: navGroupsRef });
@@ -231,24 +267,25 @@ export function Gallery() {
 								</div>
 							</div>
 						) : (
-							<div className="flex flex-col gap-10">
+							<div ref={sectionsRef} className="flex flex-col gap-10">
 								{groups.map((group, index) => (
-									<Suspense key={group.letter ?? 'all'} fallback={null}>
-										<LetterSection
-											letter={group.letter}
-											items={group.items}
-											prefix={prefix}
-											chunkOffset={chunkOffsets[index]}
-											grid={grid}
-											kebab={settings.nameFormat === 'kebab'}
-											copyLabel={COPY_LABELS[settings.copyFormat]}
-											iconProps={deferredIconProps}
-											fallbackSlug={fallbackSlug}
-											showNew={features.newBadge}
-											onActivate={activate}
-											onCopy={copyIcon}
-										/>
-									</Suspense>
+									<LetterSection
+										key={groupKey(group)}
+										letter={group.letter}
+										sectionKey={groupKey(group)}
+										initial={initialFlags[index]}
+										items={group.items}
+										prefix={prefix}
+										chunkOffset={chunkOffsets[index]}
+										grid={grid}
+										kebab={settings.nameFormat === 'kebab'}
+										copyLabel={COPY_LABELS[settings.copyFormat]}
+										iconProps={deferredIconProps}
+										fallbackSlug={fallbackSlug}
+										showNew={features.newBadge}
+										onActivate={activate}
+										onCopy={copyIcon}
+									/>
 								))}
 							</div>
 						)}

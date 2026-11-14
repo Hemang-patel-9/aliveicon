@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { openGate } from '@/lib/hydration-gate';
-import { preloadAllLetters } from '@/lib/icon-registry';
+import { preloadAllBlocks } from '@/lib/icon-registry';
 import { siteConfig } from '@/site.config';
 
 const { hydrateMargin, hydrateGapMs, preloadDelayMs } = siteConfig.performance;
@@ -35,7 +35,7 @@ export function useLazyHydration(groups: unknown, prefix: string) {
 			timer = undefined;
 			const next = queue.shift();
 			if (!next) {
-				preloadTimer = setTimeout(() => preloadAllLetters(), preloadDelayMs);
+				preloadTimer = setTimeout(() => preloadAllBlocks(), preloadDelayMs);
 				return;
 			}
 			openGate(next.id);

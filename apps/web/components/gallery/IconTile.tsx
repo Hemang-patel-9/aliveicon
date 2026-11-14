@@ -71,7 +71,7 @@ function IconTileView({
 			>
 				<span className="g-icon">
 					{renderIcon(
-						icon.name,
+						icon.target ?? icon.name,
 						{
 							size: iconProps.size,
 							hoverable: iconProps.hoverable,

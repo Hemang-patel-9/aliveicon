@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { PlayGlyph, SearchGlyph, SlidersGlyph, XGlyph } from '@/components/ui/glyphs';
-import { preloadAllLetters } from '@/lib/icon-registry';
+import { preloadAllBlocks } from '@/lib/icon-registry';
 import { siteConfig } from '@/site.config';
 
 interface ToolbarProps {
@@ -43,7 +43,7 @@ export function Toolbar({ query, onQuery, onPlayAll, onOpenSettings }: ToolbarPr
 					autoComplete="off"
 					spellCheck={false}
 					value={query}
-					onFocus={() => preloadAllLetters()}
+					onFocus={() => preloadAllBlocks()}
 					onChange={(event) => onQuery(event.target.value)}
 					onKeyDown={(event) => {
 						if (event.key !== 'Escape') return;

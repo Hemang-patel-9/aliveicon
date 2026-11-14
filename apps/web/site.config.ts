@@ -185,10 +185,14 @@ export const siteConfig = {
 	},
 	performance: {
 		hydrateChunkSize: 6,
-		eagerChunks: 6,
+		eagerChunks: 4,
+		inlineChunks: 4,
 		hydrateMargin: 0.5,
 		hydrateGapMs: 80,
 		preloadDelayMs: 1500,
+		initialTiles: 96,
+		revealChunks: 4,
+		revealMargin: 1,
 	},
 	features: {
 		playAll: true,

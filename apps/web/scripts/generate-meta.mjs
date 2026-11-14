@@ -77,30 +77,42 @@ for (const icon of icons) {
 	slugs.set(icon.slug, icon.name);
 }
 
+const BLOCK_SIZE = 24;
+const blockOf = new Map();
+const perLetter = new Map();
+for (const icon of icons) {
+	const index = perLetter.get(icon.letter) ?? 0;
+	perLetter.set(icon.letter, index + 1);
+	icon.block = `${icon.letter}${Math.floor(index / BLOCK_SIZE)}`;
+	blockOf.set(icon.name, icon.block);
+}
+
 const meta = {
 	mode,
 	version,
 	count: icons.length,
 	icons,
-	aliases: aliases.map((a) => ({ ...a, slug: toSlug(a.name), targetSlug: toSlug(a.target) })),
+	aliases: aliases.map((a) => ({
+		...a,
+		slug: toSlug(a.name),
+		targetSlug: toSlug(a.target),
+		block: blockOf.get(a.target),
+	})),
 };
 
 const outDir = path.join(appDir, 'lib/generated');
 fs.mkdirSync(outDir, { recursive: true });
+fs.rmSync(path.join(outDir, 'letters'), { recursive: true, force: true });
+fs.rmSync(path.join(outDir, 'letter-loaders.ts'), { force: true });
 
-const lettersDir = path.join(outDir, 'letters');
-fs.rmSync(lettersDir, { recursive: true, force: true });
-fs.mkdirSync(lettersDir, { recursive: true });
-const byLetter = new Map();
-for (const name of [...icons.map((i) => i.name), ...aliases.map((a) => a.name)]) {
-	const letter = name[0].toLowerCase();
-	byLetter.set(letter, [...(byLetter.get(letter) ?? []), name]);
-}
-const letters = [...byLetter.keys()].sort();
-for (const letter of letters) {
-	const names = byLetter.get(letter).sort();
+const blocksDir = path.join(outDir, 'blocks');
+fs.rmSync(blocksDir, { recursive: true, force: true });
+fs.mkdirSync(blocksDir, { recursive: true });
+const byBlock = new Map();
+for (const icon of icons) byBlock.set(icon.block, [...(byBlock.get(icon.block) ?? []), icon.name]);
+for (const [block, names] of byBlock) {
 	fs.writeFileSync(
-		path.join(lettersDir, `${letter}.ts`),
+		path.join(blocksDir, `${block}.ts`),
 		`// @ts-nocheck
 import { ${names.join(', ')} } from 'aliveicon';
 
@@ -108,11 +120,11 @@ export const components: Record<string, unknown> = { ${names.join(', ')} };
 `
 	);
 }
-const loaderLines = letters
-	.map((letter) => `\t${letter}: () => import('./letters/${letter}'),`)
+const loaderLines = [...byBlock.keys()]
+	.map((block) => `\t${block}: () => import('./blocks/${block}'),`)
 	.join('\n');
 fs.writeFileSync(
-	path.join(outDir, 'letter-loaders.ts'),
+	path.join(outDir, 'block-loaders.ts'),
 	`export const loaders: Record<string, () => Promise<{ components: Record<string, unknown> }>> = {
 ${loaderLines}
 };

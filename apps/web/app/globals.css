@@ -171,6 +171,7 @@
 @layer components {
 	.g-grid {
 		display: grid;
+		align-content: start;
 		gap: var(--g-gap);
 		--g-tile-bg: transparent;
 		--g-tile-border: transparent;

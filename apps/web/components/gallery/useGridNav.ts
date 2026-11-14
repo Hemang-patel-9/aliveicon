@@ -1,6 +1,8 @@
 import { useCallback, type KeyboardEvent, type RefObject } from 'react';
+import { requestSection } from '@/lib/section-store';
 
 export interface NavGroup {
+	key: string;
 	start: number;
 	length: number;
 }
@@ -11,6 +13,23 @@ interface GridNavOptions {
 }
 
 const NAV_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End']);
+
+function focusTile(slug: string, sectionKey: string | undefined) {
+	const tile = document.getElementById(`tile-${slug}`);
+	if (tile) {
+		tile.focus();
+		return;
+	}
+	if (!sectionKey) return;
+	requestSection(sectionKey);
+	let frames = 0;
+	const retry = () => {
+		const el = document.getElementById(`tile-${slug}`);
+		if (el) el.focus();
+		else if (++frames < 120) requestAnimationFrame(retry);
+	};
+	requestAnimationFrame(retry);
+}
 
 function columnCount(tile: HTMLElement) {
 	const grid = tile.closest('.g-grid');
@@ -78,7 +97,10 @@ export function useGridNav({ slugs, groups }: GridNavOptions) {
 			}
 
 			event.preventDefault();
-			if (target !== index) document.getElementById(`tile-${list[target]}`)?.focus();
+			if (target !== index) {
+				const owner = sections.find((g) => target >= g.start && target < g.start + g.length);
+				focusTile(list[target], owner?.key);
+			}
 		},
 		[slugs, groups]
 	);

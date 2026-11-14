@@ -1,7 +1,7 @@
 import { createElement, type ReactElement } from 'react';
 import type { AnimatedIconProps } from 'aliveicon';
 import type { IconComponent } from './icons';
-import { loaders } from './generated/letter-loaders';
+import { loaders } from './generated/block-loaders';
 import { markFulfilled, type Tracked } from './settled';
 
 const components = new Map<string, IconComponent>();
@@ -9,32 +9,32 @@ const loaded = new Set<string>();
 const pending = new Map<string, Promise<void>>();
 const groups = new Map<string, Promise<void>>();
 
-export function isLetterLoaded(letter: string) {
-	return loaded.has(letter);
+export function isBlockLoaded(block: string) {
+	return loaded.has(block);
 }
 
-export function loadLetter(letter: string): Promise<void> {
-	const cached = pending.get(letter);
+export function loadBlock(block: string): Promise<void> {
+	const cached = pending.get(block);
 	if (cached) return cached;
 
-	const load = loaders[letter];
+	const load = loaders[block];
 	const promise = (load ? load() : Promise.resolve({ components: {} })).then((module) => {
 		for (const [name, component] of Object.entries(module.components)) {
 			components.set(name, component as IconComponent);
 		}
-		loaded.add(letter);
+		loaded.add(block);
 	});
-	pending.set(letter, promise);
+	pending.set(block, promise);
 	return promise;
 }
 
-export function loadLetters(letters: string[]): Promise<void> {
-	const key = letters.join('');
+export function loadBlocks(blocks: string[]): Promise<void> {
+	const key = blocks.join(' ');
 	const cached = groups.get(key);
 	if (cached) return cached;
 
-	const promise: Tracked = Promise.all(letters.map(loadLetter)).then(() => markFulfilled(promise));
-	if (letters.every(isLetterLoaded)) markFulfilled(promise);
+	const promise: Tracked = Promise.all(blocks.map(loadBlock)).then(() => markFulfilled(promise));
+	if (blocks.every(isBlockLoaded)) markFulfilled(promise);
 	groups.set(key, promise);
 	return promise;
 }
@@ -43,15 +43,15 @@ export function renderIcon(name: string, props: AnimatedIconProps, key: number):
 	return createElement(components.get(name) as IconComponent, { ...props, key });
 }
 
-export function preloadAllLetters(onIdle: () => void = () => {}) {
-	const queue = Object.keys(loaders).filter((letter) => !loaded.has(letter));
+export function preloadAllBlocks(onIdle: () => void = () => {}) {
+	const queue = Object.keys(loaders).filter((block) => !loaded.has(block));
 	const next = () => {
-		const letter = queue.shift();
-		if (!letter) {
+		const block = queue.shift();
+		if (!block) {
 			onIdle();
 			return;
 		}
-		loadLetter(letter).then(() => setTimeout(next, 120));
+		loadBlock(block).then(() => setTimeout(next, 120));
 	};
 	next();
 }

@@ -19,6 +19,7 @@ const build = (
 	slug: string,
 	letter: string,
 	isNew: boolean,
+	block: string,
 	target?: string,
 	deprecated?: boolean
 ): Icon => ({
@@ -26,6 +27,7 @@ const build = (
 	slug,
 	letter,
 	isNew,
+	block,
 	flat: name.toLowerCase(),
 	words: toWords(name),
 	target,
@@ -35,10 +37,12 @@ const build = (
 const byName = (a: Icon, b: Icon) =>
 	a.flat === b.flat ? (a.name < b.name ? -1 : 1) : a.flat < b.flat ? -1 : 1;
 
-export const icons: Icon[] = meta.icons.map((i) => build(i.name, i.slug, i.letter, i.isNew));
+export const icons: Icon[] = meta.icons.map((i) =>
+	build(i.name, i.slug, i.letter, i.isNew, i.block)
+);
 
 const aliasIcons: Icon[] = meta.aliases.map((a) =>
-	build(a.name, a.slug, a.name[0].toLowerCase(), false, a.target, a.deprecated)
+	build(a.name, a.slug, a.name[0].toLowerCase(), false, a.block, a.target, a.deprecated)
 );
 
 export const iconsWithAliases: Icon[] = [...icons, ...aliasIcons].sort(byName);

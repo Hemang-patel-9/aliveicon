@@ -5,6 +5,7 @@ export interface IconMeta {
 	slug: string;
 	letter: string;
 	isNew: boolean;
+	block: string;
 }
 
 export interface AliasMeta {
@@ -13,6 +14,7 @@ export interface AliasMeta {
 	deprecated: boolean;
 	slug: string;
 	targetSlug: string;
+	block: string;
 }
 
 export interface Meta {

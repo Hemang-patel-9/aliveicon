@@ -2,25 +2,26 @@
 
 import { use, useEffect, type ReactNode } from 'react';
 import { dropGate, gateFor, isServerRendered } from '@/lib/hydration-gate';
-import { loadLetters } from '@/lib/icon-registry';
+import { loadBlocks } from '@/lib/icon-registry';
 
 interface ChunkGateProps {
 	id: string;
-	letters: string[];
+	blocks: string[];
 	eager: boolean;
+	inline?: boolean;
 	children: ReactNode;
 }
 
-export function ChunkGate({ id, letters, eager, children }: ChunkGateProps) {
+export function ChunkGate({ id, blocks, eager, inline = false, children }: ChunkGateProps) {
 	useEffect(() => () => dropGate(id), [id]);
 
-	if (typeof window !== 'undefined') {
+	if (typeof window !== 'undefined' && !inline) {
 		const gate = gateFor(id);
 		if (!gate.open && eager && !isServerRendered(id)) gate.release();
 		use(gate.promise);
 	}
 
-	use(loadLetters(letters));
+	use(loadBlocks(blocks));
 
 	return <>{children}</>;
 }
