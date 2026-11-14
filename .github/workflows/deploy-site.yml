@@ -43,3 +43,8 @@ jobs:
           wranglerVersion: '4.156.0'
           workingDirectory: apps/web
           command: deploy
+      - name: Smoke test the live site
+        run: node scripts/smoke.mjs "$SITE_URL"
+        working-directory: apps/web
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}

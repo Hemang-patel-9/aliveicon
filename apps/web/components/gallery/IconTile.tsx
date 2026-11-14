@@ -1,7 +1,6 @@
 'use client';
 
 import { memo, type KeyboardEvent } from 'react';
-import { CheckGlyph, CopyGlyph } from '@/components/ui/glyphs';
 import { useIsCopied } from '@/lib/copy-store';
 import { renderIcon } from '@/lib/icon-registry';
 import type { Icon } from '@/lib/icons';
@@ -99,9 +98,7 @@ function IconTileView({
 				aria-label={`Copy ${copyLabel} for ${label}`}
 				tabIndex={-1}
 				onClick={() => onCopy(icon)}
-			>
-				{copied ? <CheckGlyph width={14} height={14} /> : <CopyGlyph width={14} height={14} />}
-			</button>
+			/>
 		</li>
 	);
 }

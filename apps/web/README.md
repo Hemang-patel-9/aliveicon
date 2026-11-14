@@ -67,7 +67,7 @@ site.config.ts        every configurable value
 app/                  pages and global styles
 components/           gallery, settings panel, header and footer
 lib/                  config types, settings store, search, theme
-scripts/              metadata generator, dist mode, static server, Lighthouse
+scripts/              metadata generator, dist mode, static server, Lighthouse, smoke test
 tests/                unit and end-to-end tests
 ```
 
@@ -83,14 +83,49 @@ adds the security and cache headers.
 [.github/workflows/deploy-site.yml](../../.github/workflows/deploy-site.yml) runs on `v*` tags and
 does nothing until these are set in the repository settings:
 
-| Where                        | Name                    | Value                                                            |
-| ---------------------------- | ----------------------- | ---------------------------------------------------------------- |
-| Actions variables            | `SITE_URL`              | `https://aliveicon.dev` (no trailing slash)                      |
-| Environment `site` → secrets | `CLOUDFLARE_API_TOKEN`  | An account API token from the "Edit Cloudflare Workers" template |
-| Environment `site` → secrets | `CLOUDFLARE_ACCOUNT_ID` | The Cloudflare account ID                                        |
+| Where                        | Name                    | Value                                       |
+| ---------------------------- | ----------------------- | ------------------------------------------- |
+| Actions variables            | `SITE_URL`              | `https://aliveicon.dev` (no trailing slash) |
+| Environment `site` → secrets | `CLOUDFLARE_API_TOKEN`  | A custom API token, see below               |
+| Environment `site` → secrets | `CLOUDFLARE_ACCOUNT_ID` | The Cloudflare account ID                   |
+
+The `site` environment only accepts `v*` tags and needs a maintainer's approval before each deploy.
+Give the API token only what a deploy uses: Account → Workers Scripts → Edit, plus Zone → Workers
+Routes → Edit and Zone → Zone → Read, with the zone resource limited to `aliveicon.dev`.
 
 The site lives at [aliveicon.dev](https://aliveicon.dev), served from the root of the domain.
 `aliveicon.dev` has to be a zone in the same Cloudflare account, and the API token's zone
 resources must include it. `routes` in [wrangler.jsonc](wrangler.jsonc) then attaches the domain to
 the `aliveicon` Worker on every deploy and creates its DNS record. Locally, `SITE_URL` and
 `SITE_BASE_PATH` override [site.config.ts](site.config.ts) for `npm run build` and `npm start`.
+
+### Checking the live site
+
+After every deploy the workflow runs `node scripts/smoke.mjs "$SITE_URL"`. It checks the home page,
+the security and cache headers, `robots.txt`, `sitemap.xml`, `security.txt`, the icons, that unknown
+pages return 404 and that `http://` redirects, and fails the run if anything is off. It retries a few
+times first, so a deploy that is still spreading does not fail it.
+[.github/workflows/site-health.yml](../../.github/workflows/site-health.yml) runs the same check every
+six hours, so a broken site shows up as a failed run and an email from GitHub. Run it by hand with:
+
+```bash
+node scripts/smoke.mjs https://aliveicon.dev
+```
+
+GitHub turns off scheduled workflows in a repository with no activity for 60 days. If that happens,
+re-enable "Site health" from the Actions tab.
+
+### Rolling back
+
+Every deploy is kept as a Worker version, so a bad release can be undone in seconds without a new
+build. In the Cloudflare dashboard open Workers & Pages → `aliveicon` → Deployments and roll back to
+the previous one, or from `apps/web`:
+
+```bash
+npx wrangler deployments list
+npx wrangler rollback            # back to the previous version
+npx wrangler rollback <version>  # or to a specific one
+```
+
+Then run the smoke test above. A rollback lasts until the next deploy, so fix the problem and tag a
+new release.
