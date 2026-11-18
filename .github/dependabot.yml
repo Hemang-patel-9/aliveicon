@@ -10,6 +10,10 @@ updates:
       default-days: 7
     commit-message:
       prefix: 'chore(deps)'
+    ignore:
+      - dependency-name: typescript6
+        update-types:
+          - 'version-update:semver-major'
     groups:
       security:
         applies-to: security-updates
@@ -30,6 +34,10 @@ updates:
       default-days: 7
     commit-message:
       prefix: 'chore(web)'
+    ignore:
+      - dependency-name: typescript
+        update-types:
+          - 'version-update:semver-major'
     groups:
       security:
         applies-to: security-updates

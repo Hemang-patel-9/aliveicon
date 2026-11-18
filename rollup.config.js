@@ -49,6 +49,7 @@ module.exports = {
 	plugins: [
 		cleanDist,
 		typescript({
+			typescript: require('typescript6'),
 			tsconfig: './tsconfig.json',
 			include: ['**/*.ts', '**/*.tsx'],
 			check: false,
@@ -57,6 +58,7 @@ module.exports = {
 			tsconfigOverride: {
 				compilerOptions: {
 					declaration: true,
+					rootDir: 'src',
 					declarationDir: 'dist/types',
 					module: 'ESNext',
 				},
