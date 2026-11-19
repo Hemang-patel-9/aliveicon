@@ -15,23 +15,16 @@ const drawVariants: Variants = {
 	}),
 };
 
-const upVariants: Variants = {
-	normal: { y: 0, transition: { duration: 0.2 } },
-	animate: {
-		y: [0, -1.5, 0],
+const shiftVariants: Variants = {
+	normal: { x: 0, y: 0, transition: { duration: 0.2 } },
+	animate: ([x, y]: [number, number]) => ({
+		x: [0, x, 0],
+		y: [0, y, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
-	},
+	}),
 };
 
-const downVariants: Variants = {
-	normal: { y: 0, transition: { duration: 0.2 } },
-	animate: {
-		y: [0, 1.5, 0],
-		transition: { duration: 0.6, ease: 'easeInOut' },
-	},
-};
-
-const TrianglesCenterlineDashedHorizontal = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const ChevronsFromAxisDashedHorizontal = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	(props, ref) => {
 		const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
@@ -48,6 +41,7 @@ const TrianglesCenterlineDashedHorizontal = forwardRef<AnimatedIconHandle, Anima
 					strokeLinejoin="round"
 					width="100%"
 					height="100%"
+					style={{ overflow: 'visible' }}
 				>
 					<motion.path
 						d="M10 12H8"
@@ -78,14 +72,16 @@ const TrianglesCenterlineDashedHorizontal = forwardRef<AnimatedIconHandle, Anima
 						animate={controls}
 					/>
 					<motion.path
-						d="M7.298 20.288A1 1 0 008 22h8a1 1 0 00.703-1.712l-3.991-3.99a1 1 0 00-1.424-.001z"
-						variants={upVariants}
+						d="m8 17 4 4 4-4"
+						variants={shiftVariants}
+						custom={[0, 1.5]}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M7.298 3.712A1 1 0 018 2h8a1 1 0 01.703 1.712l-3.991 3.99a1 1 0 01-1.424.001z"
-						variants={downVariants}
+						d="m8 7 4-4 4 4"
+						variants={shiftVariants}
+						custom={[0, -1.5]}
 						initial="normal"
 						animate={controls}
 					/>
@@ -95,6 +91,6 @@ const TrianglesCenterlineDashedHorizontal = forwardRef<AnimatedIconHandle, Anima
 	}
 );
 
-TrianglesCenterlineDashedHorizontal.displayName = 'TrianglesCenterlineDashedHorizontal';
+ChevronsFromAxisDashedHorizontal.displayName = 'ChevronsFromAxisDashedHorizontal';
 
-export { TrianglesCenterlineDashedHorizontal };
+export { ChevronsFromAxisDashedHorizontal };

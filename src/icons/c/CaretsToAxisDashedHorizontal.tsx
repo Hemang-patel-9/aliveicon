@@ -15,23 +15,23 @@ const drawVariants: Variants = {
 	}),
 };
 
-const leftVariants: Variants = {
-	normal: { x: 0, transition: { duration: 0.2 } },
+const upVariants: Variants = {
+	normal: { y: 0, transition: { duration: 0.2 } },
 	animate: {
-		x: [0, -1.5, 0],
+		y: [0, -1.5, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
 
-const rightVariants: Variants = {
-	normal: { x: 0, transition: { duration: 0.2 } },
+const downVariants: Variants = {
+	normal: { y: 0, transition: { duration: 0.2 } },
 	animate: {
-		x: [0, 1.5, 0],
+		y: [0, 1.5, 0],
 		transition: { duration: 0.6, ease: 'easeInOut' },
 	},
 };
 
-const TrianglesCenterlineDashedVertical = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const CaretsToAxisDashedHorizontal = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 	(props, ref) => {
 		const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
@@ -50,42 +50,42 @@ const TrianglesCenterlineDashedVertical = forwardRef<AnimatedIconHandle, Animate
 					height="100%"
 				>
 					<motion.path
-						d="M12 14v2"
+						d="M10 12H8"
 						variants={drawVariants}
-						custom={[0.22, 0, 0.2]}
+						custom={[0.16, 1, 0.2]}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M12 20v2"
+						d="M16 12h-2"
 						variants={drawVariants}
-						custom={[0.28, 0, 0.2]}
+						custom={[0.22, 1, 0.2]}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M12 2v2"
+						d="M22 12h-2"
 						variants={drawVariants}
-						custom={[0.1, 0, 0.2]}
+						custom={[0.28, 1, 0.2]}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M12 8v2"
+						d="M4 12H2"
 						variants={drawVariants}
-						custom={[0.16, 0, 0.2]}
+						custom={[0.1, 1, 0.2]}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M20.288 16.703A1 1 0 0022 16V8a1 1 0 00-1.712-.703l-3.99 3.991a1 1 0 00-.001 1.424z"
-						variants={leftVariants}
+						d="M7.298 20.288A1 1 0 008 22h8a1 1 0 00.703-1.712l-3.991-3.99a1 1 0 00-1.424-.001z"
+						variants={upVariants}
 						initial="normal"
 						animate={controls}
 					/>
 					<motion.path
-						d="M3.712 16.703A1 1 0 012 16V8a1 1 0 011.712-.703l3.99 3.991a1 1 0 01.001 1.424z"
-						variants={rightVariants}
+						d="M7.298 3.712A1 1 0 018 2h8a1 1 0 01.703 1.712l-3.991 3.99a1 1 0 01-1.424.001z"
+						variants={downVariants}
 						initial="normal"
 						animate={controls}
 					/>
@@ -95,6 +95,6 @@ const TrianglesCenterlineDashedVertical = forwardRef<AnimatedIconHandle, Animate
 	}
 );
 
-TrianglesCenterlineDashedVertical.displayName = 'TrianglesCenterlineDashedVertical';
+CaretsToAxisDashedHorizontal.displayName = 'CaretsToAxisDashedHorizontal';
 
-export { TrianglesCenterlineDashedVertical };
+export { CaretsToAxisDashedHorizontal };

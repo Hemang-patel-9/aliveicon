@@ -6,6 +6,32 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.16.0] - 2026-11-20
+
+### Added
+
+- 46 icons from Lucide:
+  - `BotCheck`, `BotMinus`, `BotPlus`, `BotX`, `BoxDashed`, `FolderNetwork`, `FolderPlusCorner`,
+    `HouseArrowLeft`, `HouseArrowRight`, `LayoutGridPlus`, `UserRoundClock` and `WarehouseWaves`.
+  - The rest of the axis family: `ArrowsFromAxis…`, `ArrowsToAxis…`, `CaretsFromAxis…`,
+    `CaretsToAxis…`, `ChevronsFromAxis…`, `ChevronsToAxis…` and `SquareAxis…`, each in `Horizontal`
+    and `Vertical`, with and without `Dashed` (20 icons).
+  - `Cap`, `ChocolateBar`, `Cinema`, `CircleBounce`, `CirclePersonArmsSpread`, `DiagramSankey`,
+    `Doghouse`, `GraphRing`, `HandTruck`, `Jacket`, `NigerianNaira`, `PaintGun`,
+    `RectangleLandscapePlay` and `StrokeWidth`.
+
+### Changed
+
+- 8 icons follow their Lucide renames. The old names stay as aliases, so nothing breaks:
+  - `FoldHorizontal` → `ArrowsToAxisDashedVertical`
+  - `FoldVertical` → `ArrowsToAxisDashedHorizontal`
+  - `UnfoldHorizontal` → `ArrowsFromAxisDashedVertical`
+  - `UnfoldVertical` → `ArrowsFromAxisDashedHorizontal`
+  - `TrianglesCenterlineDashedHorizontal` → `CaretsToAxisDashedHorizontal`
+  - `TrianglesCenterlineDashedVertical` → `CaretsToAxisDashedVertical`
+  - `SquareCenterlineDashedHorizontal` → `SquareAxisDashedVertical`
+  - `SquareCenterlineDashedVertical` → `SquareAxisDashedHorizontal`
+
 ## [1.15.0] - 2026-11-14
 
 ### Added

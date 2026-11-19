@@ -5,25 +5,17 @@ import { forwardRef } from 'react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '../../lib/types';
 import { useAnimatedIcon } from '../../lib/use-animated-icon';
 
-const pathVariants: Variants = {
-	normal: { pathLength: 1, opacity: 1 },
+const drawVariants: Variants = {
+	normal: { pathLength: 1, pathOffset: 0, opacity: 1, transition: { duration: 0.3 } },
 	animate: (i: number) => ({
 		pathLength: [0, 1],
+		pathOffset: [1, 0],
 		opacity: [0, 1],
-		transition: { duration: 0.4, delay: i * 0.08, ease: 'easeInOut' },
+		transition: { duration: 0.5, delay: i * 0.08, ease: 'easeInOut' },
 	}),
 };
 
-const arrowVariants: Variants = {
-	normal: { x: 0, scale: 1 },
-	animate: (distance: number) => ({
-		x: [0, distance, 0],
-		scale: [1, 1.1, 1],
-		transition: { duration: 0.6, delay: 0.8, ease: 'easeInOut' },
-	}),
-};
-
-const UnfoldHorizontal = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
+const SquareAxisDashedVertical = forwardRef<AnimatedIconHandle, AnimatedIconProps>((props, ref) => {
 	const { controls, iconProps, strokeWidth } = useAnimatedIcon(ref, props);
 
 	return (
@@ -41,58 +33,44 @@ const UnfoldHorizontal = forwardRef<AnimatedIconHandle, AnimatedIconProps>((prop
 				height="100%"
 			>
 				<motion.path
-					d="M16 12h6"
+					d="M8 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h3"
+					variants={drawVariants}
 					custom={0}
-					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M8 12H2"
+					d="M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3"
+					variants={drawVariants}
 					custom={1}
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-				/>
-				<motion.path
-					d="M12 2v2"
-					custom={2}
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-				/>
-				<motion.path
-					d="M12 8v2"
-					custom={3}
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-				/>
-				<motion.path
-					d="M12 14v2"
-					custom={4}
-					variants={pathVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
 					d="M12 20v2"
-					custom={5}
-					variants={pathVariants}
-					initial="normal"
-					animate={controls}
-				/>
-				<motion.path
-					d="M5 9l-3 3 3 3"
+					variants={drawVariants}
 					custom={2}
-					variants={arrowVariants}
 					initial="normal"
 					animate={controls}
 				/>
 				<motion.path
-					d="M19 15l3-3-3-3"
-					custom={-2}
-					variants={arrowVariants}
+					d="M12 14v2"
+					variants={drawVariants}
+					custom={3}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M12 8v2"
+					variants={drawVariants}
+					custom={4}
+					initial="normal"
+					animate={controls}
+				/>
+				<motion.path
+					d="M12 2v2"
+					variants={drawVariants}
+					custom={5}
 					initial="normal"
 					animate={controls}
 				/>
@@ -101,6 +79,6 @@ const UnfoldHorizontal = forwardRef<AnimatedIconHandle, AnimatedIconProps>((prop
 	);
 });
 
-UnfoldHorizontal.displayName = 'UnfoldHorizontal';
+SquareAxisDashedVertical.displayName = 'SquareAxisDashedVertical';
 
-export { UnfoldHorizontal };
+export { SquareAxisDashedVertical };
